@@ -1,0 +1,26 @@
+.game {
+	padding: 4px 0 4px 0;
+	text-align: left;
+}
+
+.game .gameInner {
+	padding: 7px 10px 7px 10px;
+	background-color: #343538;
+	border-radius: 5px;
+	display: flex;
+	align-items: center;
+}
+
+.game-info {
+	padding-left: 5px;
+}
+
+.game .title {
+	font-size: medium;
+	display: flex;
+}
+
+.game .playtime {
+	font-size: small;
+	display: flex;
+}

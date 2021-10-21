@@ -1,0 +1,215 @@
+h1 {
+  font-size: calc(15px + 2vmin);
+}
+
+h2 {
+  font-size: calc(10px + 1.2vmin);
+}
+
+a {
+  color: #61dafb;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #dddddd;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #58595e;
+}
+
+.app {
+  min-height: 100vh;
+  background-color: #282c34;
+  color: white;
+}
+
+.app-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.container {
+  display: flex;
+  justify-content: space-evenly;
+  max-height: 85vh;
+}
+
+.container .col {
+  width: 33%;
+  margin: 0 .5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.games-list {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  border: 1px solid #4a4c50;
+  background-color: #4a4c50;
+  border-radius: 5px;
+}
+
+.group-preferences-header {
+  padding: 0 7px;
+}
+
+.no-bg {
+  background: inherit;
+}
+
+.no-br, .no-br-top {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.no-br, .no-br-bottom {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.scroll-container {
+  height: 100%;
+  overflow-y: scroll;
+}
+
+.user-forms {
+  display: flex;
+  justify-content: center;
+  padding-top: 1rem;
+}
+
+.t-center {
+  text-align: center;
+}
+
+.create-session, .join-session {
+  width: max(30vw, 400px);
+  display: block;
+  padding: .3rem .3rem .3rem .3rem;
+}
+
+.create-session h2, .join-session h2 {
+  text-align: center;
+  margin: 1rem 0;
+}
+
+input, label {
+  width: 100%;
+  display: block;
+}
+
+label {
+  text-align: left;
+}
+
+input {
+  height: 35px;
+  box-sizing: border-box;
+  padding: 5px 7px;
+  color: #4a4c50;
+  background-color: #fff;
+  border: 1px solid #4a4c50;
+  border-radius: .25rem;
+  transition: border-color .2s;
+  margin: .3rem 0 .85rem 0;
+}
+
+input:focus {
+  border-color: #a7c2df;
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgb(0 123 255 / 25%);
+}
+
+.btn {
+  text-align: center;
+  vertical-align: middle;
+  background-color: #4a4c50;
+  border-radius: .25rem;
+  transition: color .15s;
+  color: white;
+  border: 1px solid transparent;
+  padding: .375rem .75rem;
+  min-height: 2rem;
+}
+
+.btn:hover {
+  cursor: pointer;
+  background-color: #56595e;
+}
+
+/* input.btn[type="submit"] {
+  border-color: red;
+} 
+*/
+
+.collapsible {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #777;
+  color: white;
+  cursor: pointer;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+  padding-right: 20px;
+}
+
+.active, .collapsible:hover {
+  background-color: #555;
+}
+
+.content {
+  overflow-y: scroll;
+  height: 100%;
+  transition: height .5s;
+}
+
+.content.content-collapsed {
+  height: 0;
+}
+
+.content .games-list .scroll-container {
+  overflow-y: initial;
+}
+
+.arrow-down, .arrow-up {
+  border: solid black;
+  border-width: 0 4px 4px 0;
+  display: inline-block;
+  padding: 7px;
+  transition-duration: .2s;
+}
+
+.arrow-down {
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+}
+
+.arrow-up {
+  transform: rotate(-135deg);
+  -webkit-transform: rotate(-135deg);
+}
+
+.v-centered {
+  position: absolute;
+  top: 50vh;
+  transform: translateY(-50%);
+}

@@ -1,0 +1,12 @@
+.user-header {
+	display: flex;
+	align-items: center;
+	padding: 0 7px;
+	background-color: #777;
+	border-radius: 5px;
+}
+
+.user-header img {
+	border-radius: 5px;
+	padding-right: 7px;
+}
