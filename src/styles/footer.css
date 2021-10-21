@@ -1,14 +1,32 @@
 .footer {
 	width: 100%;
-	height: 22px;
+	height: 24px;
 	background-color: #343538;
 	position: fixed;
 	bottom: 0;
 	color: #7e7e7e;
 	font-size: small;
+	display: inline-flex;
+	justify-content: space-between;
+	align-items: center;
 }
 
-.footer .left {
+.footer .f-left {
 	text-align: left;
 	padding: 0 .5rem;
+}
+
+.footer .f-right {
+	padding: 0 .5rem;
+}
+
+.footer img {
+	padding-top: 2px;
+}
+
+.footer img:hover {
+	filter: brightness(.8);
+	transform: scale(0.9);
+	transition: filter 75ms linear;
+	transition: transform 75ms linear;
 }
