@@ -50,3 +50,8 @@ type Session = {
   users: User[],
   games?: Game[]
 }
+
+type PreferencesUpdate = {
+  steamId: string,
+  preferences: Game[]
+}

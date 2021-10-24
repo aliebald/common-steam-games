@@ -5,6 +5,17 @@ import GamesList from './GamesList';
 import Invite from './Invite';
 import Loading from './Loading';
 import UserHeader from './UserHeader';
+import { io, Socket } from "socket.io-client";
+
+function initiateSocket(steamId: string, sessionId?: string) {
+  let query;
+  if (sessionId) {
+    query = { steamId: steamId, sessionId: sessionId }
+  } else {
+    query = { steamId: steamId }
+  }
+  return io("http://localhost:3030", { query: query })
+}
 
 function Matching(props: {
   steamId: string,
@@ -14,86 +25,94 @@ function Matching(props: {
   const [self, setSelf] = useState<User>({ steamId: props.steamId });
   const [matchedGames, setMatchedGames] = useState<MatchedGame[]>([]);
   const [sessionId, setSessionId] = useState<string>("");
-  const [requestRunning, setRequestRunning] = useState(false);
+  const [preferencesChanged, setPreferencesChanged] = useState(false);
+  const [socket, setSocket] = useState<Socket | undefined>(undefined);
 
   useEffect(() => {
-    if (requestRunning) return;
-    const update = async () => {
-      if (sessionId === "") return;
-      setRequestRunning(true);
-      const session = await getSession(sessionId);
-      if (session && session.users.length > 1) {
-        const newUsers = session.users.filter(user => user.steamId !== self.steamId);
-        setUsers(newUsers);
-      }
-      setRequestRunning(false);
-    }
-    const joinSession = async () => {
-      setRequestRunning(true);
-      if (!props.sessionId) return; // TODO error handling
-      const url = `http://localhost:3030/joinSession?steamId=${encodeURIComponent(props.steamId)}&sessionId=${encodeURIComponent(props.sessionId)}`
-      const response = await fetch(url);
-      if (!response.ok || response.status !== 200) {
+    const handleSession = (msg: any) => {
+      console.log("Received session:", msg);
+      if (!msg) return;
+      if (users.length > 0) {
+        console.warn("Received session but already is part of a session");
         return;
       }
 
-      const session = await response.json() as Session;
-      if (session) {
-        console.log("got session", session);
-        const newUsers = session.users.filter(user => user.steamId !== self.steamId);
-        const newSelf = session.users.filter(user => user.steamId === self.steamId)[0];
-        // TODO handle case: newSelf = undefined
+      const session = msg as Session;
+      const newUsers = session.users.filter(user => user.steamId !== self.steamId);
+      const newSelf = session.users.find(user => user.steamId === self.steamId);
+      // TODO handle case: newSelf = undefined
 
-        console.log("newUsers", newUsers);
-        setSessionId(session.sessionId);
-        setSelf(newSelf);
+      setSessionId(session.sessionId);
+      setSelf(newSelf!); // TODO undefined check
+      setUsers(newUsers);
+    }
+
+    const handleUserJoined = (msg: any) => {
+      console.log("Received handleUserJoined:", msg, "users:", users);
+      const newUsers = [...users];
+      newUsers.push(msg as User);
+      setUsers(newUsers);
+    }
+
+    const handleUserDisconnect = (msg: any) => {
+      console.log("Received handleUserDisconnect:", msg, "users:", users);
+      const newUsers = users.filter(user => user.steamId !== msg as string);
+      setUsers(newUsers);
+    }
+
+    const handleUpdatePreferences = (msg: any) => {
+      console.log("Received updatePreferences:", msg);
+      const data = msg as PreferencesUpdate;
+      // TODO check data
+
+      const newUsers = [...users];
+      const changedUserIndex = newUsers.findIndex(user => user.steamId === data.steamId);
+      if (changedUserIndex !== -1) {
+        console.log(`Updating preferences for ${newUsers[changedUserIndex].personaname} (${data.steamId})`, changedUserIndex);
+        newUsers[changedUserIndex].preferences = data.preferences;
         setUsers(newUsers);
-      }
-      setRequestRunning(false);
-    }
-
-    if (sessionId === "") {
-      if (props.sessionId) {
-        // Join existing session
-        joinSession();
       } else {
-        // Create new session
-        setRequestRunning(true);
-        const success = createNewSession(props.steamId);
-        if (!success) {
-          console.warn("Failed to create a new session");
-          // TODO error handling
-        }
-        setRequestRunning(false);
+        console.log(`Tried to update preferences for ${data.steamId} but did not find user`);
       }
     }
+    if (socket) {
+      socket.removeAllListeners();
 
-    // Update matches games
+      socket.on("session", handleSession);
+      socket.on("userJoined", handleUserJoined);
+      socket.on("userDisconnect", handleUserDisconnect);
+      socket.on("updatePreferences", handleUpdatePreferences);
+    }
+  }, [self.steamId, users, socket]);
+
+  useEffect(() => {
+    let socket = initiateSocket(props.steamId, props.sessionId);
+    setSocket(socket);
+
+    return () => {
+      console.log("#### disconnecting ###");
+      if (socket) socket.disconnect();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [props.sessionId, props.steamId]);
+
+  // Update group preferences
+  useEffect(() => {
     setMatchedGames(calculatePreferences(users.concat(self)));
+  }, [users, self])
 
-    // Update current session / fetch data
-    const interval = setInterval(update, 2000);
-
-    return () => clearInterval(interval);
-  }, [requestRunning, users, self, sessionId, props.sessionId, props.steamId])
-
-  const createNewSession = async (steamId: string) => {
-    console.log("Creating session for", steamId);
-    const url = `http://localhost:3030/createSession?steamId=${encodeURIComponent(steamId)}`;
-    const response = await fetch(url);
-    if (!response.ok || response.status !== 200) {
-      return false;
+  // Send preferences to backend when changed
+  useEffect(() => {
+    if (!preferencesChanged || !self.preferences) return;
+    if (!socket) {
+      console.error("Socket is not defined");
+      return;
     }
-    const data = await response.json() as Session;
-    if (data.users.length !== 1) {
-      return false;
-    }
-    console.log(data);
-
-    setSessionId(data.sessionId);
-    setSelf(data.users[0]);
-    return true;
-  }
+    console.log("Sending preferences");
+    socket.emit("updatePreferences", self.preferences);
+    setPreferencesChanged(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [self.preferences, preferencesChanged])
 
   const onDragEnd = (result: DropResult): void => {
     // dropped outside the list
@@ -106,8 +125,8 @@ function Matching(props: {
       result.source.index,
       result.destination.index
     );
-    sendPreferenceUpdate(sessionId, self.steamId, newSelf.preferences);
     setSelf(newSelf);
+    setPreferencesChanged(true);
   }
 
   // loading 
@@ -119,6 +138,7 @@ function Matching(props: {
     <>
       <header className="app-header">
         <h1>Common Steam Games</h1>
+        {users.map(user => user.personaname).join(", ")}
       </header>
       <div className="container">
         <GamesList
@@ -191,32 +211,5 @@ const reorder = (games: Game[], startIndex: number, endIndex: number) => {
   result.splice(endIndex, 0, removed);
   return result;
 };
-
-async function sendPreferenceUpdate(sessionId: string, steamId: string, preferences: Game[]) {
-  console.log('Sending preferences');
-  const init: RequestInit = {
-    method: 'POST',
-    cache: 'no-cache',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(preferences)
-  };
-  console.log("requestInit:", init);
-
-  const url = `http://localhost:3030/updatePreferences?sessionId=${encodeURIComponent(sessionId)}&steamId=${encodeURIComponent(steamId)}`;
-  const response = await fetch(url, init);
-  return response.ok && response.status === 200;
-}
-
-async function getSession(sessionId: string) {
-  console.log('Requesting data');
-  const response = await fetch(`http://localhost:3030/getSession?sessionId=${encodeURIComponent(sessionId)}`);
-  if (!response.ok || response.status !== 200) {
-    return;
-  }
-  const data = await response.json() as Session;
-  return data;
-}
 
 export default Matching;
