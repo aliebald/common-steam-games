@@ -10,11 +10,11 @@ import { io, Socket } from "socket.io-client";
 function initiateSocket(steamId: string, sessionId?: string) {
   let query;
   if (sessionId) {
-    query = { steamId: steamId, sessionId: sessionId }
+    query = { steamId: steamId, sessionId: sessionId };
   } else {
-    query = { steamId: steamId }
+    query = { steamId: steamId };
   }
-  return io("http://localhost:3030", { query: query })
+  return io("http://localhost:3030", { query: query });
 }
 
 function Matching(props: {
@@ -138,7 +138,6 @@ function Matching(props: {
     <>
       <header className="app-header">
         <h1>Common Steam Games</h1>
-        {users.map(user => user.personaname).join(", ")}
       </header>
       <div className="container">
         <GamesList
