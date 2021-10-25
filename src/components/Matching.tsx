@@ -6,6 +6,7 @@ import Invite from './Invite';
 import Loading from './Loading';
 import UserHeader from './UserHeader';
 import { io, Socket } from "socket.io-client";
+import { useHistory } from 'react-router';
 
 function initiateSocket(steamId: string, sessionId?: string) {
   let query;
@@ -14,7 +15,10 @@ function initiateSocket(steamId: string, sessionId?: string) {
   } else {
     query = { steamId: steamId };
   }
-  return io("http://localhost:3030", { query: query });
+  return io("http://localhost:3030", {
+    query: query,
+    reconnectionAttempts: 4
+  });
 }
 
 function Matching(props: {
@@ -27,6 +31,7 @@ function Matching(props: {
   const [sessionId, setSessionId] = useState<string>("");
   const [preferencesChanged, setPreferencesChanged] = useState(false);
   const [socket, setSocket] = useState<Socket | undefined>(undefined);
+  const history = useHistory();
 
   useEffect(() => {
     const handleSession = (msg: any) => {
@@ -86,8 +91,16 @@ function Matching(props: {
   }, [self.steamId, users, socket]);
 
   useEffect(() => {
-    let socket = initiateSocket(props.steamId, props.sessionId);
+    const socket = initiateSocket(props.steamId, props.sessionId);
     setSocket(socket);
+
+    socket.io.on("reconnect_failed", () => {
+      console.log("Failed to reconnect");
+      history.push("/create");
+    });
+    socket.io.on("reconnect_attempt", (attempt) => {
+      console.log(`Attempting to reconnect. Attempt (${attempt}/${socket.io.reconnectionAttempts()})`);
+    });
 
     return () => {
       console.log("#### disconnecting ###");
