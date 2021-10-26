@@ -84,7 +84,7 @@ function Matching(props: {
 
     const handleError = (error: any) => {
       const err = error as ErrorType;
-      err.timeout = 5000;
+      err.timeout = 15000;
       props.addError(err);
       history.goBack();
     }
@@ -106,10 +106,13 @@ function Matching(props: {
 
     socket.io.on("reconnect_failed", () => {
       console.log("Failed to reconnect");
+      props.addError({ status: 500, msg: "Lost connection to server", timeout: 15000 });
       history.push("/create");
     });
     socket.io.on("reconnect_attempt", (attempt) => {
-      console.log(`Attempting to reconnect. Attempt (${attempt}/${socket.io.reconnectionAttempts()})`);
+      const msg = `Lost connection to server, attempting to reconnect. Attempt (${attempt}/${socket.io.reconnectionAttempts()})`
+      console.log(msg);
+      props.addError({ status: 500, msg: msg, timeout: 6000 });
     });
 
     return () => {

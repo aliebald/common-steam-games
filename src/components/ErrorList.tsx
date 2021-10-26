@@ -13,7 +13,7 @@ export default function ErrorList(props: {
   return (
     <div className="error-popup-list">
       <div>
-        {props.errors.map(error => <Error removeError={getRemoveErrorFnc(error)} error={error} />)}
+        {props.errors.map((error, index) => <Error removeError={getRemoveErrorFnc(error)} error={error} key={index} />)}
       </div>
     </div>
   )
