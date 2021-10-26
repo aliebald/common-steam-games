@@ -1,0 +1,24 @@
+.error-popup-list {
+	position: absolute;
+	width: 100%;
+	display: flex;
+	justify-content: center;
+}
+
+.error-popup {
+	margin: 1rem;
+	padding: .3rem .3rem;
+	width: max(30vw, 400px);
+	background-color: rgb(199, 0, 0);
+	border-radius: 5px;
+	display: flex;
+	justify-content: space-between;
+}
+
+.error-close:after {
+	display: inline-block;
+	content: "\00d7";
+	transform: scale(1.5);
+	padding-right: 2px;
+	padding-bottom: 5px;
+}

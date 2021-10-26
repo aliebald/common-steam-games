@@ -44,14 +44,20 @@ type MatchedGame = Game & {
 }
 
 type Session = {
-  sessionId: string,
-  initiatorId: string,
-  timeout: number,
-  users: User[],
-  games?: Game[]
+  sessionId: string;
+  initiatorId: string;
+  timeout: number;
+  users: User[];
+  games?: Game[];
 }
 
 type PreferencesUpdate = {
-  steamId: string,
-  preferences: Game[]
+  steamId: string;
+  preferences: Game[];
+}
+
+type ErrorType = {
+  status: number;
+  msg: string;
+  timeout?: number;
 }

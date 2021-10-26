@@ -23,7 +23,8 @@ function initiateSocket(steamId: string, sessionId?: string) {
 
 function Matching(props: {
   steamId: string,
-  sessionId?: string
+  sessionId?: string,
+  addError: (error: ErrorType) => void
 }) {
   const [users, setUsers] = useState<User[]>([]);
   const [self, setSelf] = useState<User>({ steamId: props.steamId });
@@ -80,15 +81,24 @@ function Matching(props: {
         console.log(`Tried to update preferences for ${data.steamId} but did not find user`);
       }
     }
+
+    const handleError = (error: any) => {
+      const err = error as ErrorType;
+      err.timeout = 5000;
+      props.addError(err);
+      history.goBack();
+    }
+
     if (socket) {
       socket.removeAllListeners();
 
+      socket.on("error", handleError);
       socket.on("session", handleSession);
       socket.on("userJoined", handleUserJoined);
       socket.on("userDisconnect", handleUserDisconnect);
       socket.on("updatePreferences", handleUpdatePreferences);
     }
-  }, [self.steamId, users, socket]);
+  }, [self.steamId, users, socket, props, history]);
 
   useEffect(() => {
     const socket = initiateSocket(props.steamId, props.sessionId);

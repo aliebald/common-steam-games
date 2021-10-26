@@ -10,11 +10,17 @@ import Footer from "./components/Footer";
 import JoinSession from "./components/JoinSession";
 import UnknownPage from "./components/UnknownPage";
 import Matching from "./components/Matching";
+import ErrorList from "./components/ErrorList"
 import "./styles/app.css";
 
 export default function App(this: any) {
   const [steamId, setSteamId] = useState<string | undefined>(undefined);
   const [joinSessionId, setJoinSessionId] = useState<string | undefined>(autoLogin());
+  const [errors, setErrors] = useState<ErrorType[]>([]);
+
+  const addError = (error: ErrorType) => {
+    setErrors(errors.concat(error));
+  }
 
   const createNewSession = (steamId: string) => {
     sessionStorage.setItem("steamId", steamId);
@@ -30,10 +36,11 @@ export default function App(this: any) {
   }
 
   const canAutoJoin = joinSessionId && window.location.pathname !== "/join";
-  const matching = steamId ? <Matching steamId={steamId} sessionId={joinSessionId} /> : <Redirect to="/" />
+  const matching = steamId ? <Matching steamId={steamId} sessionId={joinSessionId} addError={addError} /> : <Redirect to="/" />
 
   return (
     <div className="app">
+      <ErrorList errors={errors} setErrors={setErrors} />
       <Router>
         <Switch>
           <Route path="/matching" exact>
