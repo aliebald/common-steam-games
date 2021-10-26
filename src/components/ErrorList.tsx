@@ -10,8 +10,6 @@ export default function ErrorList(props: {
     return () => props.setErrors(props.errors.filter(err => err !== error));
   }
 
-  console.log(props.errors);
-
   return (
     <div className="error-popup-list">
       <div>
