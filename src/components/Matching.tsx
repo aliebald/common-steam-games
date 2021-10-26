@@ -192,10 +192,11 @@ function Matching(props: {
 
 function calculatePreferences(users: User[]): MatchedGame[] {
   const matchedGames: Map<number, MatchedGame> = new Map();
+  const maxGames = Math.max(...users.map(user => user.preferences ? user.preferences.length : 0));
   users.forEach(user => {
     if (user.preferences) {
       user.preferences.forEach((game, index) => {
-        const weight = getWeight(index, user.preferences!.length);
+        const weight = getWeight(index, maxGames);
         let matchedGame: MatchedGame;
         // Check if the game already exists. Otherwise add it to matchedGames.
         if (matchedGames.has(game.appid)) {
@@ -226,8 +227,9 @@ function calculatePreferences(users: User[]): MatchedGame[] {
   return result
 }
 
-function getWeight(index: number, numGames: number): number {
-  return (numGames - index) / numGames;
+function getWeight(index: number, maxGames: number): number {
+  const weight = (maxGames - index) / maxGames;
+  return (!isNaN(weight) && weight >= 0) ? weight * weight : 0;
 }
 
 const reorder = (games: Game[], startIndex: number, endIndex: number) => {
