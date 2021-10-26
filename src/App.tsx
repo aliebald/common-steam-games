@@ -14,8 +14,8 @@ import ErrorList from "./components/ErrorList"
 import "./styles/app.css";
 
 export default function App(this: any) {
-  const [steamId, setSteamId] = useState<string | undefined>(undefined);
-  const [joinSessionId, setJoinSessionId] = useState<string | undefined>(autoLogin());
+  const [steamId, setSteamId] = useState<string | undefined>(getSteamId());
+  const [joinSessionId, setJoinSessionId] = useState<string | undefined>(getSessionId());
   const [errors, setErrors] = useState<ErrorType[]>([]);
 
   const addError = (error: ErrorType) => {
@@ -24,7 +24,10 @@ export default function App(this: any) {
 
   const createNewSession = (steamId: string) => {
     sessionStorage.setItem("steamId", steamId);
+    sessionStorage.removeItem("sessionId");
+
     setSteamId(steamId);
+    setJoinSessionId(undefined);
   }
 
   const joinSession = (steamId: string, sessionId: string) => {
@@ -35,7 +38,7 @@ export default function App(this: any) {
     setJoinSessionId(sessionId);
   }
 
-  const canAutoJoin = joinSessionId && window.location.pathname !== "/join";
+  const switchToJoinPage = joinSessionId && window.location.pathname !== "/join";
   const matching = steamId ? <Matching steamId={steamId} sessionId={joinSessionId} addError={addError} /> : <Redirect to="/" />
 
   return (
@@ -47,10 +50,10 @@ export default function App(this: any) {
             {matching}
           </Route>
           <Route path="/join" exact>
-            <JoinSession onSubmit={joinSession} sessionId={joinSessionId} />
+            <JoinSession onSubmit={joinSession} sessionId={joinSessionId} steamId={steamId} />
           </Route>
           <Route path="/create" exact>
-            {canAutoJoin ? <Redirect to="/join" /> : <CreateSession onSubmit={createNewSession} />}
+            {switchToJoinPage ? <Redirect to="/join" /> : <CreateSession onSubmit={createNewSession} steamId={steamId} />}
           </Route>
           <Route path="/" exact>
             <Redirect to="/create" />
@@ -65,12 +68,40 @@ export default function App(this: any) {
   )
 }
 
-function autoLogin(): string | undefined {
+/**
+ * Checks if a session id was passed in the url or is cached in the sessionStorage
+ * @returns sessionId (string) or undefined
+ */
+function getSessionId(): string | undefined {
   const urlParams = new URLSearchParams(window.location.search);
-  const sessionId = urlParams.get("sessionId");
-  if (sessionId) {
+  const encodedSessionId = urlParams.get("sessionId");
+  if (encodedSessionId) {
+    const sessionId = decodeURIComponent(encodedSessionId)
     sessionStorage.setItem("sessionId", sessionId);
-    return decodeURIComponent(sessionId);
+    return sessionId;
+  }
+  const cachedSessionId = sessionStorage.getItem("sessionId");
+  if (cachedSessionId) {
+    return cachedSessionId;
+  }
+  return undefined;
+}
+
+/**
+ * Checks if a steam id was passed in the url or is cached in the sessionStorage
+ * @returns steamId (string) or undefined
+ */
+function getSteamId(): string | undefined {
+  const urlParams = new URLSearchParams(window.location.search);
+  const encodedSteamId = urlParams.get("steamId");
+  if (encodedSteamId) {
+    const steamId = decodeURIComponent(encodedSteamId);
+    sessionStorage.setItem("steamId", steamId);
+    return steamId;
+  }
+  const cachedSteamId = sessionStorage.getItem("steamId");
+  if (cachedSteamId) {
+    return cachedSteamId;
   }
   return undefined;
 }

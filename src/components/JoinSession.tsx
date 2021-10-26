@@ -3,10 +3,11 @@ import { Link, useHistory } from 'react-router-dom';
 
 export default function JoinSession(props: {
   sessionId?: string,
+  steamId?: string,
   onSubmit: (steamId: string, sessionId: string) => void,
   id?: string
 }) {
-  const [steamId, setSteamId] = useState<string>("");
+  const [steamId, setSteamId] = useState<string>(props.steamId ?? "");
   const [sessionId, setSessionId] = useState<string>(props.sessionId ?? "");
   const history = useHistory();
   const handleSteamIdChange = (event: any) => {
@@ -35,6 +36,8 @@ export default function JoinSession(props: {
               id="steamId"
               onChange={handleSteamIdChange}
               className="d-table-cell"
+              defaultValue={steamId}
+              required
             />
           </div>
           <div className="d-table-row">
@@ -44,7 +47,8 @@ export default function JoinSession(props: {
               id="sessionId"
               onChange={handleSessionIdChange}
               className="d-table-cell"
-              defaultValue={props.sessionId ?? ""}
+              defaultValue={sessionId}
+              required
             />
           </div>
           <div className="d-table-row">

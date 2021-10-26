@@ -2,11 +2,10 @@ import React, { useState } from 'react'
 import { Link, useHistory } from 'react-router-dom';
 
 export default function CreateSession(props: {
-  name?: string,
   steamId?: string,
   onSubmit: (steamId: string) => void,
 }) {
-  const [steamId, setSteamId] = useState<string>("");
+  const [steamId, setSteamId] = useState<string>(props.steamId ?? "");
   const history = useHistory();
 
   const handleSteamIdChange = (event: any) => {
@@ -30,6 +29,7 @@ export default function CreateSession(props: {
               id="createSessionSteamId"
               onChange={handleSteamIdChange}
               className="d-table-cell"
+              defaultValue={steamId}
               required
             />
           </label>
