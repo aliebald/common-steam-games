@@ -15,7 +15,8 @@ function initiateSocket(steamId: string, sessionId?: string) {
   } else {
     query = { steamId: steamId };
   }
-  return io("http://localhost:3030", {
+  const url = process.env.REACT_APP_BACKEND || "https://common-steam-games.herokuapp.com/";
+  return io(url, {
     query: query,
     reconnectionAttempts: 4
   });
