@@ -16,4 +16,13 @@
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
   </body>
+  <script>
+    (function(){
+      const redirect = sessionStorage.redirect;
+      sessionStorage.removeItem("redirect");
+      if (redirect && redirect != location.href) {
+        history.replaceState(null, null, redirect);
+      }
+    })();
+  </script>
 </html>
