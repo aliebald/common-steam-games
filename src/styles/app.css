@@ -29,8 +29,6 @@ a {
 }
 
 .app {
-  min-height: 100vh;
-  background-color: #282c34;
   color: white;
 }
 
@@ -39,6 +37,23 @@ a {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+
+.background {
+  position: absolute;
+  height: 100vh;
+  width: 100%;
+  bottom: 0;
+  z-index: -1;
+  aspect-ratio: 960/540;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  background-color: #282c34;
+  background-image: url('../static/layered-waves.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
 }
 
 .container {

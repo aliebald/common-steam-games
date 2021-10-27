@@ -64,6 +64,7 @@ export default function App(this: any) {
         </Switch>
       </Router>
       <Footer />
+      <div className="background" />
     </div>
   )
 }
