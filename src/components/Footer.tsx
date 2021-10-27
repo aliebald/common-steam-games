@@ -1,5 +1,6 @@
 import React from 'react'
 import "../styles/footer.css"
+import packageJSON from "../../package.json"
 
 export default function Footer() {
   return (
@@ -14,9 +15,8 @@ export default function Footer() {
         rel="noopener noreferrer"
         title="GitHub Repository"
       >
-        <img src="/github.png" alt="github" height="20px" width="20px" />
+        <img src={`${packageJSON.subUrl}/github.png`} alt="github" height="20px" width="20px" />
       </a>
-
     </div>
   )
 }

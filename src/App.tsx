@@ -11,6 +11,7 @@ import JoinSession from "./components/JoinSession";
 import UnknownPage from "./components/UnknownPage";
 import Matching from "./components/Matching";
 import ErrorList from "./components/ErrorList"
+import packageJSON from "../package.json"
 import "./styles/app.css";
 
 export default function App(this: any) {
@@ -38,13 +39,13 @@ export default function App(this: any) {
     setJoinSessionId(sessionId);
   }
 
-  const switchToJoinPage = joinSessionId && window.location.pathname !== "/join";
+  const switchToJoinPage = joinSessionId && window.location.pathname !== `${packageJSON.subUrl}/join`;
   const matching = steamId ? <Matching steamId={steamId} sessionId={joinSessionId} addError={addError} /> : <Redirect to="/" />
 
   return (
     <div className="app">
       <ErrorList errors={errors} setErrors={setErrors} />
-      <Router>
+      <Router basename={packageJSON.subUrl}>
         <Switch>
           <Route path="/matching" exact>
             {matching}
