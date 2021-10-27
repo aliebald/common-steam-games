@@ -1,0 +1,21 @@
+{
+  "files": {
+    "main.css": "/common-steam-games/static/css/main.78364f10.chunk.css",
+    "main.js": "/common-steam-games/static/js/main.4b9624fa.chunk.js",
+    "main.js.map": "/common-steam-games/static/js/main.4b9624fa.chunk.js.map",
+    "runtime-main.js": "/common-steam-games/static/js/runtime-main.b6b63db6.js",
+    "runtime-main.js.map": "/common-steam-games/static/js/runtime-main.b6b63db6.js.map",
+    "static/js/2.f90561ba.chunk.js": "/common-steam-games/static/js/2.f90561ba.chunk.js",
+    "static/js/2.f90561ba.chunk.js.map": "/common-steam-games/static/js/2.f90561ba.chunk.js.map",
+    "index.html": "/common-steam-games/index.html",
+    "static/css/main.78364f10.chunk.css.map": "/common-steam-games/static/css/main.78364f10.chunk.css.map",
+    "static/js/2.f90561ba.chunk.js.LICENSE.txt": "/common-steam-games/static/js/2.f90561ba.chunk.js.LICENSE.txt",
+    "static/media/app.css": "/common-steam-games/static/media/layered-waves.a61f3d89.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.b6b63db6.js",
+    "static/js/2.f90561ba.chunk.js",
+    "static/css/main.78364f10.chunk.css",
+    "static/js/main.4b9624fa.chunk.js"
+  ]
+}
