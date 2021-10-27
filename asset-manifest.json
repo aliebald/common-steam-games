@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/common-steam-games/static/css/main.78364f10.chunk.css",
-    "main.js": "/common-steam-games/static/js/main.4b9624fa.chunk.js",
-    "main.js.map": "/common-steam-games/static/js/main.4b9624fa.chunk.js.map",
+    "main.js": "/common-steam-games/static/js/main.3e0db7f4.chunk.js",
+    "main.js.map": "/common-steam-games/static/js/main.3e0db7f4.chunk.js.map",
     "runtime-main.js": "/common-steam-games/static/js/runtime-main.b6b63db6.js",
     "runtime-main.js.map": "/common-steam-games/static/js/runtime-main.b6b63db6.js.map",
     "static/js/2.f90561ba.chunk.js": "/common-steam-games/static/js/2.f90561ba.chunk.js",
@@ -16,6 +16,6 @@
     "static/js/runtime-main.b6b63db6.js",
     "static/js/2.f90561ba.chunk.js",
     "static/css/main.78364f10.chunk.css",
-    "static/js/main.4b9624fa.chunk.js"
+    "static/js/main.3e0db7f4.chunk.js"
   ]
 }
