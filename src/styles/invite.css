@@ -1,13 +1,22 @@
-.inviteBox {
+.invite-box {
 	padding: 7px 10px 7px 10px;
 	background-color: #343538;
 	border-radius: 5px;
+}
+
+.invite-box label {
+	width: 100%;
+}
+
+.invite-box .invite-row {
 	display: flex;
 }
 
-.inviteBox .btn {
-	height: 35px;
+.invite-box .invite-row input {
 	width: 100%;
+}
+
+.invite-box .invite-row .btn {
+	height: 35px;
 	margin-left: 4px;
-	margin-top: auto;
 }

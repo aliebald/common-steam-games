@@ -11,14 +11,18 @@ export default function Invite(props: {
   const copyInvite = () => {
     navigator.clipboard.writeText(invite);
   }
+  const handleFocus = (event: any) => {
+    event.target.select()
+  }
 
   return (
-    <div className={`inviteBox ${props.className ?? ""}`}>
-      <label>Invite your friends
-        <input className="invite-input" type="text" value={invite} />
-      </label>
-      <Button text="Copy Invite" onClick={copyInvite} />
-      <Button text="Open friends list" />
+    <div className={`invite-box ${props.className ?? ""}`}>
+      <label>Invite your friends</label>
+      <div className="invite-row">
+        <input className="invite-input" type="text" value={invite} readOnly onFocus={handleFocus} />
+        <Button onClick={copyInvite}>Copy&nbsp;Invite</Button>
+        <Button>Open&nbsp;friends&nbsp;list</Button>
+      </div>
     </div>
   )
 }
