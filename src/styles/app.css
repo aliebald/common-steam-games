@@ -123,7 +123,7 @@ a {
   margin: 1rem 0;
 }
 
-input, label {
+.join-session input, .join-session label, .create-session input, .create-session label {
   width: 100%;
   display: block;
 }
@@ -132,19 +132,24 @@ label {
   text-align: left;
 }
 
-input {
+.join-session input, .create-session input {
+  margin: .3rem 0 .85rem 0;
+  padding: 5px 7px;
+  height: 35px;
+}
+
+input[type=text] {
   height: 35px;
   box-sizing: border-box;
   padding: 5px 7px;
-  color: #4a4c50;
-  background-color: #fff;
   border: 1px solid #4a4c50;
   border-radius: .25rem;
   transition: border-color .2s;
-  margin: .3rem 0 .85rem 0;
+  background-color: #fff;
+  color: #4a4c50;
 }
 
-input:focus {
+input[type=text]:focus {
   border-color: #a7c2df;
   outline: 0;
   box-shadow: 0 0 0 0.2rem rgb(0 123 255 / 25%);
@@ -165,6 +170,10 @@ input:focus {
 .btn:hover {
   cursor: pointer;
   background-color: #56595e;
+}
+
+.btn:active {
+  transform: scale(0.95);
 }
 
 /* input.btn[type="submit"] {

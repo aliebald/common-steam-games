@@ -2,4 +2,12 @@
 	padding: 7px 10px 7px 10px;
 	background-color: #343538;
 	border-radius: 5px;
+	display: flex;
+}
+
+.inviteBox .btn {
+	height: 35px;
+	width: 100%;
+	margin-left: 4px;
+	margin-top: auto;
 }
