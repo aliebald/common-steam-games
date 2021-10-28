@@ -16,7 +16,10 @@ export default function UserHeader(props: {
           alt="avatar"
         />
       </a>
-      <h2>{props.title}</h2>
+      <div className="user-details">
+        <h2>{props.title}</h2>
+        {props.user.preferences ? <div>{props.user.preferences.length}&nbsp;Games</div> : ""}
+      </div>
     </div>
   )
 }
