@@ -1,0 +1,36 @@
+.friend {
+	margin: 5px 5px;
+	padding: 5px 5px;
+	text-align: left;
+	background-color: #343538;
+	border-radius: 5px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.friend .friend-info {
+	display: flex;
+}
+
+.friend .friend-info a {
+	display: flex;
+	align-items: center;
+}
+
+.friend .buttons {
+	display: flex;
+	justify-content: flex-end;
+}
+
+.friend .friend-info img {
+	border-radius: 5px;
+}
+
+.friend .friend-personal {
+	padding-left: 5px;
+}
+
+.friend .buttons .btn:first-child {
+	margin-right: 4px;
+}

@@ -21,6 +21,15 @@ type User = {
   preferences?: Game[];
 }
 
+type Friend = {
+  steamId: string;
+  avatarmedium: string;
+  personaname: string;
+  realname?: string;
+  profileurl: string;
+  filterSimilarity?: number;
+}
+
 type OwnedGamesResponse = {
   game_count: number;
   games: Game[];

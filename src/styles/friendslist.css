@@ -1,0 +1,37 @@
+.friendslist {
+	position: absolute;
+	width: 100%;
+	display: flex;
+	justify-content: center;
+}
+
+.friendslist .friends {
+	width: max(30vw, 400px);
+	background-color: #4a4c50;
+	border-radius: 5px;
+	height: 100%;
+	z-index: 5;
+	margin-top: 3vh;
+}
+
+.friendslist .friends .friendslist-header {
+	display: flex;
+	margin: 5px 5px;
+}
+
+.friendslist .friends .list {
+	overflow-y: scroll;
+	height: 87vh;
+}
+
+.friendslist .friends .friendslist-header .friend-search {
+	width: 100%;
+	margin-right: 5px;
+}
+
+.blur-bg {
+	position: absolute;
+	width: 100%;
+	height: 100vh;
+	backdrop-filter: blur(4px);
+}

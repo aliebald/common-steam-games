@@ -28,6 +28,11 @@ a {
   background: #58595e;
 }
 
+.flex-center {
+  display: flex;
+  justify-content: center;
+}
+
 .app {
   color: white;
 }
@@ -174,6 +179,10 @@ input[type=text]:focus {
 
 .btn:active {
   transform: scale(0.95);
+}
+
+.btn.danger {
+  background-color: rgb(190, 25, 25);
 }
 
 /* input.btn[type="submit"] {

@@ -1,12 +1,13 @@
-import { useEffect, useState } from 'react';
-import { DropResult } from 'react-beautiful-dnd';
-import Collapsible from './Collapsible';
-import GamesList from './GamesList';
-import Invite from './Invite';
-import Loading from './Loading';
-import UserHeader from './UserHeader';
+import { useEffect, useState } from "react";
+import { DropResult } from "react-beautiful-dnd";
 import { io, Socket } from "socket.io-client";
-import { useHistory } from 'react-router';
+import { useHistory } from "react-router";
+import Collapsible from "./Collapsible";
+import GamesList from "./GamesList";
+import Invite from "./Invite";
+import Loading from "./Loading";
+import UserHeader from "./UserHeader";
+import FriendsList from "./FriendsList";
 
 function initiateSocket(steamId: string, sessionId?: string) {
   let query;
@@ -33,6 +34,7 @@ function Matching(props: {
   const [sessionId, setSessionId] = useState<string>("");
   const [preferencesChanged, setPreferencesChanged] = useState(false);
   const [socket, setSocket] = useState<Socket | undefined>(undefined);
+  const [showFriendslist, setShowFriendslist] = useState<boolean>(false);
   const history = useHistory();
 
   useEffect(() => {
@@ -158,11 +160,12 @@ function Matching(props: {
 
   // loading 
   if (!self.preferences) {
-    return <div className="t-center"><Loading className="v-centered" /></div >
+    return <Loading className="v-centered" center />
   }
 
   return (
     <>
+      {showFriendslist && socket ? <FriendsList socket={socket} sessionId={sessionId} closeFriendsList={() => setShowFriendslist(false)} /> : ""}
       <header className="app-header">
         <h1>Common Steam Games</h1>
       </header>
@@ -176,7 +179,7 @@ function Matching(props: {
         />
         <GamesList games={matchedGames} header={<h2 className="group-preferences-header">Group Preferences</h2>} className="col" />
         <div className="col">
-          <Invite sessionId={sessionId} className="no-br-bottom" />
+          <Invite sessionId={sessionId} className="no-br-bottom" openFriendsList={() => setShowFriendslist(true)} />
           {users.map((user, index) =>
             <Collapsible
               header={<UserHeader title={`${user.personaname}'s preferences`} user={user} className="no-br no-bg" />}
