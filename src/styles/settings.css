@@ -1,0 +1,14 @@
+.settings {
+	background-color: #343538;
+	border-radius: 5px;
+	padding: 7px 10px;
+	margin: .5rem;
+}
+
+.settings label {
+	display: flex;
+}
+
+.settings .padding-switch {
+	padding-left: 4px;
+}

@@ -9,6 +9,7 @@ import Loading from "./Loading";
 import UserHeader from "./UserHeader";
 import GroupHeader from "./GroupHeader";
 import FriendsList from "./FriendsList";
+import Settings from "./Settings";
 
 function initiateSocket(steamId: string, sessionId?: string) {
   let query;
@@ -36,7 +37,14 @@ function Matching(props: {
   const [preferencesChanged, setPreferencesChanged] = useState(false);
   const [socket, setSocket] = useState<Socket | undefined>(undefined);
   const [showFriendslist, setShowFriendslist] = useState<boolean>(false);
+  const [settings, setSettings] = useState<Settings>({ onlyCommonGames: true });
+  const [commonAppIds, setCommonAppIds] = useState<number[]>([])
   const history = useHistory();
+
+  useEffect(() => {
+    console.log("setCommonAppIds");
+    setCommonAppIds(getCommonAppIds(users.concat(self)));
+  }, [users, self])
 
   useEffect(() => {
     const handleSession = (msg: any) => {
@@ -136,8 +144,11 @@ function Matching(props: {
 
   // Update group preferences
   useEffect(() => {
-    setMatchedGames(calculatePreferences(users.concat(self)));
-  }, [users, self])
+    console.log("calculatePreferences");
+    const appIds = settings.onlyCommonGames ? commonAppIds : [];
+    setMatchedGames(calculatePreferences(users.concat(self), appIds));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [users, self, settings.onlyCommonGames]);
 
   // Send preferences to backend when changed
   useEffect(() => {
@@ -176,17 +187,26 @@ function Matching(props: {
     <>
       {showFriendslist && socket ? <FriendsList socket={socket} sessionId={sessionId} closeFriendsList={() => setShowFriendslist(false)} /> : ""}
       <header className="app-header">
-        <h1>Common Steam Games</h1>
+        <h1 className="title">Common Steam Games</h1>
+        <Settings settings={settings} setSettings={setSettings} />
       </header>
       <div className="container">
         <GamesList
           games={self.preferences ?? []}
+          onlyCommonGames={settings.onlyCommonGames}
+          commonAppIds={commonAppIds}
           onDragEnd={onDragEnd}
           droppableId={`${self.personaname}'s Preferences`}
           header={<UserHeader title="Your Preferences" user={self} />}
           className="col"
         />
-        <GamesList games={matchedGames} header={<GroupHeader title="Group Preferences" gamesCount={matchedGames.length} />} className="col" />
+        <GamesList
+          games={matchedGames}
+          onlyCommonGames={settings.onlyCommonGames}
+          commonAppIds={commonAppIds}
+          header={<GroupHeader title="Group Preferences" gamesCount={matchedGames.length} commonGamesCount={commonAppIds.length} />}
+          className="col"
+        />
         <div className="col">
           <Invite sessionId={sessionId} className="no-br-bottom" openFriendsList={() => setShowFriendslist(true)} />
           {users.map((user, index) =>
@@ -194,7 +214,13 @@ function Matching(props: {
               header={<UserHeader title={`${user.personaname}'s preferences`} user={user} className="no-br no-bg" />}
               key={`${index}-${user.steamId}`}
             >
-              <GamesList games={user.preferences ?? []} key={index} className="no-br-top" />
+              <GamesList
+                games={user.preferences ?? []}
+                onlyCommonGames={settings.onlyCommonGames}
+                commonAppIds={commonAppIds}
+                key={index}
+                className="no-br-top"
+              />
             </Collapsible>
           )}
         </div>
@@ -203,13 +229,19 @@ function Matching(props: {
   );
 }
 
-function calculatePreferences(users: User[]): MatchedGame[] {
+function calculatePreferences(users: User[], commonAppIds: number[]): MatchedGame[] {
   const matchedGames: Map<number, MatchedGame> = new Map();
-  const maxGames = Math.max(...users.map(user => user.preferences ? user.preferences.length : 0));
+  const maxGames = commonAppIds.length > 0 ? commonAppIds.length : (
+    Math.max(...users.map(user => user.preferences ? user.preferences.length : 0)));
+
   users.forEach(user => {
     if (user.preferences) {
-      user.preferences.forEach((game, index) => {
-        const weight = getWeight(index, maxGames);
+      const preferences = commonAppIds.length > 0 ? (
+        user.preferences.filter(pref => commonAppIds.includes(pref.appid))
+      ) : user.preferences;
+
+      preferences.forEach((game, index) => {
+        const weight = getWeight(index, maxGames - 1);
         let matchedGame: MatchedGame;
         // Check if the game already exists. Otherwise add it to matchedGames.
         if (matchedGames.has(game.appid)) {
@@ -229,7 +261,7 @@ function calculatePreferences(users: User[]): MatchedGame[] {
           };
         }
         matchedGames.set(game.appid, matchedGame);
-      })
+      });
     }
   });
   const result = Array.from(matchedGames.values());
@@ -251,5 +283,27 @@ const reorder = (games: Game[], startIndex: number, endIndex: number) => {
   result.splice(endIndex, 0, removed);
   return result;
 };
+
+/** Gets a list with appids for games owned by all users (incl. self) */
+const getCommonAppIds = (users: User[]) => {
+  const appOwners: { appid: number, owners: number }[] = [];
+  let maxOwners = users.length;
+  for (const user of users) {
+    if (!user.preferences) {
+      maxOwners--;
+      continue;
+    }
+    for (const game of user.preferences) {
+      const index = appOwners.findIndex(elem => elem.appid === game.appid);
+      if (index >= 0) {
+        appOwners[index].owners++;
+      } else {
+        appOwners.push({ appid: game.appid, owners: 1 });
+      }
+    }
+  }
+  const ids = appOwners.filter(elem => elem.owners >= maxOwners).map(elem => elem.appid);
+  return ids;
+}
 
 export default Matching;

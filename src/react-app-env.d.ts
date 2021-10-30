@@ -1,5 +1,9 @@
 // <reference types=react-scripts />
 
+type Settings = {
+  onlyCommonGames: boolean;
+}
+
 type User = {
   steamId: string;
   communityvisibilitystate?: number;

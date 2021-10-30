@@ -28,6 +28,10 @@ a {
   background: #58595e;
 }
 
+.d-none {
+  display: none;
+}
+
 .flex-center {
   display: flex;
   justify-content: center;
@@ -39,9 +43,12 @@ a {
 
 .app-header {
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
   align-items: center;
-  justify-content: center;
+}
+
+.app-header .title {
+  padding-left: 10px;
 }
 
 .background {
