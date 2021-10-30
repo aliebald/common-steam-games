@@ -90,11 +90,19 @@ function Matching(props: {
       const err = error as ErrorType;
       err.timeout = 15000;
       props.addError(err);
+      if (err.status === 550) {
+        setShowFriendslist(false);
+        return;
+      }
       history.goBack();
     }
 
     if (socket) {
-      socket.removeAllListeners();
+      socket.removeAllListeners("error");
+      socket.removeAllListeners("session");
+      socket.removeAllListeners("userJoined");
+      socket.removeAllListeners("userDisconnect");
+      socket.removeAllListeners("updatePreferences");
 
       socket.on("error", handleError);
       socket.on("session", handleSession);
