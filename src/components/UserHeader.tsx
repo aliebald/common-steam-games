@@ -1,5 +1,5 @@
-import React from 'react'
-import "../styles/userHeader.css"
+import React from "react"
+import "../styles/headers.css"
 
 export default function UserHeader(props: {
   title: string,

@@ -7,6 +7,7 @@ import GamesList from "./GamesList";
 import Invite from "./Invite";
 import Loading from "./Loading";
 import UserHeader from "./UserHeader";
+import GroupHeader from "./GroupHeader";
 import FriendsList from "./FriendsList";
 
 function initiateSocket(steamId: string, sessionId?: string) {
@@ -177,7 +178,7 @@ function Matching(props: {
           header={<UserHeader title="Your Preferences" user={self} />}
           className="col"
         />
-        <GamesList games={matchedGames} header={<h2 className="group-preferences-header">Group Preferences</h2>} className="col" />
+        <GamesList games={matchedGames} header={<GroupHeader title="Group Preferences" gamesCount={matchedGames.length} />} className="col" />
         <div className="col">
           <Invite sessionId={sessionId} className="no-br-bottom" openFriendsList={() => setShowFriendslist(true)} />
           {users.map((user, index) =>
