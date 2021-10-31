@@ -51,7 +51,8 @@ export default function App(this: any) {
             {matching}
           </Route>
           <Route path="/join" exact>
-            <JoinSession onSubmit={joinSession} sessionId={joinSessionId} steamId={steamId} />
+            {canAutoJoin() ? <Redirect to="/matching" push /> :
+              <JoinSession onSubmit={joinSession} sessionId={joinSessionId} steamId={steamId} />}
           </Route>
           <Route path="/create" exact>
             {switchToJoinPage ? <Redirect to="/join" /> : <CreateSession onSubmit={createNewSession} steamId={steamId} />}
@@ -106,4 +107,9 @@ function getSteamId(): string | undefined {
     return cachedSteamId;
   }
   return undefined;
+}
+
+const canAutoJoin = () => {
+  const urlParams = new URLSearchParams(window.location.search);
+  return urlParams.has("steamId") && urlParams.has("sessionId");
 }

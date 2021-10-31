@@ -102,7 +102,7 @@ function Matching(props: {
         setShowFriendslist(false);
         return;
       }
-      history.goBack();
+      history.replace("/create");
     }
 
     if (socket) {
