@@ -41,6 +41,15 @@ function Matching(props: {
   const [commonAppIds, setCommonAppIds] = useState<number[]>([])
   const history = useHistory();
 
+  /** updates settings (state) and sends updateSettings event to backend */
+  const updateSettings = (settings: Settings) => {
+    if (socket) {
+      console.log("Sending settings");
+      socket.emit("updateSettings", settings);
+    }
+    setSettings(settings);
+  }
+
   useEffect(() => {
     console.log("setCommonAppIds");
     setCommonAppIds(getCommonAppIds(users.concat(self)));
@@ -63,6 +72,9 @@ function Matching(props: {
       setSessionId(session.sessionId);
       setSelf(newSelf!); // TODO undefined check
       setUsers(newUsers);
+      if (session.settings) {
+        setSettings(session.settings);
+      }
     }
 
     const handleUserJoined = (msg: any) => {
@@ -76,6 +88,11 @@ function Matching(props: {
       console.log("Received handleUserDisconnect:", msg, "users:", users);
       const newUsers = users.filter(user => user.steamId !== msg as string);
       setUsers(newUsers);
+    }
+
+    const handleUpdateSettings = (msg: any) => {
+      console.log("Received settings:", msg);
+      setSettings(msg as Settings);
     }
 
     const handleUpdatePreferences = (msg: any) => {
@@ -110,12 +127,14 @@ function Matching(props: {
       socket.removeAllListeners("session");
       socket.removeAllListeners("userJoined");
       socket.removeAllListeners("userDisconnect");
+      socket.removeAllListeners("updateSettings");
       socket.removeAllListeners("updatePreferences");
 
       socket.on("error", handleError);
       socket.on("session", handleSession);
       socket.on("userJoined", handleUserJoined);
       socket.on("userDisconnect", handleUserDisconnect);
+      socket.on("updateSettings", handleUpdateSettings);
       socket.on("updatePreferences", handleUpdatePreferences);
     }
   }, [self.steamId, users, socket, props, history]);
@@ -188,7 +207,7 @@ function Matching(props: {
       {showFriendslist && socket ? <FriendsList socket={socket} sessionId={sessionId} closeFriendsList={() => setShowFriendslist(false)} /> : ""}
       <header className="app-header">
         <h1 className="title">Common Steam Games</h1>
-        <Settings settings={settings} setSettings={setSettings} />
+        <Settings settings={settings} setSettings={updateSettings} />
       </header>
       <div className="container">
         <GamesList

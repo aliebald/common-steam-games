@@ -62,6 +62,7 @@ type Session = {
   timeout: number;
   users: User[];
   games?: Game[];
+  settings?: Settings;
 }
 
 type PreferencesUpdate = {

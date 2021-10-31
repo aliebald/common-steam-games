@@ -3,7 +3,7 @@ import "../styles/switch.css"
 
 export default function Switch(props: {
   onChange: (onlyCommonGames: boolean) => void,
-  defaultChecked?: boolean,
+  checked?: boolean,
   className?: string
 }) {
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -12,7 +12,7 @@ export default function Switch(props: {
 
   const content = (
     <div className="switch">
-      <input type="checkbox" onChange={handleChange} defaultChecked={props.defaultChecked} />
+      <input type="checkbox" onChange={handleChange} checked={props.checked} />
       <span className="slider"></span>
     </div>
   )

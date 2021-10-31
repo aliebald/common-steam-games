@@ -15,7 +15,7 @@ export default function Settings(props: {
   return (
     <div className="settings">
       <label>Only&nbsp;Common&nbsp;Games
-        <Switch className="padding-switch" onChange={setOnlyCommonGames} defaultChecked={props.settings.onlyCommonGames} />
+        <Switch className="padding-switch" onChange={setOnlyCommonGames} checked={props.settings.onlyCommonGames} />
       </label>
     </div>
   )
