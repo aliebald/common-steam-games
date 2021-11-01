@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { RefObject, useEffect, useState } from "react"
 import { Socket } from "socket.io-client";
 import Friend from "./Friend";
 import Loading from "./Loading";
@@ -14,6 +14,7 @@ export default function FriendsList(props: {
   const [friends, setFriends] = useState<Friend[]>([]);
   const [filter, setFilter] = useState<string>("");
   const [list, setList] = useState<JSX.Element[]>([]);
+  const listRef: RefObject<HTMLDivElement> = React.createRef();
 
   useEffect(() => {
     // set listener and request data
@@ -62,6 +63,7 @@ export default function FriendsList(props: {
   const handleFilterChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     console.log(event.target.value);
     setFilter(event.target.value);
+    if (listRef.current) listRef.current.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
   return (
@@ -72,7 +74,7 @@ export default function FriendsList(props: {
           <input className="friend-search" type="text" onChange={handleFilterChange} placeholder="Search Friends" />
           <Button onClick={props.closeFriendsList} danger>&nbsp;Close&nbsp;Friends&nbsp;</Button>
         </div>
-        <div className="list">
+        <div className="list" ref={listRef}>
           {friends.length === 0 ? <Loading center /> : list}
         </div>
       </div>
