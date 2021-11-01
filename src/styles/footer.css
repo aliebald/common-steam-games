@@ -17,16 +17,34 @@
 }
 
 .footer .f-right {
+	display: flex;
+	align-items: center;
 	padding: 0 .5rem;
 }
 
-.footer img {
+.footer .f-right a, .footer .f-right div {
+	padding-left: .5rem;
+	color: #7e7e7e;
+}
+
+.footer .impressum {
+	padding-bottom: 2px;
+}
+
+.footer img.github {
+	padding-top: 4px;
+}
+
+.footer img.contact {
 	padding-top: 2px;
+}
+
+.footer img {
+	transition: filter 75ms linear;
+	transition: transform 75ms linear;
 }
 
 .footer img:hover {
 	filter: brightness(.8);
-	transform: scale(0.9);
-	transition: filter 75ms linear;
-	transition: transform 75ms linear;
+	transform: scale(1.1);
 }
