@@ -67,10 +67,15 @@ function Matching(props: {
       const session = msg as Session;
       const newUsers = session.users.filter(user => user.steamId !== self.steamId);
       const newSelf = session.users.find(user => user.steamId === self.steamId);
-      // TODO handle case: newSelf = undefined
+      if (!newSelf) {
+        props.addError({ status: 400, msg: "Failed to connect to session. Did not find self." });
+        if (socket) socket.disconnect();
+        history.replace("/create");
+        return;
+      }
 
       setSessionId(session.sessionId);
-      setSelf(newSelf!); // TODO undefined check
+      setSelf(newSelf);
       setUsers(newUsers);
       if (session.settings) {
         setSettings(session.settings);
@@ -119,6 +124,7 @@ function Matching(props: {
         setShowFriendslist(false);
         return;
       }
+      if (socket) socket.disconnect();
       history.replace("/create");
     }
 
