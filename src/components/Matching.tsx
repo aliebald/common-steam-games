@@ -51,7 +51,6 @@ function Matching(props: {
   }
 
   useEffect(() => {
-    console.log("setCommonAppIds");
     setCommonAppIds(getCommonAppIds(users.concat(self)));
   }, [users, self])
 
@@ -172,8 +171,7 @@ function Matching(props: {
     console.log("calculatePreferences");
     const appIds = settings.onlyCommonGames ? commonAppIds : [];
     setMatchedGames(calculatePreferences(users.concat(self), appIds));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [users, self, settings.onlyCommonGames]);
+  }, [users, self, settings.onlyCommonGames, commonAppIds]);
 
   // Send preferences to backend when changed
   useEffect(() => {
@@ -229,7 +227,7 @@ function Matching(props: {
           games={matchedGames}
           onlyCommonGames={settings.onlyCommonGames}
           commonAppIds={commonAppIds}
-          header={<GroupHeader title="Group Preferences" gamesCount={matchedGames.length} commonGamesCount={commonAppIds.length} />}
+          header={<GroupHeader title="Group Preferences" gamesCount={matchedGames.length} />}
           className="col"
         />
         <div className="col mb-0">
