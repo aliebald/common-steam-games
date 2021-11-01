@@ -71,22 +71,26 @@ a {
 .container {
   display: flex;
   justify-content: space-evenly;
-  max-height: 85vh;
+  align-content: flex-start;
 }
 
 .container .col {
   width: 33%;
-  margin: 0 .5rem;
+  margin: 0 .5rem auto .5rem;
   display: flex;
   flex-direction: column;
   align-items: stretch;
+  max-height: 85vh;
+}
+
+.col.mb-0 {
+  margin-bottom: 0;
 }
 
 .games-list {
   display: flex;
   flex-direction: column;
   align-items: stretch;
-  border: 1px solid #4a4c50;
   background-color: #4a4c50;
   border-radius: 5px;
 }

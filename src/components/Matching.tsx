@@ -232,7 +232,7 @@ function Matching(props: {
           header={<GroupHeader title="Group Preferences" gamesCount={matchedGames.length} commonGamesCount={commonAppIds.length} />}
           className="col"
         />
-        <div className="col">
+        <div className="col mb-0">
           <Invite sessionId={sessionId} className="no-br-bottom" openFriendsList={() => setShowFriendslist(true)} />
           {users.map((user, index) =>
             <Collapsible
