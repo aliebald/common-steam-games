@@ -24,7 +24,7 @@ export default function CreateSession(props: {
         <h2>Create a new Session</h2>
         <form onSubmit={handleSubmit}>
           <label>Steam Id:
-            <input type="text"
+            <input type="number"
               name="steamId"
               id="createSessionSteamId"
               onChange={handleSteamIdChange}

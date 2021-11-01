@@ -31,7 +31,7 @@ export default function JoinSession(props: {
         <form className="d-table" onSubmit={handleSubmit}>
           <div className="d-table-row">
             <label htmlFor="steamId" className="d-table-cell">Steam Id:&nbsp;</label>
-            <input type="text"
+            <input type="number"
               name="steamId"
               id="steamId"
               onChange={handleSteamIdChange}

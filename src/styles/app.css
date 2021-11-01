@@ -150,7 +150,16 @@ label {
   height: 35px;
 }
 
-input[type=text] {
+input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+input[type=text], input[type=number] {
   height: 35px;
   box-sizing: border-box;
   padding: 5px 7px;
@@ -161,7 +170,7 @@ input[type=text] {
   color: #4a4c50;
 }
 
-input[type=text]:focus {
+input[type=number]:focus, input[type=text]:focus {
   border-color: #a7c2df;
   outline: 0;
   box-shadow: 0 0 0 0.2rem rgb(0 123 255 / 25%);
