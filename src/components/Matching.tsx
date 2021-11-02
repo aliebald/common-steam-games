@@ -227,7 +227,7 @@ function Matching(props: {
           games={matchedGames}
           onlyCommonGames={settings.onlyCommonGames}
           commonAppIds={commonAppIds}
-          header={<GroupHeader title="Group Preferences" gamesCount={matchedGames.length} />}
+          header={<GroupHeader title="Group Preferences" gamesCount={matchedGames.length} commonGames={settings.onlyCommonGames} />}
           className="col"
         />
         <div className="col mb-0">
