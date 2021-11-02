@@ -64,8 +64,9 @@ function Matching(props: {
       }
 
       const session = msg as Session;
-      const newUsers = session.users.filter(user => user.steamId !== self.steamId);
-      const newSelf = session.users.find(user => user.steamId === self.steamId);
+      const ownSteamId = session.you ?? self.steamId;
+      const newUsers = session.users.filter(user => user.steamId !== ownSteamId);
+      const newSelf = session.users.find(user => user.steamId === ownSteamId);
       if (!newSelf) {
         props.addError({ status: 400, msg: "Failed to connect to session. Did not find self." });
         if (socket) socket.disconnect();

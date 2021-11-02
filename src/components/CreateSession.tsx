@@ -23,16 +23,20 @@ export default function CreateSession(props: {
       <div className="create-session">
         <h2>Create a new Session</h2>
         <form onSubmit={handleSubmit}>
-          <label>Steam Id:
-            <input type="number"
+          <label htmlFor="createSessionSteamId">Steam ID or Profile URL:</label>
+          <div className="steamId-input input-margin">
+            <span className="profile-url">https://steamcommunity.com/id/</span>
+            <input
+              type="text"
               name="steamId"
               id="createSessionSteamId"
               onChange={handleSteamIdChange}
               className="d-table-cell"
               defaultValue={steamId}
+              placeholder="Steam ID or Profile URL"
               required
             />
-          </label>
+          </div>
           <input type="submit" value="Create New Session" className="btn" />
         </form>
         <p className="t-center">

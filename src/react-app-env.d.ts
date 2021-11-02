@@ -63,6 +63,7 @@ type Session = {
   users: User[];
   games?: Game[];
   settings?: Settings;
+  you?: string;
 }
 
 type PreferencesUpdate = {

@@ -124,6 +124,34 @@ a {
   padding-top: 1rem;
 }
 
+.user-forms .steamId-input {
+  display: flex;
+}
+
+.user-forms .input-margin {
+  margin: .3rem 0 .85rem 0;
+}
+
+.user-forms .steamId-input input {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  border-left: 0px;
+}
+
+.user-forms .steamId-input span.profile-url {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 35px;
+  box-sizing: border-box;
+  padding: 0 5px 2px 5px;
+  border: 1px solid #4a4c50;
+  background-color: #777;
+  color: white;
+  font-size: 13px;
+  border-radius: 0.25rem 0 0 0.25rem;
+}
+
 .t-center {
   text-align: center;
 }
@@ -149,7 +177,6 @@ label {
 }
 
 .join-session input, .create-session input {
-  margin: .3rem 0 .85rem 0;
   padding: 5px 7px;
   height: 35px;
 }
@@ -159,11 +186,7 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
   margin: 0;
 }
 
-input[type=number] {
-  -moz-appearance: textfield;
-}
-
-input[type=text], input[type=number] {
+input[type=text] {
   height: 35px;
   box-sizing: border-box;
   padding: 5px 7px;
@@ -174,7 +197,7 @@ input[type=text], input[type=number] {
   color: #4a4c50;
 }
 
-input[type=number]:focus, input[type=text]:focus {
+input[type=text]:focus {
   border-color: #a7c2df;
   outline: 0;
   box-shadow: 0 0 0 0.2rem rgb(0 123 255 / 25%);
