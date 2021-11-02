@@ -1,15 +1,15 @@
 {
   "short_name": "Common Steam Games",
-  "name": "Common Steam Games Finder",
+  "name": "Common Steam Games",
   "icons": [
     {
-      "src": "favicon.ico",
-      "sizes": "64x64 32x32 24x24 16x16",
-      "type": "image/x-icon"
+      "src": "favicon.png",
+      "type": "image/png",
+      "sizes": "512x512"
     }
   ],
-  "start_url": ".",
+  "start_url": "/common-steam-games",
   "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "theme_color": "#282c34",
+  "background_color": "#282c34"
 }
