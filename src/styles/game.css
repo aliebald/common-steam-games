@@ -1,31 +1,37 @@
 .game {
-	padding: 4px 0;
-	margin: 0 3px;
+	display: flex;
+	align-items: stretch;
 	text-align: left;
+	padding: 4px 3px;
 }
 
-.game .gameInner {
-	padding: 7px 8px;
+.game a, .game .game-info {
 	background-color: #343538;
-	border-radius: 5px;
+	padding: 7px 0;
+}
+
+.game a {
 	display: flex;
 	align-items: center;
+	border-radius: 5px 0 0 5px;
+	padding-left: 8px;
 }
 
-.game .gameInner a img {
-	border-radius: 5px;
-}
-
-.game-info {
+.game .game-info {
+	width: 100%;
+	border-radius: 0 5px 5px 0;
+	padding-right: 8px;
 	padding-left: 5px;
+}
+
+.game a img {
+	border-radius: 5px;
 }
 
 .game .title {
 	font-size: medium;
-	display: flex;
 }
 
 .game .playtime {
 	font-size: small;
-	display: flex;
 }
