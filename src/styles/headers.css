@@ -9,6 +9,31 @@
 	padding: 7px 7px;
 }
 
+.user-header.has-subheader {
+	border-radius: 5px 5px 0 0;
+	padding-bottom: 4px;
+}
+
+.sub-header {
+	display: flex;
+	align-items: center;
+	background-color: #777;
+	padding: 0 7px 7px 7px;
+	border-radius: 0 0 5px 5px;
+}
+
+.sub-header .btn {
+	margin-left: 4px;
+}
+
+.sub-header input {
+	width: 100%;
+}
+
+.sub-header span {
+	padding: 0 4px 0 7px;
+}
+
 .group-header {
 	padding: 10px 10px;
 }

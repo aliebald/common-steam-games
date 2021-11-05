@@ -4,6 +4,7 @@ export default function Button(props: {
   className?: string,
   onClick?: React.MouseEventHandler<HTMLButtonElement>,
   danger?: boolean,
+  title?: string,
   children?: JSX.Element | string
 }) {
   const danger = props.danger ? " danger" : ""
@@ -11,6 +12,7 @@ export default function Button(props: {
     <button
       className={`btn${danger} ${props.className ?? ""}`}
       onClick={props.onClick}
+      title={props.title}
     >
       {props.children ?? ""}
     </button>

@@ -38,7 +38,9 @@ function Matching(props: {
   const [socket, setSocket] = useState<Socket | undefined>(undefined);
   const [showFriendslist, setShowFriendslist] = useState<boolean>(false);
   const [settings, setSettings] = useState<Settings>({ onlyCommonGames: true });
-  const [commonAppIds, setCommonAppIds] = useState<number[]>([])
+  const [commonAppIds, setCommonAppIds] = useState<number[]>([]);
+  const [gameSearch, setGameSearch] = useState("");
+
   const history = useHistory();
 
   /** updates settings (state) and sends updateSettings event to backend */
@@ -198,8 +200,38 @@ function Matching(props: {
       result.source.index,
       result.destination.index
     );
+    if (gameSearch.length > 0) {
+      // Reset game search to avoid unwanted scrolling after changing preferences.
+      // Does not update value in UserHeader so the user can build upon the old search query.
+      setGameSearch("");
+    }
     setSelf(newSelf);
     setPreferencesChanged(true);
+  }
+
+  const sortPreferences = (sortBy: "total" | "recent") => {
+    // select the correct sort function dependant on the sortBy argument
+    let sortFunc: (a: Game, b: Game) => number;
+    if (sortBy === "total") {
+      sortFunc = (a: Game, b: Game) => b.playtime_forever - a.playtime_forever
+    } else {
+      sortFunc = (a: Game, b: Game) => {
+        const aPlaytime = a.playtime_2weeks ?? 0;
+        const bPlaytime = b.playtime_2weeks ?? 0;
+        if (aPlaytime === bPlaytime) {
+          // Fallback if playtime in the last two weeks is equal
+          return b.playtime_forever - a.playtime_forever;
+        }
+        return bPlaytime - aPlaytime;
+      }
+    }
+    // Sort preferences using sortFunc
+    const newSelf: User = { ...self };
+    if (newSelf.preferences) {
+      newSelf.preferences = newSelf.preferences.sort(sortFunc);
+      setSelf(newSelf);
+      setPreferencesChanged(true);
+    }
   }
 
   // loading 
@@ -221,7 +253,16 @@ function Matching(props: {
           commonAppIds={commonAppIds}
           onDragEnd={onDragEnd}
           droppableId={`${self.personaname}'s Preferences`}
-          header={<UserHeader title="Your Preferences" user={self} />}
+          gameSearch={gameSearch}
+          header={
+            <UserHeader
+              title="Your Preferences"
+              user={self}
+              onSearch={setGameSearch}
+              onSortByTotal={() => sortPreferences("total")}
+              onSortByLastTwoWeeks={() => sortPreferences("recent")}
+            />
+          }
           className="col"
         />
         <GamesList
