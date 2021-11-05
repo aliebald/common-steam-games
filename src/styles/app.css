@@ -100,7 +100,7 @@ a {
 }
 
 .no-bg {
-  background: inherit;
+  background: none;
 }
 
 .no-br, .no-br-top {
@@ -208,11 +208,11 @@ input[type=text]:focus {
   vertical-align: middle;
   background-color: #4a4c50;
   border-radius: .25rem;
-  transition: color .15s;
   color: white;
   border: 1px solid transparent;
   padding: .375rem .75rem;
   min-height: 2rem;
+  transition: background-color .2s, transform .1s;
 }
 
 .btn:hover {
@@ -246,6 +246,7 @@ input[type=text]:focus {
   outline: none;
   font-size: 15px;
   padding-right: 20px;
+  transition: background-color .2s;
 }
 
 .active, .collapsible:hover {

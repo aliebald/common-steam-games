@@ -30,6 +30,11 @@
 
 .footer .impressum {
 	padding-bottom: 2px;
+	transition: color .2s;
+}
+
+.footer .impressum:hover {
+	color: #61dafb;
 }
 
 .footer img.github {
@@ -41,8 +46,7 @@
 }
 
 .footer img {
-	transition: filter 75ms linear;
-	transition: transform 75ms linear;
+	transition: .2s;
 }
 
 .footer img:hover {
