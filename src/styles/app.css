@@ -211,7 +211,7 @@ input[type=text]:focus {
   color: white;
   border: 1px solid transparent;
   padding: .375rem .75rem;
-  min-height: 2rem;
+  height: 35px;
   transition: background-color .2s, transform .1s;
 }
 
