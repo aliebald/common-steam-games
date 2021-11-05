@@ -20,9 +20,23 @@ export default function Invite(props: {
     <div className={`invite-box ${props.className ?? ""}`}>
       <label>Invite your friends</label>
       <div className="invite-row">
-        <input className="invite-input" type="text" value={invite} readOnly onFocus={handleFocus} />
-        <Button onClick={copyInvite}>Copy&nbsp;Invite</Button>
-        <Button onClick={props.openFriendsList}>Open&nbsp;Friends&nbsp;List</Button>
+        <input className="invite-input"
+          type="text"
+          value={invite}
+          readOnly
+          onFocus={handleFocus}
+          title="Invite link. Click 'Copy Invite' to copy this link"
+        />
+        <Button onClick={copyInvite} title="Copy invite link">
+          Copy&nbsp;Invite
+        </Button>
+        <Button
+          onClick={props.openFriendsList}
+          title={"Open your friends list and create personalized invites. "
+            + "This allows your friends to directly join you without looking up their steamId."}
+        >
+          Open&nbsp;Friends&nbsp;List
+        </Button>
       </div>
     </div>
   )

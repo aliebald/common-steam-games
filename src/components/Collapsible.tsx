@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 
 export default function Collapsible(props: {
   header?: string | JSX.Element,
+  title?: string,
   children?: JSX.Element
 }) {
   const [collapsed, setCollapsed] = useState(true);
@@ -29,7 +30,11 @@ export default function Collapsible(props: {
   const content = props.children ?? "No Content";
   return (
     <>
-      <button type="button" className="collapsible" onClick={toggle}>
+      <button type="button"
+        className="collapsible"
+        onClick={toggle}
+        title={props.title}
+      >
         {props.header ?? "Open"}
         <i className={collapsed ? "arrow-down" : "arrow-up"}></i>
       </button>

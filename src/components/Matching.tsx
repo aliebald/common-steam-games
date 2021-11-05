@@ -278,6 +278,7 @@ function Matching(props: {
             <Collapsible
               header={<UserHeader title={`${user.personaname}'s preferences`} user={user} className="no-br no-bg" />}
               key={`${index}-${user.steamId}`}
+              title={`Show ${user.personaname ?? user.realname}'s' preferences`}
             >
               <GamesList
                 games={user.preferences ?? []}

@@ -9,6 +9,7 @@ export default function Friend(props: {
   sessionId: string
 }) {
   const friend = props.friend;
+  const personaname = (friend.personaname ?? friend.realname) ?? "";
   const invite = `${window.location.origin}${packageJSON.subUrl}/join?sessionId=${encodeURIComponent(props.sessionId)}&steamId=${props.friend.steamId}`;
   const copyInvite = () => {
     navigator.clipboard.writeText(invite);
@@ -29,13 +30,23 @@ export default function Friend(props: {
           />
         </a>
         <div className="friend-personal">
-          <div>{friend.personaname}</div>
+          <div>{friend.personaname ?? ""}</div>
           <div>{friend.realname ? <span>(<em>{friend.realname}</em>)</span> : ""}</div>
         </div>
       </div>
       <div className="buttons">
-        <Button onClick={openSteamChat}>Steam&nbsp;Chat</Button>
-        <Button onClick={copyInvite}>Copy&nbsp;Invite</Button>
+        <Button
+          onClick={openSteamChat}
+          title={`Opens the steam chat with ${personaname}, if steam is installed.`}
+        >
+          Steam&nbsp;Chat
+        </Button>
+        <Button
+          onClick={copyInvite}
+          title={`Copies a personalized invite for ${personaname}. This allows ${personaname} to join without entering a steamId`}
+        >
+          Copy&nbsp;Invite
+        </Button>
       </div>
     </div>
   )
