@@ -39,9 +39,21 @@ export default function GamesList(props: {
       return indexOfLargest;
     }
 
+    /** Finds the depth in px of the game with the given index. Used for scrollTo() */
+    const getDepthForGame = (index: number) => {
+      if (!dndListRef.current) {
+        return 0;
+      }
+      let depth = 0;
+      for (let i = 0; i < index; i++) {
+        depth += dndListRef.current.children[0].children[i].scrollHeight;
+      }
+      return depth;
+    }
+
     if (props.gameSearch && props.gameSearch.length > 1 && dndListRef.current) {
-      console.log("scrolling");
-      const pos = searchGamePosition(props.gameSearch) * 60;
+      const index = searchGamePosition(props.gameSearch);
+      const pos = getDepthForGame(index);
       dndListRef.current.scrollTo({ top: pos, behavior: "smooth" });
     }
   }, [dndListRef, props.games, props.gameSearch])
