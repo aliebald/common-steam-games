@@ -17,6 +17,7 @@ export default function GamesList(props: {
 }) {
   const header = props.header ?? "";
   const dndListRef: RefObject<HTMLDivElement> = createRef();
+  const onlyCommonGames = props.onlyCommonGames ?? false;
 
   useEffect(() => {
     /** Finds the index of the game in games with the highest similarity with a search query */
@@ -57,7 +58,7 @@ export default function GamesList(props: {
                 <div {...provided.droppableProps} ref={provided.innerRef}>
                   <InnerList
                     games={props.games}
-                    onlyCommonGames={props.onlyCommonGames ?? false}
+                    onlyCommonGames={onlyCommonGames}
                     commonAppIds={props.commonAppIds}
                   />
                   {provided.placeholder}
@@ -71,12 +72,12 @@ export default function GamesList(props: {
   }
 
   // Return games as static list if droppableId or onDragEnd is not defined in props
-  const games = props.onlyCommonGames ? props.games.filter(game => props.commonAppIds.includes(game.appid)) : props.games;
+  const games = onlyCommonGames ? props.games.filter(game => props.commonAppIds.includes(game.appid)) : props.games;
   return (
     <div className={`games-list ${props.className ?? ""}`}>
       {header}
       <div className="scroll-container">
-        {games.map((game, index) => <Game game={game} key={index} />)}
+        {games.map((game, index) => <Game game={game} key={index} showOwners={!onlyCommonGames} />)}
       </div>
     </div>
   )

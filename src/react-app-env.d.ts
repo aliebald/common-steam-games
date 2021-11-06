@@ -54,6 +54,7 @@ type Game = {
 
 type MatchedGame = Game & {
   weight: number;
+  owners: User[];
 }
 
 type Session = {
