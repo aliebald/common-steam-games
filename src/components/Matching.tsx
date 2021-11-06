@@ -312,7 +312,7 @@ function calculatePreferences(users: User[], commonAppIds: number[]): MatchedGam
         // Check if the game already exists. Otherwise add it to matchedGames.
         if (matchedGames.has(game.appid)) {
           matchedGame = matchedGames.get(game.appid)!;
-          matchedGame.weight += weight;
+          matchedGame.weight += weight / users.length;
           matchedGame.playtime_forever += game.playtime_forever / users.length;
         } else {
           matchedGame = {
@@ -323,7 +323,7 @@ function calculatePreferences(users: User[], commonAppIds: number[]): MatchedGam
             has_community_visible_stats: game.has_community_visible_stats ?? undefined,
             playtime_2weeks: game.playtime_2weeks ? (game.playtime_2weeks / users.length) : undefined,
             playtime_forever: game.playtime_forever / users.length,
-            weight: weight
+            weight: weight / users.length
           };
         }
         matchedGames.set(game.appid, matchedGame);
@@ -331,9 +331,7 @@ function calculatePreferences(users: User[], commonAppIds: number[]): MatchedGam
     }
   });
   const result = Array.from(matchedGames.values());
-  result.sort((a, b) => {
-    return b.weight - a.weight;
-  });
+  result.sort((a, b) => b.weight - a.weight);
 
   return result
 }
