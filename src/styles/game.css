@@ -46,7 +46,7 @@
 
 .game .match-info {
 	display: flex;
-	justify-content: end;
+	justify-content: flex-end;
 	flex-wrap: wrap;
 	align-items: flex-end;
 	border-radius: 0 5px 5px 0;
