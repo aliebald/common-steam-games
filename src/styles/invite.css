@@ -1,6 +1,6 @@
 .invite-box {
 	padding: 7px 10px 7px 10px;
-	background-color: #343538;
+	background-color: var(--main-color-0);
 	border-radius: 5px;
 }
 

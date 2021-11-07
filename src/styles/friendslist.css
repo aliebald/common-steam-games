@@ -6,8 +6,8 @@
 }
 
 .friendslist .friends {
-	width: max(30vw, 400px);
-	background-color: #4a4c50;
+	width: var(--content-width);
+	background-color: var(--main-color-2);
 	border-radius: 5px;
 	height: 100%;
 	z-index: 20;

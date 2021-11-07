@@ -6,7 +6,7 @@
 }
 
 .game a, .game .game-info, .game .match-info {
-	background-color: #343538;
+	background-color: var(--main-color-0);
 	padding: 7px 0;
 }
 
@@ -55,7 +55,7 @@
 }
 
 .game .match-info .weight {
-	color: #7e7e7e;
+	color: var(--text-color-gray);
 	bottom: 0;
 }
 

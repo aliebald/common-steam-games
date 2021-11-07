@@ -19,7 +19,7 @@
 	left: 0;
 	right: 0;
 	bottom: 0;
-	background-color: #777;
+	background-color: var(--main-color-3);
 	transition: .4s;
 }
 
