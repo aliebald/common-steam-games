@@ -22,21 +22,25 @@ export default function GamesList(props: {
   useEffect(() => {
     /** Finds the index of the game in games with the highest similarity with a search query */
     const searchGamePosition = (search: string): number => {
-      // Keeps the name for debugging purposes.
-      const similarities = props.games.map(game => ({
-        name: game.name,
-        similarity: compareTwoStrings(game.name, search)
-      }));
-      let largest = 0;
-      let indexOfLargest = 0;
-      similarities.forEach((entry, index) => {
-        if (entry.similarity > largest) {
-          largest = entry.similarity;
-          indexOfLargest = index;
+      let match = {
+        similarity: 0,
+        index: 0,
+        name: ""
+      };
+      props.games.forEach((game, index) => {
+        if (!props.onlyCommonGames || props.commonAppIds.includes(game.appid)) {
+          const similarity = compareTwoStrings(game.name.toLowerCase(), search.toLowerCase());
+          if (similarity > match.similarity) {
+            match = {
+              similarity: similarity,
+              index: index,
+              name: game.name
+            }
+          }
         }
       });
-      console.log(`Best match for game search ("${search}"): ${similarities[indexOfLargest].name}. Similarity: ${largest}`);
-      return indexOfLargest;
+      console.log(`Best match for game search ("${search}"): ${match.name}. Similarity: ${match.similarity}`);
+      return match.index;
     }
 
     /** Finds the depth in px of the game with the given index. Used for scrollTo() */
@@ -56,7 +60,7 @@ export default function GamesList(props: {
       const pos = getDepthForGame(index);
       dndListRef.current.scrollTo({ top: pos, behavior: "smooth" });
     }
-  }, [dndListRef, props.games, props.gameSearch])
+  }, [dndListRef, props.games, props.gameSearch, props.commonAppIds])
 
   // Return games as drag & drop list
   if (props.droppableId && props.onDragEnd) {
