@@ -5,7 +5,7 @@
 	padding: 4px 3px;
 }
 
-.game .img-link, .game .game-info, .game .match-info {
+.game .img-link, .game .game-info, .game .match-info, .game .dnd-icon {
 	background-color: var(--main-color-0);
 	padding: 7px 0;
 }
@@ -38,9 +38,6 @@
 }
 
 .game .game-info .playtime {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
 	font-size: small;
 }
 
@@ -62,4 +59,11 @@
 .owner {
 	border-radius: 8px;
 	margin: 0 0 0 2px;
+}
+
+.game .dnd-icon {
+	display: flex;
+	align-items: center;
+	border-radius: 0 5px 5px 0;
+	padding-right: 14px;
 }

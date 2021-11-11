@@ -13,7 +13,7 @@ export default function DraggableGame(props: { game: Game, index: number, classN
           {...provided.dragHandleProps}
           className={props.className}
         >
-          <Game game={props.game} />
+          <Game game={props.game} isDnD />
         </div>
       )}
     </Draggable>

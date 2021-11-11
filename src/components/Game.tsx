@@ -4,7 +4,11 @@ import UserCard from './UserCard'
 import '../styles/game.css'
 
 
-export default function Game(props: { game: Game | MatchedGame, showOwners?: boolean }) {
+export default function Game(props: {
+  game: Game | MatchedGame,
+  showOwners?: boolean,
+  isDnD?: boolean
+}) {
   const playtime = Math.round(((props.game.playtime_forever / 60) + Number.EPSILON) * 100) / 100
   const playtime2weeks = props.game.playtime_2weeks ? Math.round(((props.game.playtime_2weeks / 60) + Number.EPSILON) * 100) / 100 : 0
   const isMatchedGame = "weight" in (props.game as MatchedGame)
@@ -17,6 +21,7 @@ export default function Game(props: { game: Game | MatchedGame, showOwners?: boo
   } else {
     playtimeText = playtime2weeks > 0 ? `Playtime: ${playtime}h / ${playtime2weeks}h` : `Playtime: ${playtime}h`
   }
+
   return (
     <div className="game">
       <a
@@ -34,7 +39,7 @@ export default function Game(props: { game: Game | MatchedGame, showOwners?: boo
           loading="lazy"
         />
       </a>
-      <div className={isMatchedGame ? "game-info no-br" : "game-info"}>
+      <div className={isMatchedGame || props.isDnD ? "game-info no-br" : "game-info"}>
         <div className="title">{props.game.name}</div>
         <div className="playtime">{playtimeText}</div>
       </div>
@@ -44,6 +49,7 @@ export default function Game(props: { game: Game | MatchedGame, showOwners?: boo
           <div className="weight">Match:&nbsp;{weightPercentage}</div>
         </div>
         : <></>}
+      {props.isDnD ? <div className="dnd-icon"><img src="dnd_icon.svg" alt="" width="17" height="32" /></div> : <></>}
     </div>
   )
 }
