@@ -1,0 +1,21 @@
+.user-card {
+	display: flex;
+	background-color: var(--main-color-3);
+	border: 2px solid var(--main-color-1);
+	border-radius: 5px;
+	padding: 8px 8px;
+}
+
+.user-card img {
+	border-radius: 5px;
+}
+
+.user-card .user-details {
+	min-width: 110px;
+	width: 100%;
+	padding: 0 10px 0 5px;
+}
+
+.user-card .user-details h3 {
+	margin: 0;
+}

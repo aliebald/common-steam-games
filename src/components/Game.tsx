@@ -1,4 +1,6 @@
 import React from 'react'
+import Tooltip from './Tooltip'
+import UserCard from './UserCard'
 import '../styles/game.css'
 
 
@@ -17,7 +19,13 @@ export default function Game(props: { game: Game | MatchedGame, showOwners?: boo
   }
   return (
     <div className="game">
-      <a href={getStorePage(props.game.appid)} target="_blank" rel="noopener noreferrer" title={`${props.game.name} steam page`}>
+      <a
+        className="img-link"
+        href={getStorePage(props.game.appid)}
+        title={`${props.game.name} steam page`}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
         <img
           src={getImage(props.game.appid, props.game.img_icon_url)}
           width="32"
@@ -44,16 +52,16 @@ function Owners(props: { owners: User[], gameTitle: string }) {
   return (
     <>
       {props.owners.map((owner, index) =>
-        <img
-          src={owner.avatar}
-          key={index}
-          alt=""
-          height="16px"
-          width="16px"
-          className="owner"
-          title={`${owner.personaname ?? owner.realname} owns ${props.gameTitle}`}
-          loading="lazy"
-        />
+        <Tooltip position="bottom-left" tooltip={<UserCard user={owner} />} key={index}>
+          <img
+            src={owner.avatar}
+            alt=""
+            height="16px"
+            width="16px"
+            className="owner"
+            loading="lazy"
+          />
+        </Tooltip>
       )}
     </>
   );

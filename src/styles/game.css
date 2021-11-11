@@ -5,12 +5,12 @@
 	padding: 4px 3px;
 }
 
-.game a, .game .game-info, .game .match-info {
+.game .img-link, .game .game-info, .game .match-info {
 	background-color: var(--main-color-0);
 	padding: 7px 0;
 }
 
-.game a {
+.game .img-link {
 	display: flex;
 	align-items: center;
 	border-radius: 5px 0 0 5px;
@@ -29,7 +29,7 @@
 	padding-right: 2px;
 }
 
-.game a img {
+.game .img-link img {
 	border-radius: 5px;
 }
 
@@ -62,10 +62,4 @@
 .owner {
 	border-radius: 8px;
 	margin: 0 0 0 2px;
-	transition: transform .5s ease, border-radius .5s ease;
-}
-
-.owner:hover {
-	transform: scale(2);
-	border-radius: 3px;
 }
