@@ -7,7 +7,8 @@ import '../styles/game.css'
 export default function Game(props: {
   game: Game | MatchedGame,
   showOwners?: boolean,
-  isDnD?: boolean
+  isDnD?: boolean,
+  DnDHighlight?: boolean // Increases brightness of dnd icon for a few seconds after first render
 }) {
   const playtime = Math.round(((props.game.playtime_forever / 60) + Number.EPSILON) * 100) / 100
   const playtime2weeks = props.game.playtime_2weeks ? Math.round(((props.game.playtime_2weeks / 60) + Number.EPSILON) * 100) / 100 : 0
@@ -49,7 +50,9 @@ export default function Game(props: {
           <div className="weight">Match:&nbsp;{weightPercentage}</div>
         </div>
         : <></>}
-      {props.isDnD ? <div className="dnd-icon"><img src="dnd_icon.svg" alt="" width="17" height="32" /></div> : <></>}
+      {props.isDnD ? <div className="dnd-icon">
+        <img src="dnd_icon.svg" alt="" width="17" height="32" className={props.DnDHighlight ? "highlight" : ""} />
+      </div> : <></>}
     </div>
   )
 }

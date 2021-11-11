@@ -3,7 +3,12 @@ import { Draggable } from 'react-beautiful-dnd'
 import Game from './Game'
 
 
-export default function DraggableGame(props: { game: Game, index: number, className?: string }) {
+export default function DraggableGame(props: {
+  game: Game,
+  index: number,
+  className?: string,
+  DnDHighlight?: boolean
+}) {
   return (
     <Draggable draggableId={`${props.game.appid}`} index={props.index}>
       {provided => (
@@ -13,7 +18,7 @@ export default function DraggableGame(props: { game: Game, index: number, classN
           {...provided.dragHandleProps}
           className={props.className}
         >
-          <Game game={props.game} isDnD />
+          <Game game={props.game} isDnD DnDHighlight={props.DnDHighlight} />
         </div>
       )}
     </Draggable>

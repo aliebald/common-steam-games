@@ -1,5 +1,5 @@
 import { DragDropContext, Droppable, DropResult, ResponderProvided } from "react-beautiful-dnd";
-import React, { createRef, RefObject, useEffect } from "react"
+import React, { createRef, RefObject, useEffect, useState } from "react"
 import { compareTwoStrings } from "string-similarity";
 import DraggableGame from "./DraggableGame";
 import Game from "./Game";
@@ -97,11 +97,29 @@ export default function GamesList(props: {
 
 // do not re-render if the games list reference has not changed
 const InnerList = React.memo(function InnerList(props: { games: Game[], commonAppIds: number[], onlyCommonGames: boolean }) {
+  const [highlightDnd, setHighlightDnd] = useState(false);
+
+  // Increases brightness of dnd icon for a few seconds after first render
+  useEffect(() => {
+    const timeoutStart = setTimeout(() => {
+      setHighlightDnd(true);
+    }, 1000);
+
+    const timeoutEnd = setTimeout(() => {
+      setHighlightDnd(false);
+    }, 6000);
+
+    return () => {
+      clearTimeout(timeoutStart);
+      clearTimeout(timeoutEnd);
+    }
+  }, []);
+
   const list = props.games.map((game: Game, index: number) => {
     if (!props.onlyCommonGames || props.commonAppIds.includes(game.appid)) {
-      return <DraggableGame key={game.appid} game={game} index={index} />
+      return <DraggableGame key={game.appid} game={game} index={index} DnDHighlight={highlightDnd} />
     } else {
-      return <DraggableGame key={game.appid} game={game} index={index} className="d-none" />
+      return <DraggableGame key={game.appid} game={game} index={index} className="d-none" DnDHighlight={highlightDnd} />
     }
   })
   return <>{list}</>

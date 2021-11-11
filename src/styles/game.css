@@ -67,3 +67,11 @@
 	border-radius: 0 5px 5px 0;
 	padding-right: 14px;
 }
+
+.game .dnd-icon img {
+	transition: filter 2s ease-in-out;
+}
+
+.game .dnd-icon img.highlight {
+	filter: brightness(1.75);
+}
