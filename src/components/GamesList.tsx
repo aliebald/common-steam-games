@@ -60,7 +60,7 @@ export default function GamesList(props: {
       const pos = getDepthForGame(index);
       dndListRef.current.scrollTo({ top: pos, behavior: "smooth" });
     }
-  }, [dndListRef, props.games, props.gameSearch, props.commonAppIds])
+  }, [dndListRef, props.games, props.gameSearch, props.commonAppIds, props.onlyCommonGames])
 
   // Return games as drag & drop list
   if (props.droppableId && props.onDragEnd) {
