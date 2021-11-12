@@ -1,5 +1,6 @@
 import React from "react"
 import Button from "./Button"
+import SearchBar from "./SearchBar";
 import "../styles/headers.css"
 
 export default function UserHeader(props: {
@@ -14,15 +15,15 @@ export default function UserHeader(props: {
     && typeof props.onSortByTotal !== "undefined"
     && typeof props.onSortByLastTwoWeeks !== "undefined";
 
-  const handleSearchInput = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleSearchInput = (query: string) => {
     if (typeof props.onSearch !== "undefined") {
-      props.onSearch(event.target.value);
+      props.onSearch(query);
     }
   }
 
   const subheader = (
     <div className="sub-header">
-      <input type="text"
+      <SearchBar
         placeholder="Search Game"
         onChange={handleSearchInput}
         title="Search for a game in your games"

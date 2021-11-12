@@ -1,10 +1,11 @@
 import React, { RefObject, useEffect, useState } from "react"
-import { Socket } from "socket.io-client";
-import Friend from "./Friend";
-import Loading from "./Loading";
 import { compareTwoStrings } from "string-similarity";
-import "../styles/friendslist.css"
+import { Socket } from "socket.io-client";
+import SearchBar from "./SearchBar";
+import Loading from "./Loading";
+import Friend from "./Friend";
 import Button from "./Button";
+import "../styles/friendslist.css"
 
 export default function FriendsList(props: {
   socket: Socket,
@@ -60,10 +61,11 @@ export default function FriendsList(props: {
     }
   }, [filter, friends, props.sessionId])
 
-  const handleFilterChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(event.target.value);
-    setFilter(event.target.value);
-    if (listRef.current) listRef.current.scrollTo({ top: 0, behavior: 'smooth' });
+  const handleSearch = (query: string) => {
+    setFilter(query);
+    if (listRef.current) {
+      listRef.current.scrollTo({ top: 0, behavior: 'smooth' });
+    }
   }
 
   return (
@@ -71,7 +73,7 @@ export default function FriendsList(props: {
       <div className="blur-bg" onClick={props.closeFriendsList}></div>
       <div className="friends">
         <div className="friendslist-header">
-          <input className="friend-search" type="text" onChange={handleFilterChange} placeholder="Search Friends" />
+          <SearchBar className="friend-search" onChange={handleSearch} placeholder="Search Friends" />
           <Button onClick={props.closeFriendsList} danger>&nbsp;Close&nbsp;Friends&nbsp;</Button>
         </div>
         <div className="list" ref={listRef}>

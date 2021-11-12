@@ -1,0 +1,41 @@
+form.search-bar-form {
+	position: relative;
+	width: 100%;
+}
+
+form.search-bar-form input {
+	width: 100%;
+	padding-right: 30px;
+	box-sizing: border-box;
+}
+
+form.search-bar-form input:placeholder-shown+button {
+	opacity: 0;
+	pointer-events: none;
+}
+
+form.search-bar-form button {
+	opacity: 1;
+	position: absolute;
+	display: block;
+	width: 20px;
+	height: 20px;
+	line-height: 18.5px;
+	font-size: 20px;
+	border-radius: 50%;
+	top: 0;
+	bottom: 0;
+	right: 6px;
+	margin: auto;
+	padding: 0;
+	outline: none;
+	cursor: pointer;
+	color: var(--main-color-3);
+	background: transparent;
+	border: 1px solid var(--main-color-3);
+	transition: transform .5s ease, opacity .3s ease;
+}
+
+form.search-bar-form button:hover {
+	transform: rotate(90deg);
+}
