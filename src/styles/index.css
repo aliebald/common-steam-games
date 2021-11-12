@@ -11,13 +11,13 @@
 @font-face {
   font-family: SpaceGrotesk;
   font-weight: 300;
-  src: url(./../fonts/SpaceGrotesk-Light.otf);
+  src: url(./../static/fonts/SpaceGrotesk-Light.otf);
 }
 
 @font-face {
   font-family: SpaceGrotesk;
   font-weight: 700;
-  src: url(./../fonts/SpaceGrotesk-Bold.otf);
+  src: url(./../static/fonts/SpaceGrotesk-Bold.otf);
 }
 
 body {
