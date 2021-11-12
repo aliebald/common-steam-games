@@ -23,6 +23,20 @@ export default function Game(props: {
     playtimeText = playtime2weeks > 0 ? `Playtime: ${playtime}h / ${playtime2weeks}h` : `Playtime: ${playtime}h`
   }
 
+  let icon: JSX.Element;
+  const hasImage = props.game.img_icon_url.length > 0
+  if (hasImage) {
+    icon = <img
+      src={getImage(props.game.appid, props.game.img_icon_url)}
+      width="32"
+      height="32"
+      alt="icon"
+      loading="lazy"
+    />
+  } else {
+    icon = <div className="no-icon"><span>?</span></div>
+  }
+
   return (
     <div className="game">
       <a
@@ -31,14 +45,9 @@ export default function Game(props: {
         title={`${props.game.name} steam page`}
         target="_blank"
         rel="noopener noreferrer"
+        style={hasImage ? {} : { textDecoration: "none" }}
       >
-        <img
-          src={getImage(props.game.appid, props.game.img_icon_url)}
-          width="32"
-          height="32"
-          alt="icon"
-          loading="lazy"
-        />
+        {icon}
       </a>
       <div className={isMatchedGame || props.isDnD ? "game-info no-br" : "game-info"}>
         <div className="title">{props.game.name}</div>
@@ -75,8 +84,6 @@ function Owners(props: { owners: User[], gameTitle: string }) {
     </>
   );
 }
-
-
 
 function getImage(appid: number | string, hash: number | string): string {
   return `https://media.steampowered.com/steamcommunity/public/images/apps/${appid}/${hash}.jpg`;

@@ -29,8 +29,24 @@
 	padding-right: 2px;
 }
 
-.game .img-link img {
+.game .img-link img, .game .no-icon {
 	border-radius: 5px;
+}
+
+.game .no-icon {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: var(--main-color-0);
+	background: var(--main-color-3);
+	width: 30px;
+	height: 30px;
+}
+
+.game .no-icon span {
+	font-size: 20px;
+	font-weight: bold;
+	border-bottom: 0;
 }
 
 .game .title {
