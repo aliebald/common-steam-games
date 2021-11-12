@@ -8,11 +8,17 @@ export default function SearchBar(props: {
   placeholder?: string
 }) {
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    event.preventDefault();
     props.onChange(event.target.value);
   }
 
+  const handleSubmit = (event: any) => {
+    event.preventDefault();
+    props.onChange(event.target[0].value);
+  }
+
   return (
-    <form className={`search-bar-form ${props.className ?? ""}`}>
+    <form className={`search-bar-form ${props.className ?? ""}`} onSubmit={handleSubmit}>
       <input type="text"
         onChange={handleChange}
         placeholder={props.placeholder}
