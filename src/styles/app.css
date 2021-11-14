@@ -68,25 +68,6 @@ a {
   background-size: cover;
 }
 
-.container {
-  display: flex;
-  justify-content: space-evenly;
-  align-content: flex-start;
-}
-
-.container .col {
-  width: 33%;
-  margin: 0 .5rem auto .5rem;
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  max-height: 85vh;
-}
-
-.col.mb-0 {
-  margin-bottom: 0;
-}
-
 .games-list {
   display: flex;
   flex-direction: column;
@@ -228,10 +209,9 @@ input[type=text]:focus {
   background-color: rgb(190, 25, 25);
 }
 
-/* input.btn[type="submit"] {
-  border-color: red;
-} 
-*/
+.peers {
+  margin-bottom: 0 !important;
+}
 
 .collapsible {
   display: flex;
@@ -249,7 +229,7 @@ input[type=text]:focus {
   transition: background-color .2s;
 }
 
-.active, .collapsible:hover {
+.collapsible:hover {
   background-color: #555;
 }
 

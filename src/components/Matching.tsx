@@ -10,6 +10,7 @@ import UserHeader from "./UserHeader";
 import GroupHeader from "./GroupHeader";
 import FriendsList from "./FriendsList";
 import Settings from "./Settings";
+import Container from "./Container";
 
 function initiateSocket(steamId: string, sessionId?: string) {
   let query;
@@ -246,7 +247,7 @@ function Matching(props: {
         <h1 className="title">Common Steam Games</h1>
         <Settings settings={settings} setSettings={updateSettings} />
       </header>
-      <div className="container">
+      <Container titles={["Your Preferences", "Group Preferences", "Peers Preferences"]}>
         <GamesList
           games={self.preferences ?? []}
           onlyCommonGames={settings.onlyCommonGames}
@@ -263,16 +264,14 @@ function Matching(props: {
               onSortByLastTwoWeeks={() => sortPreferences("recent")}
             />
           }
-          className="col"
         />
         <GamesList
           games={matchedGames}
           onlyCommonGames={settings.onlyCommonGames}
           commonAppIds={commonAppIds}
           header={<GroupHeader title="Group Preferences" gamesCount={matchedGames.length} commonGames={settings.onlyCommonGames} />}
-          className="col"
         />
-        <div className="col mb-0">
+        <div className="peers">
           <Invite sessionId={sessionId} className="no-br-bottom" openFriendsList={() => setShowFriendslist(true)} />
           {users.map((user, index) =>
             <Collapsible
@@ -290,7 +289,7 @@ function Matching(props: {
             </Collapsible>
           )}
         </div>
-      </div>
+      </Container>
     </>
   );
 }

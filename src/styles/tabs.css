@@ -1,0 +1,37 @@
+ul.tabs {
+	list-style: none;
+	padding: 0;
+	margin: .5rem;
+	display: flex;
+	justify-content: flex-end;
+}
+
+ul.tabs li.tabs-item {
+	margin: 5px 0 5px 0;
+	white-space: nowrap;
+}
+
+ul.tabs li.tabs-item:nth-child(2) {
+	margin-left: 10px;
+	margin-right: 10px;
+}
+
+ul.tabs li.tabs-item.active button {
+	background-color: var(--main-color-3);
+}
+
+@media only screen and (max-width: 750px) {
+	ul.tabs {
+		justify-content: space-around;
+	}
+	ul.tabs li.tabs-item:nth-child(2) {
+		margin-left: 5px;
+		margin-right: 5px;
+	}
+}
+
+@media only screen and (max-width: 550px) {
+	ul.tabs {
+		justify-content: space-between;
+	}
+}
