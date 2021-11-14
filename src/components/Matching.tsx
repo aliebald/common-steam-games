@@ -77,6 +77,7 @@ function Matching(props: {
         return;
       }
 
+      sessionStorage.setItem("sessionId", session.sessionId);
       setSessionId(session.sessionId);
       setSelf(newSelf);
       setUsers(newUsers);
