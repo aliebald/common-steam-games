@@ -247,7 +247,10 @@ function Matching(props: {
         <h1 className="title">Common Steam Games</h1>
         <Settings settings={settings} setSettings={updateSettings} />
       </header>
-      <Container titles={["Your Preferences", "Group Preferences", "Peers Preferences"]}>
+      <Container
+        titles={["Your Preferences", "Group Preferences", "Peers Preferences"]}
+        minTitles={["You", "Group", "Peers"]}
+      >
         <GamesList
           games={self.preferences ?? []}
           onlyCommonGames={settings.onlyCommonGames}

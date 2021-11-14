@@ -29,9 +29,3 @@ ul.tabs li.tabs-item.active button {
 		margin-right: 5px;
 	}
 }
-
-@media only screen and (max-width: 550px) {
-	ul.tabs {
-		justify-content: space-between;
-	}
-}
