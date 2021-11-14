@@ -33,9 +33,11 @@ form.search-bar-form button {
 	color: var(--main-color-3);
 	background: transparent;
 	border: 1px solid var(--main-color-3);
-	transition: transform .5s ease, opacity .3s ease;
+	transition: transform .5s ease, opacity .3s ease, color .5s ease, border-color .5s ease;
 }
 
 form.search-bar-form button:hover {
 	transform: rotate(90deg);
+	color: var(--main-color-0);
+	border-color: var(--main-color-0);
 }
