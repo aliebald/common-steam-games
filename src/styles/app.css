@@ -189,7 +189,6 @@ input[type=text]:focus {
 
 .btn {
   text-align: center;
-  vertical-align: middle;
   background-color: var(--main-color-2);
   border-radius: .25rem;
   color: var(--main-text-color);

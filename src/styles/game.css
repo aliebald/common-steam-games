@@ -69,7 +69,6 @@
 
 .game .match-info .weight {
 	color: var(--text-color-gray);
-	bottom: 0;
 }
 
 .owner {
