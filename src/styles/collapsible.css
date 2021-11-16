@@ -1,0 +1,49 @@
+.collapsible {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	background-color: var(--main-color-3);
+	color: var(--main-text-color);
+	cursor: pointer;
+	width: 100%;
+	border: none;
+	text-align: left;
+	outline: none;
+	padding-right: 20px;
+	transition: background-color .2s;
+}
+
+.collapsible:hover {
+	background-color: #555;
+}
+
+/* =====
+  Arrow
+======== */
+
+.arrow-down, .arrow-up {
+	display: flex;
+}
+
+.arrow-l, .arrow-r {
+	width: 20px;
+	height: 3px;
+	background-color: var(--main-color-0);
+	transition-duration: .2s;
+}
+
+.arrow-l {
+	margin-right: -4px;
+}
+
+.arrow-r {
+	margin-left: -4px;
+}
+
+.arrow-down .arrow-l, .arrow-up .arrow-r {
+	transform: rotate(45deg);
+}
+
+.arrow-down .arrow-r, .arrow-up .arrow-l {
+	transform: rotate(-45deg);
+}

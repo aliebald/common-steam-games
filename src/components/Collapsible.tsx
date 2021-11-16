@@ -1,9 +1,10 @@
-import React, { useState } from 'react'
+import React, { useState } from "react"
+import "./../styles/collapsible.css"
 
 export default function Collapsible(props: {
   header?: string | JSX.Element,
   title?: string,
-  children?: JSX.Element
+  children: JSX.Element
 }) {
   const [collapsed, setCollapsed] = useState(true);
   const [hideContent, setHideContent] = useState(true);
@@ -27,7 +28,6 @@ export default function Collapsible(props: {
     setCollapsed(!collapsed);
   }
 
-  const content = props.children ?? "No Content";
   return (
     <>
       <button type="button"
@@ -36,10 +36,13 @@ export default function Collapsible(props: {
         title={props.title}
       >
         {props.header ?? "Open"}
-        <i className={collapsed ? "arrow-down" : "arrow-up"}></i>
+        <div className={collapsed ? "arrow-down" : "arrow-up"}>
+          <div className="arrow-l"></div>
+          <div className="arrow-r"></div>
+        </div>
       </button>
       <div className={`content ${collapsed ? "content-collapsed" : ""}`}>
-        {hideContent ? <></> : content}
+        {hideContent ? <></> : props.children}
       </div>
     </>
   )
