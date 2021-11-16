@@ -11,6 +11,7 @@ import GroupHeader from "./GroupHeader";
 import FriendsList from "./FriendsList";
 import Settings from "./Settings";
 import Container from "./Container";
+import { useMediaQuery } from "react-responsive";
 
 function initiateSocket(steamId: string, sessionId?: string) {
   let query;
@@ -43,6 +44,7 @@ function Matching(props: {
   const [gameSearch, setGameSearch] = useState("");
 
   const history = useHistory();
+  const showFullName = useMediaQuery({ query: '(min-width: 530px)' });
 
   /** updates settings (state) and sends updateSettings event to backend */
   const updateSettings = (settings: Settings) => {
@@ -240,12 +242,11 @@ function Matching(props: {
   if (!self.preferences) {
     return <Loading className="v-centered" center />
   }
-
   return (
     <>
       {showFriendslist && socket ? <FriendsList socket={socket} sessionId={sessionId} closeFriendsList={() => setShowFriendslist(false)} /> : ""}
       <header className="app-header">
-        <h1 className="title">Common Steam Games</h1>
+        <h1 className="title">{showFullName ? "Common Steam Games" : "C.S.G."}</h1>
         <Settings settings={settings} setSettings={updateSettings} />
       </header>
       <Container

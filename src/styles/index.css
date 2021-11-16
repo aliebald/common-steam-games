@@ -54,7 +54,7 @@ h3 {
   font-size: min(calc(14px + .5vmin), 18px);
 }
 
-div, p, span {
+body {
   font-size: min(calc(13px + .35vmin), 16px);
 }
 

@@ -32,15 +32,15 @@
 .app-header {
   display: flex;
   justify-content: space-between;
-  flex-wrap: wrap;
   align-items: center;
+  overflow-x: hidden;
 }
 
 .app-header .settings {
   margin-left: auto;
 }
 
-.app-header h1.title {
+.app-header .title {
   padding-left: 10px;
   margin: .5em 0;
 }

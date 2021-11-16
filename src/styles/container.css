@@ -10,17 +10,16 @@
 	display: flex;
 	flex-direction: column;
 	align-items: stretch;
-	max-height: 85vh;
+	max-height: calc(100vh - 110px);
+}
+
+.container-tabs>div, .container-tabs>div.peers {
+	height: calc(100vh - 150px);
 }
 
 .container-tabs>div {
-	max-height: 80vh;
 	margin: 0 .5rem auto .5rem;
 	display: flex;
 	flex-direction: column;
 	align-items: stretch;
-}
-
-.container-tabs>div.peers {
-	height: 80vh;
 }
