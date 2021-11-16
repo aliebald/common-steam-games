@@ -6,6 +6,7 @@
 
 .invite-box .invite-row {
 	display: flex;
+	margin-top: .2rem;
 }
 
 .invite-box .invite-row input {
