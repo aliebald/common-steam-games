@@ -39,7 +39,6 @@ export default function App(this: any) {
     setJoinSessionId(sessionId);
   }
 
-  const switchToJoinPage = joinSessionId && window.location.pathname !== `${packageJSON.subUrl}/join`;
   const matching = steamId ? <Matching steamId={steamId} sessionId={joinSessionId} addError={addError} /> : <Redirect to="/" />
 
   return (
@@ -55,7 +54,7 @@ export default function App(this: any) {
               <JoinSession onSubmit={joinSession} sessionId={joinSessionId} steamId={steamId} />}
           </Route>
           <Route path="/create" exact>
-            {switchToJoinPage ? <Redirect to="/join" /> : <CreateSession onSubmit={createNewSession} steamId={steamId} />}
+            <CreateSession onSubmit={createNewSession} steamId={steamId} />
           </Route>
           <Route path="/" exact>
             <Redirect to="/create" />
