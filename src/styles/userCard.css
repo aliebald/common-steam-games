@@ -19,3 +19,8 @@
 .user-card .user-details h3 {
 	margin: 0;
 }
+
+.user-card .user-details .realname {
+	font-size: var(--font-size-small);
+	font-style: italic;
+}

@@ -49,12 +49,8 @@
 	border-bottom: 0;
 }
 
-.game .title {
-	font-size: medium;
-}
-
 .game .game-info .playtime {
-	font-size: small;
+	font-size: var(--font-size-small);
 }
 
 .game .match-info {
@@ -64,11 +60,11 @@
 	align-items: flex-end;
 	border-radius: 0 5px 5px 0;
 	padding-right: 8px;
-	font-size: small;
 }
 
 .game .match-info .weight {
 	color: var(--text-color-gray);
+	font-size: var(--font-size-small);
 }
 
 .owner {

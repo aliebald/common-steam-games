@@ -17,7 +17,7 @@ export default function UserCard(props: {
       </a>
       <div className="user-details">
         <h3>{props.user.personaname}</h3>
-        <span><em>{props.user.realname}</em></span>
+        <span className="realname">{props.user.realname}</span>
         <br />
       </div>
       <Button onClick={openSteamChat}>

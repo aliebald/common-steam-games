@@ -1,15 +1,3 @@
-h1 {
-  font-size: calc(15px + 2vmin);
-}
-
-h2 {
-  font-size: calc(10px + 1.2vmin);
-}
-
-a {
-  color: #61dafb;
-}
-
 ::-webkit-scrollbar {
   width: 8px;
 }
@@ -132,7 +120,7 @@ a {
   border: 1px solid var(--main-color-2);
   background-color: var(--main-color-3);
   color: var(--main-text-color);
-  font-size: 13px;
+  font-size: var(--font-size-x-small);
   border-radius: 0.25rem 0 0 0.25rem;
 }
 
@@ -226,7 +214,6 @@ input[type=text]:focus {
   border: none;
   text-align: left;
   outline: none;
-  font-size: 15px;
   padding-right: 20px;
   transition: background-color .2s;
 }
