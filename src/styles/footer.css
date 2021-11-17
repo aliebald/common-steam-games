@@ -55,22 +55,20 @@
 	transform: scale(1.1);
 }
 
-/* ================================================
-Scale down footer icons for small screens 
-================================================ */
-
 @media only screen and (max-width: 460px) {
-	.footer .contact {
-		width: 18px;
-		height: 18px;
+	.footer {
+		flex-direction: column-reverse;
 	}
-	.footer .github {
-		width: 16px;
-		height: 16px;
+	.footer .impressum {
+		padding-bottom: 1px;
 	}
-}
-
-@media only screen and (max-width: 400px) {
+	.footer .f-left {
+		text-align: center;
+		padding-bottom: 2px;
+	}
+	.footer .f-right {
+		height: 21.5px;
+	}
 	.footer .contact {
 		width: 17px;
 		height: 17px;
