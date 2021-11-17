@@ -37,6 +37,8 @@ export default function Game(props: {
     icon = <div className="no-icon"><span>?</span></div>
   }
 
+  const optionalAProps = props.isDnD ? { tabIndex: -1 } : {};
+
   return (
     <div className="game">
       <a
@@ -46,6 +48,7 @@ export default function Game(props: {
         target="_blank"
         rel="noopener noreferrer"
         style={hasImage ? {} : { textDecoration: "none" }}
+        {...optionalAProps}
       >
         {icon}
       </a>
