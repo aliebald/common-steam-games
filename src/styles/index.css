@@ -9,7 +9,7 @@
   --main-color-3: #777;
   --main-text-color: #fff;
   --text-color-gray: #7e7e7e;
-  --content-width: max(30vw, 500px);
+  --content-width: clamp(30vw, 500px, 100vw);
   --font-size-small: min(calc(10px + .6vmin), 14px);
   --font-size-x-small: min(calc(9.5px + .4vmin), 13px);
 }

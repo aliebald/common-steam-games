@@ -31,7 +31,7 @@ export default function Friend(props: {
         </a>
         <div className="friend-personal">
           <div>{friend.personaname ?? ""}</div>
-          <div>{friend.realname ? <span>(<em>{friend.realname}</em>)</span> : ""}</div>
+          {friend.realname ? <div className="realname">{friend.realname}</div> : ""}
         </div>
       </div>
       <div className="buttons">
