@@ -5,10 +5,14 @@
 	justify-content: center;
 }
 
-.error-popup {
-	margin: 1rem;
-	padding: .3rem .3rem;
+.error-popup-list>div {
 	width: var(--content-width);
+	padding: .3rem;
+}
+
+.error-popup {
+	padding: .3rem .3rem;
+	margin: .7rem 0;
 	background-color: rgb(199, 0, 0);
 	border-radius: 5px;
 	display: flex;
