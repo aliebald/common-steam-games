@@ -10,6 +10,7 @@ import "../styles/friendslist.css"
 export default function FriendsList(props: {
   socket: Socket,
   sessionId: string,
+  steamId: string,
   closeFriendsList: () => void;
 }) {
   const [friends, setFriends] = useState<Friend[]>([]);
@@ -18,17 +19,39 @@ export default function FriendsList(props: {
   const listRef: RefObject<HTMLDivElement> = React.createRef();
 
   useEffect(() => {
+    const cacheFriendsList = (friends: Friend[]) => {
+      sessionStorage.setItem("friends", JSON.stringify({
+        friends: friends,
+        steamId: props.steamId
+      }));
+    }
+
+    const loadFriendsList = () => {
+      const cached = sessionStorage.getItem("friends");
+      if (typeof cached === "string") {
+        const parsed = JSON.parse(cached);
+        if (parsed.steamId === props.steamId) {
+          setFriends(parsed.friends as Friend[]);
+          return;
+        }
+      }
+      // request from server if not cached
+      props.socket.emit("getFriendsList");
+    }
+
     // set listener and request data
     props.socket.on("friendsList", (msg: any) => {
       console.log("friendsList", msg);
+      cacheFriendsList(msg as Friend[]);
       setFriends(msg as Friend[]);
     });
-    props.socket.emit("getFriendsList");
+
+    loadFriendsList();
 
     return () => {
-      props.socket.removeAllListeners("friendslist");
+      props.socket.removeAllListeners("friendsList");
     }
-  }, [props.socket])
+  }, [props.socket, props.steamId])
 
   // Updates Friendslist when friends are loaded or the search is used
   useEffect(() => {

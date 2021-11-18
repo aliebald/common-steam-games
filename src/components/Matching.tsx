@@ -249,7 +249,12 @@ function Matching(props: {
   return (
     <>
       <Modal visible={showFriendslist && typeof socket !== "undefined"} setVisible={setShowFriendslist}>
-        <FriendsList socket={socket!} sessionId={sessionId} closeFriendsList={() => setShowFriendslist(false)} />
+        <FriendsList
+          socket={socket!}
+          sessionId={sessionId}
+          closeFriendsList={() => setShowFriendslist(false)}
+          steamId={self.steamId}
+        />
       </Modal>
       <Confirmation
         visible={showLeaveModal}
