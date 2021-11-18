@@ -10,6 +10,10 @@ export default function Collapsible(props: {
   const [hideContent, setHideContent] = useState(true);
   const [lastTimeout, setLastTimeout] = useState<NodeJS.Timeout | undefined>(undefined);
 
+  /* This component uses css transition to animate opening and closing.
+   * To remove the content after closing, we need to wait until the transition is finished.
+   * This is handled by "toggle"
+   */
   const toggle = () => {
     // Abort last timeout to avoid setting hideContent true,
     // if the content was collapsed and opened again immediately 
@@ -31,7 +35,7 @@ export default function Collapsible(props: {
   return (
     <>
       <button type="button"
-        className="collapsible"
+        className={`collapsible${hideContent ? " collapsed" : ""}`}
         onClick={toggle}
         title={props.title}
       >

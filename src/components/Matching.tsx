@@ -297,7 +297,10 @@ function Matching(props: {
           header={<GroupHeader title="Group Preferences" gamesCount={matchedGames.length} commonGames={settings.onlyCommonGames} />}
         />
         <div className="peers">
-          <Invite sessionId={sessionId} className="no-br-bottom" openFriendsList={() => setShowFriendslist(true)} />
+          <Invite sessionId={sessionId}
+            className={users.length > 0 ? "no-br-bottom" : ""}
+            openFriendsList={() => setShowFriendslist(true)}
+          />
           {users.map((user, index) =>
             <Collapsible
               header={<UserHeader title={`${user.personaname}'s preferences`} user={user} className="no-br no-bg" />}

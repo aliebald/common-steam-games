@@ -204,6 +204,11 @@ input[type=text]:focus {
   margin-bottom: 0 !important;
 }
 
+.peers>div:last-child,
+.peers .collapsed:last-of-type {
+  border-radius: 0 0 5px 5px;
+}
+
 .content {
   overflow-y: scroll;
   height: 100%;
