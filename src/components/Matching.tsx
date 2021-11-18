@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { DropResult } from "react-beautiful-dnd";
 import { io, Socket } from "socket.io-client";
 import { useHistory } from "react-router";
+import { useMediaQuery } from "react-responsive";
 import Collapsible from "./Collapsible";
 import GamesList from "./GamesList";
 import Invite from "./Invite";
@@ -11,7 +12,7 @@ import GroupHeader from "./GroupHeader";
 import FriendsList from "./FriendsList";
 import Settings from "./Settings";
 import Container from "./Container";
-import { useMediaQuery } from "react-responsive";
+import Confirmation from "./Confirmation";
 import Modal from "./Modal";
 
 function initiateSocket(steamId: string, sessionId?: string) {
@@ -40,6 +41,7 @@ function Matching(props: {
   const [preferencesChanged, setPreferencesChanged] = useState(false);
   const [socket, setSocket] = useState<Socket | undefined>(undefined);
   const [showFriendslist, setShowFriendslist] = useState<boolean>(false);
+  const [showLeaveModal, setShowLeaveModal] = useState<boolean>(false);
   const [settings, setSettings] = useState<Settings>({ onlyCommonGames: true });
   const [commonAppIds, setCommonAppIds] = useState<number[]>([]);
   const [gameSearch, setGameSearch] = useState("");
@@ -249,8 +251,17 @@ function Matching(props: {
       <Modal visible={showFriendslist && typeof socket !== "undefined"} setVisible={setShowFriendslist}>
         <FriendsList socket={socket!} sessionId={sessionId} closeFriendsList={() => setShowFriendslist(false)} />
       </Modal>
+      <Confirmation
+        visible={showLeaveModal}
+        onAbort={() => setShowLeaveModal(false)}
+        onConfirm={() => history.push("/create")}
+        text="Do you really want to leave this session?"
+        confirmText="Leave Session"
+      />
       <header className="app-header">
-        <h1 className="title">{showFullName ? "Common Steam Games" : "C.S.G."}</h1>
+        <h1 className="title" onClick={() => setShowLeaveModal(true)}>
+          {showFullName ? "Common Steam Games" : "C.S.G."}
+        </h1>
         <Settings settings={settings} setSettings={updateSettings} />
       </header>
       <Container

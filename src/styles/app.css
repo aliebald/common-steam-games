@@ -43,6 +43,7 @@
 .app-header .title {
   padding-left: 10px;
   margin: .5em 0;
+  cursor: pointer;
 }
 
 .app {

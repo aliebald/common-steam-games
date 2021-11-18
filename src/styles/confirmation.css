@@ -1,0 +1,21 @@
+.confirmation {
+	max-width: var(--content-width);
+	background-color: var(--main-color-2);
+	border: 2px solid var(--main-color-1);
+	border-radius: 5px;
+}
+
+.confirmation .text {
+	text-align: center;
+	padding: .7rem;
+}
+
+.confirmation .confirmation-footer {
+	background-color: var(--main-color-1);
+	text-align: right;
+	padding: .5rem .7rem;
+}
+
+.confirmation .confirmation-footer :first-child {
+	margin-right: 5px;
+}
