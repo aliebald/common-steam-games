@@ -2,7 +2,6 @@
 	width: var(--content-width);
 	background-color: var(--main-color-2);
 	border-radius: 5px;
-	z-index: 30;
 	margin: .5rem .5rem calc(.5rem + 20px) .5rem;
 }
 
