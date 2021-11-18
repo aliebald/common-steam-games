@@ -69,16 +69,13 @@ export default function FriendsList(props: {
   }
 
   return (
-    <div className="friendslist">
-      <div className="blur-bg" onClick={props.closeFriendsList}></div>
-      <div className="friends">
-        <div className="friendslist-header">
-          <SearchBar className="friend-search" onChange={handleSearch} placeholder="Search Friends" />
-          <Button onClick={props.closeFriendsList} danger>&nbsp;Close&nbsp;Friends&nbsp;</Button>
-        </div>
-        <div className="list" ref={listRef}>
-          {friends.length === 0 ? <Loading center /> : list}
-        </div>
+    <div className="friends">
+      <div className="friendslist-header">
+        <SearchBar className="friend-search" onChange={handleSearch} placeholder="Search Friends" />
+        <Button onClick={props.closeFriendsList} danger>&nbsp;Close&nbsp;Friends&nbsp;</Button>
+      </div>
+      <div className="list" ref={listRef}>
+        {friends.length === 0 ? <Loading center /> : list}
       </div>
     </div>
   )

@@ -12,6 +12,7 @@ import FriendsList from "./FriendsList";
 import Settings from "./Settings";
 import Container from "./Container";
 import { useMediaQuery } from "react-responsive";
+import Modal from "./Modal";
 
 function initiateSocket(steamId: string, sessionId?: string) {
   let query;
@@ -242,9 +243,12 @@ function Matching(props: {
   if (!self.preferences) {
     return <Loading className="v-centered" center />
   }
+
   return (
     <>
-      {showFriendslist && socket ? <FriendsList socket={socket} sessionId={sessionId} closeFriendsList={() => setShowFriendslist(false)} /> : ""}
+      <Modal visible={showFriendslist && typeof socket !== "undefined"} setVisible={setShowFriendslist}>
+        <FriendsList socket={socket!} sessionId={sessionId} closeFriendsList={() => setShowFriendslist(false)} />
+      </Modal>
       <header className="app-header">
         <h1 className="title">{showFullName ? "Common Steam Games" : "C.S.G."}</h1>
         <Settings settings={settings} setSettings={updateSettings} />
