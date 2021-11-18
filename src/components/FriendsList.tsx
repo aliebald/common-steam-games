@@ -56,9 +56,9 @@ export default function FriendsList(props: {
   // Updates Friendslist when friends are loaded or the search is used
   useEffect(() => {
     const addSimilarity = (friend: Friend): Friend => {
-      let similarity = compareTwoStrings(friend.personaname, filter);
+      let similarity = compareTwoStrings(friend.personaname.toLowerCase(), filter.toLowerCase());
       if (friend.realname) {
-        similarity += compareTwoStrings(friend.realname, filter);
+        similarity += compareTwoStrings(friend.realname.toLowerCase(), filter.toLowerCase());
         similarity /= 2;
       }
       return { ...friend, filterSimilarity: similarity };
