@@ -123,7 +123,7 @@ const InnerList = React.memo(function InnerList(props: { games: Game[], commonAp
     if (!props.onlyCommonGames || props.commonAppIds.includes(game.appid)) {
       return <DraggableGame key={game.appid} game={game} index={index} DnDHighlight={highlightDnd} />
     } else {
-      return <DraggableGame key={game.appid} game={game} index={index} className="d-none" DnDHighlight={highlightDnd} />
+      return <DraggableGame key={game.appid} game={game} index={index} hide DnDHighlight={highlightDnd} />
     }
   })
   return <>{list}</>

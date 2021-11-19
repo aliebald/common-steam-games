@@ -1,14 +1,15 @@
-import React from 'react'
-import { Draggable } from 'react-beautiful-dnd'
-import Game from './Game'
+import React, { memo } from "react"
+import { Draggable } from "react-beautiful-dnd"
+import Game from "./Game"
 
-
-export default function DraggableGame(props: {
+type DraggableGameProps = {
   game: Game,
   index: number,
-  className?: string,
+  hide?: boolean,
   DnDHighlight?: boolean
-}) {
+}
+
+function DraggableGame(props: DraggableGameProps) {
   return (
     <Draggable draggableId={`${props.game.appid}`} index={props.index}>
       {provided => (
@@ -16,12 +17,27 @@ export default function DraggableGame(props: {
           ref={provided.innerRef}
           {...provided.draggableProps}
           {...provided.dragHandleProps}
-          className={props.className}
         >
-          <Game game={props.game} isDnD DnDHighlight={props.DnDHighlight} />
+          {props.hide ? <></> :
+            <Game
+              game={props.game}
+              isDnD
+              DnDHighlight={props.DnDHighlight}
+            />
+          }
         </div>
       )}
     </Draggable>
 
   )
 }
+
+function areEqual(prevProps: DraggableGameProps, nextProps: DraggableGameProps) {
+  return (prevProps.game.appid === nextProps.game.appid
+    && prevProps.index === nextProps.index
+    && prevProps.hide === nextProps.hide
+    && prevProps.DnDHighlight === nextProps.DnDHighlight
+  );
+}
+
+export default memo(DraggableGame, areEqual);
