@@ -12,6 +12,7 @@ import UnknownPage from "./components/UnknownPage";
 import Matching from "./components/Matching";
 import ErrorList from "./components/ErrorList"
 import packageJSON from "../package.json"
+import About from "./components/About";
 import "./styles/app.css";
 
 export default function App(this: any) {
@@ -56,6 +57,9 @@ export default function App(this: any) {
           <Route path="/create" exact>
             <CreateSession onSubmit={createNewSession} steamId={steamId} />
           </Route>
+          <Route path="/about">
+            <About />
+          </Route>
           <Route path="/" exact>
             <Redirect to="/create" />
           </Route>
@@ -63,8 +67,8 @@ export default function App(this: any) {
             <UnknownPage />
           </Route>
         </Switch>
+        <Footer />
       </Router>
-      <Footer />
       <div className="background" />
     </div>
   )

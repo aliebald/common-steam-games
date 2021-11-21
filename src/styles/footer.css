@@ -28,13 +28,14 @@
 	color: var(--text-color-gray);
 }
 
-.footer .impressum {
-	padding-bottom: 2px;
+.footer .impressum,
+.footer .about {
 	transition: color .2s;
 	font-size: var(--font-size-x-small);
 }
 
-.footer .impressum:hover {
+.footer .impressum:hover,
+.footer .about:hover {
 	color: #61dafb;
 }
 
@@ -59,20 +60,25 @@
 	.footer {
 		flex-direction: column-reverse;
 	}
+
 	.footer .impressum {
 		padding-bottom: 1px;
 	}
+
 	.footer .f-left {
 		text-align: center;
 		padding-bottom: 2px;
 	}
+
 	.footer .f-right {
 		height: 21.5px;
 	}
+
 	.footer .contact {
 		width: 17px;
 		height: 17px;
 	}
+
 	.footer .github {
 		width: 15px;
 		height: 15px;

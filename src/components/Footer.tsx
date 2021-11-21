@@ -1,4 +1,5 @@
 import React from "react"
+import { Link } from "react-router-dom"
 import packageJSON from "../../package.json"
 import toMail from "../security/mail"
 import "../styles/footer.css"
@@ -10,6 +11,9 @@ export default function Footer() {
         This project is not affiliated with Valve or Steam
       </div>
       <div className="f-right">
+        <Link to="about" className="about" >
+          About
+        </Link>
         <a
           className="impressum"
           href="https://aliebald.github.io/impressum/"
