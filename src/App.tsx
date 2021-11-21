@@ -5,13 +5,13 @@ import {
   Route,
   Redirect
 } from "react-router-dom";
-import CreateSession from "./components/CreateSession";
-import Footer from "./components/Footer";
-import JoinSession from "./components/JoinSession";
-import UnknownPage from "./components/UnknownPage";
-import Matching from "./components/Matching";
-import ErrorList from "./components/ErrorList"
-import About from "./components/About";
+import CreateSession from "./pages/createSession/CreateSession";
+import Footer from "./components/footer/Footer";
+import JoinSession from "./pages/joinSession/JoinSession";
+import UnknownPage from "./pages/unknownPage/UnknownPage";
+import Matching from "./pages/matching/Matching";
+import ErrorList from "./components/errorList/ErrorList"
+import About from "./pages/about/About";
 // import packageJSON from "../package.json"
 import "./styles/app.css";
 

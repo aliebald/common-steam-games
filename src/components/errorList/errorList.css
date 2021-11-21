@@ -1,0 +1,12 @@
+.error-popup-list {
+	position: absolute;
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	z-index: 15;
+}
+
+.error-popup-list>div {
+	width: var(--content-width);
+	padding: .3rem;
+}

@@ -1,0 +1,23 @@
+.btn {
+	text-align: center;
+	background-color: var(--main-color-2);
+	border-radius: .25rem;
+	color: var(--main-text-color);
+	border: 1px solid transparent;
+	padding: .375rem .75rem;
+	height: 35px;
+	transition: background-color .2s, transform .1s;
+}
+
+.btn:hover {
+	cursor: pointer;
+	background-color: #56595e;
+}
+
+.btn:active {
+	transform: scale(0.95);
+}
+
+.btn.danger {
+	background-color: rgb(190, 25, 25);
+}

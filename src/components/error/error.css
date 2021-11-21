@@ -1,0 +1,16 @@
+.error-popup {
+	padding: .3rem .3rem;
+	margin: .7rem 0;
+	background-color: rgb(199, 0, 0);
+	border-radius: 5px;
+	display: flex;
+	justify-content: space-between;
+}
+
+.error-close:after {
+	display: inline-block;
+	content: "\00d7";
+	transform: scale(1.5);
+	padding-right: 2px;
+	padding-bottom: 5px;
+}

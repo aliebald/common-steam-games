@@ -1,0 +1,49 @@
+.user-header, .group-header {
+	display: flex;
+	align-items: center;
+	background-color: var(--main-color-3);
+	border-radius: 5px;
+}
+
+.user-header {
+	padding: 7px 7px;
+	align-items: flex-start;
+}
+
+.user-header.has-subheader {
+	border-radius: 5px 5px 0 0;
+	padding-bottom: 4px;
+}
+
+.sub-header {
+	display: flex;
+	align-items: center;
+	background-color: var(--main-color-3);
+	padding: 0 7px 7px 7px;
+	border-radius: 0 0 5px 5px;
+}
+
+.sub-header .btn {
+	margin-left: 4px;
+}
+
+.sub-header input {
+	width: 100%;
+}
+
+.sub-header span {
+	margin-left: auto;
+	padding: 0 4px 0 7px;
+}
+
+@media only screen and (max-width: 400px) {
+
+	/* Moves buttons in new row bellow searchBar */
+	.sub-header {
+		flex-wrap: wrap;
+	}
+
+	.sub-header input {
+		margin-bottom: 7px;
+	}
+}

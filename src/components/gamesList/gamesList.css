@@ -1,0 +1,7 @@
+.games-list {
+	display: flex;
+	flex-direction: column;
+	align-items: stretch;
+	background-color: var(--main-color-2);
+	border-radius: 5px;
+}
