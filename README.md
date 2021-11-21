@@ -1,10 +1,25 @@
-# Common Steam Games
+# About
+## What Is Common Steam Games?
+Common Steam Games is a web application that enables groups of users to discover common games regarding their steam accounts and vote on games to find common preferences.
 
-Common Steam Games allows you and your friends to find games you own on Steam and vote on what to play. 
-Find old classics or games you did not know all of you had in common. 
+## Use Case
+Ever played with a group of friends and could not decide on what to play? Then Common Steam Games is for you!
 
-<br>
+Create a session, invite your friends and instantly see your common games. Sort your preferences using easy to use drag n drop and see the group preferences adopt. Find old classics or games you did not know all of you had in common.
 
-## Getting started
-Beginn by creating a new session [here](https://aliebald.github.io/common-steam-games/create, "Common Steam Games link") using your steam id, invite your friends and rearrange your preferences using drag and drop. Any changes will instantly be synchronized with all other session members. To Invite others, copy the invite link on the top right or open your friendslist, which will load your steam friends and allow you to create personal invites, removing the need to find the steam id for your friends.
+## Requirements
+To allow Common Steam Games to access your steam games, your steam profile and game details must be set to public.
+Optionally: set friends list public to access it in this app.
 
+If any of the above settings are not correct, you will receive an error. You can change your settings under: your profile > edit profile > privacy settings.
+
+## Features
+- Live sessions with your peers
+- Preference matching
+- Games search & drag n drop
+- Steam games & friendslist integration
+- ...
+
+## Contact
+For suggestions, bug reports or other project related topics, feel free to create an issue on [GitHub](https://github.com/aliebald/common-steam-games).
+Otherwise, for general feedback or other inquiries, please contact me via mail: contact.liebald (at) gmail.com.
