@@ -12,8 +12,8 @@
   <title>Common Steam Games</title>
   <script>
     (function () {
-      const redirect = sessionStorage.redirect;
-      sessionStorage.removeItem("redirect");
+      const redirect = sessionStorage.getItem("redirectHash");
+      sessionStorage.removeItem("redirectHash");
       if (redirect && redirect != location.href) {
         history.replaceState(null, null, redirect);
       }

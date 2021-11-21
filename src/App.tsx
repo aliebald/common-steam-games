@@ -1,6 +1,6 @@
 import { useState } from "react";
 import {
-  BrowserRouter as Router,
+  HashRouter as Router,
   Switch,
   Route,
   Redirect
@@ -11,8 +11,8 @@ import JoinSession from "./components/JoinSession";
 import UnknownPage from "./components/UnknownPage";
 import Matching from "./components/Matching";
 import ErrorList from "./components/ErrorList"
-import packageJSON from "../package.json"
 import About from "./components/About";
+// import packageJSON from "../package.json"
 import "./styles/app.css";
 
 export default function App(this: any) {
@@ -45,7 +45,7 @@ export default function App(this: any) {
   return (
     <div className="app">
       <ErrorList errors={errors} setErrors={setErrors} />
-      <Router basename={packageJSON.subUrl}>
+      <Router>{/*basename={packageJSON.subUrl}*/}
         <Switch>
           <Route path="/matching" exact>
             {matching}

@@ -8,7 +8,7 @@ export default function Invite(props: {
   className?: string,
   openFriendsList: () => void;
 }) {
-  const invite = `${window.location.origin}${packageJSON.subUrl}/join?sessionId=${encodeURIComponent(props.sessionId)}`;
+  const invite = `${window.location.origin}${packageJSON.subUrl}/?sessionId=${encodeURIComponent(props.sessionId)}#/join`;
   const copyInvite = () => {
     navigator.clipboard.writeText(invite);
   }

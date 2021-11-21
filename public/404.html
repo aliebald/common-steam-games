@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>redirecting...</title>
     <script>
-        sessionStorage.redirect = location.href;
+        sessionStorage.setItem("redirectHash", location.hash);
     </script>
-    <meta http-equiv="refresh" content="0;URL='/common-steam-games'"></meta>
+    <meta http-equiv="refresh" content="0;URL='/common-steam-games/'"></meta>
 </head>
 <body>
     Loading...
