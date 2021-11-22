@@ -62,6 +62,45 @@ a {
   color: #61dafb;
 }
 
+input[type=text] {
+  height: 35px;
+  box-sizing: border-box;
+  padding: 5px 7px;
+  border: 1px solid var(--main-color-2);
+  border-radius: .25rem;
+  transition: border-color .2s;
+  background-color: #fff;
+  color: var(--main-color-2);
+}
+
+input[type=text]:focus {
+  border-color: #a7c2df;
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgb(0 123 255 / 25%);
+}
+
+/* =========
+  Scrollbar
+============ */
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #dddddd;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #58595e;
+}
+
 /* ======
   Layout
 ========= */

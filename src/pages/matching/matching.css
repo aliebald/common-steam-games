@@ -1,0 +1,25 @@
+.header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	overflow-x: hidden;
+}
+
+.header .settings {
+	margin-left: auto;
+}
+
+.header .title {
+	padding-left: 10px;
+	margin: .5em 0;
+	cursor: pointer;
+}
+
+.peers {
+	margin-bottom: 0 !important;
+}
+
+.peers>div:last-child,
+.peers .collapsed:last-of-type {
+	border-radius: 0 0 5px 5px;
+}

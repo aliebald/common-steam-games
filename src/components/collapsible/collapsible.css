@@ -17,6 +17,20 @@
 	background-color: #555;
 }
 
+.content {
+	overflow-y: scroll;
+	height: 100%;
+	transition: height .5s;
+}
+
+.content.content-collapsed {
+	height: 0;
+}
+
+.content .games-list .scroll-container {
+	overflow-y: initial;
+}
+
 /* =====
   Arrow
 ======== */

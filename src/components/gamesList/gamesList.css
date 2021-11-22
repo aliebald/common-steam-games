@@ -5,3 +5,8 @@
 	background-color: var(--main-color-2);
 	border-radius: 5px;
 }
+
+.scroll-container {
+	height: 100%;
+	overflow-y: scroll;
+}

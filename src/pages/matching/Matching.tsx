@@ -14,6 +14,7 @@ import Settings from "../../components/settings/Settings";
 import Container from "../../components/container/Container";
 import Confirmation from "../../components/confirmation/Confirmation";
 import Modal from "../../components/modal/Modal";
+import "./matching.css"
 
 function initiateSocket(steamId: string, sessionId?: string) {
   let query;
@@ -263,7 +264,7 @@ function Matching(props: {
         text="Do you really want to leave this session?"
         confirmText="Leave Session"
       />
-      <header className="app-header">
+      <header className="header">
         <h1 className="title" onClick={() => setShowLeaveModal(true)}>
           {showFullName ? "Common Steam Games" : "C.S.G."}
         </h1>
