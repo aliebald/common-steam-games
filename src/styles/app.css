@@ -52,8 +52,10 @@
 
 .user-forms {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
   padding-top: 1rem;
+  height: calc(100% - 1rem);
 }
 
 .user-forms .steamId-input {
@@ -85,12 +87,14 @@
 }
 
 .create-session, .join-session {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
   width: var(--content-width);
-  display: block;
   padding: .3rem;
 }
 
-.create-session h2, .join-session h2 {
+.create-session>h2, .join-session>h2 {
   text-align: center;
   margin: 1rem 0;
 }

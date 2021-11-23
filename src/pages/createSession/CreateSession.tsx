@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { Link, useHistory } from 'react-router-dom';
+import AboutTeaser from '../../components/aboutTeaser/AboutTeaser';
 
 export default function CreateSession(props: {
   steamId?: string,
@@ -42,6 +43,7 @@ export default function CreateSession(props: {
         <p className="t-center">
           Or <Link to="/join">join a existing session</Link>
         </p>
+        <AboutTeaser />
       </div>
     </div>
   )

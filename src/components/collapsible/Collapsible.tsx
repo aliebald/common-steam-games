@@ -4,6 +4,7 @@ import "./collapsible.css"
 export default function Collapsible(props: {
   header?: string | JSX.Element,
   title?: string,
+  btnClassName?: string,
   children: JSX.Element
 }) {
   const [collapsed, setCollapsed] = useState(true);
@@ -35,7 +36,7 @@ export default function Collapsible(props: {
   return (
     <>
       <button type="button"
-        className={`collapsible${hideContent ? " collapsed" : ""}`}
+        className={`collapsible${hideContent ? " collapsed" : ""} ${props.btnClassName}`}
         onClick={toggle}
         title={props.title}
       >
