@@ -43,7 +43,7 @@ export default function App(this: any) {
   const matching = steamId ? <Matching steamId={steamId} sessionId={joinSessionId} addError={addError} /> : <Redirect to="/" />
 
   return (
-    <div className="app">
+    <>
       <ErrorList errors={errors} setErrors={setErrors} />
       <Router>{/*basename={packageJSON.subUrl}*/}
         <Switch>
@@ -70,7 +70,7 @@ export default function App(this: any) {
         <Footer />
       </Router>
       <div className="background" />
-    </div>
+    </>
   )
 }
 

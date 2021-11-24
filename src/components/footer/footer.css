@@ -28,14 +28,12 @@
 	color: var(--text-color-gray);
 }
 
-.footer .impressum,
-.footer .about {
+.footer .footer-link {
 	transition: color .2s;
 	font-size: var(--font-size-x-small);
 }
 
-.footer .impressum:hover,
-.footer .about:hover {
+.footer .footer-link:hover {
 	color: #61dafb;
 }
 
@@ -61,7 +59,7 @@
 		flex-direction: column-reverse;
 	}
 
-	.footer .impressum {
+	.footer .footer-link {
 		padding-bottom: 1px;
 	}
 

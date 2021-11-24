@@ -29,3 +29,27 @@
 		height: calc(100vh - 165px);
 	}
 }
+
+/*========================
+  Single column container
+========================== */
+
+.container-single {
+	display: flex;
+	align-items: stretch;
+	justify-content: center;
+	box-sizing: border-box;
+	max-height: calc(100vh - 24px);
+
+	/* align-items: center;
+	flex-direction: column; */
+	overflow-y: auto;
+}
+
+.container-single-inner {
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+
+	width: var(--content-width);
+}

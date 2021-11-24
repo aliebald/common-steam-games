@@ -11,11 +11,11 @@ export default function Footer() {
         This project is not affiliated with Valve or Steam
       </div>
       <div className="f-right">
-        <Link to="about" className="about" >
+        <Link to="about" className="footer-link" >
           About
         </Link>
         <a
-          className="impressum"
+          className="footer-link"
           href="https://aliebald.github.io/impressum/"
           target="_blank"
           rel="noopener noreferrer"

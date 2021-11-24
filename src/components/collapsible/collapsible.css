@@ -20,7 +20,7 @@
 .content {
 	overflow-y: scroll;
 	height: 100%;
-	transition: height .5s;
+	transition: height .5s ease-out;
 }
 
 .content.content-collapsed {

@@ -6,12 +6,13 @@
 	overflow-y: auto;
 }
 
-.about-wrapper .about {
+.about {
+	height: 100%;
 	max-width: var(--content-width);
 	background: var(--main-color-0);
 	border-radius: .5rem;
 	padding: 0 1rem;
-	margin: 1rem 0;
+	margin: 1.5rem 0;
 }
 
 .about>h2 {
@@ -45,7 +46,7 @@
 		height: calc(100vh - 37px);
 	}
 
-	.about-wrapper .about {
+	.about {
 		margin-top: 0;
 		border-radius: 0 0 .5rem .5rem;
 	}

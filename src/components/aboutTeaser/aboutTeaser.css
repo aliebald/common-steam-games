@@ -18,8 +18,9 @@
 .about-teaser-header {
 	text-align: left;
 	border-bottom: 2px solid var(--main-color-3);
-	background-color: transparent;
-	padding: 0 .5rem;
+	border-radius: 5px 5px 0 0;
+	background-color: var(--main-color-1);
+	padding: 0 .3rem;
 	transition: border .15s, color .15s;
 }
 
@@ -42,7 +43,7 @@
 }
 
 .about-teaser-header:hover {
-	background-color: transparent !important;
+	background-color: var(--main-color-1) !important;
 	border-color: var(--main-color-2);
 }
 
@@ -51,5 +52,7 @@
 ========== */
 
 .about-teaser-content {
-	margin: .3rem;
+	padding: .3rem;
+	background: var(--main-color-1);
+	border-radius: 0 0 5px 5px;
 }

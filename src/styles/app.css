@@ -31,7 +31,7 @@
   text-align: center;
 }
 
-.app {
+#root {
   position: absolute;
   height: 100%;
   width: 100%;
@@ -50,29 +50,25 @@
   Create / Join Session Pages
 ============================== */
 
-.user-forms {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding-top: 1rem;
-  height: calc(100% - 1rem);
-}
-
-.user-forms .steamId-input {
+.create-session .steamId-input,
+.join-session .steamId-input {
   display: flex;
 }
 
-.user-forms .input-margin {
+.create-session .input-margin,
+.join-session .input-margin {
   margin: .3rem 0 .85rem 0;
 }
 
-.user-forms .steamId-input input {
+.create-session .steamId-input input,
+.join-session .steamId-input input {
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
   border-left: 0px;
 }
 
-.user-forms .steamId-input span.profile-url {
+.create-session .steamId-input .profile-url,
+.join-session .steamId-input .profile-url {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -90,16 +86,29 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  width: var(--content-width);
   padding: .3rem;
 }
 
-.create-session>h2, .join-session>h2 {
+.create-session .title,
+.join-session .title {
   text-align: center;
-  margin: 1rem 0;
+  margin: .75rem 0;
 }
 
-.join-session input, .join-session label, .create-session input, .create-session label {
+.create-session .subtitle,
+.join-session .subtitle {
+  margin: 1rem 0 1.5rem 0;
+  padding: .3rem;
+  border-bottom: 2px solid var(--main-color-3);
+}
+
+.create-session form,
+.join-session form {
+  padding: 0 .3rem;
+}
+
+.join-session input, .join-session label,
+.create-session input, .create-session label {
   width: 100%;
   display: block;
 }
