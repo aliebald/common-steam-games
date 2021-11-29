@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/common-steam-games/static/css/main.c75223cc.chunk.css",
+    "main.css": "/common-steam-games/static/css/main.350ba500.chunk.css",
     "main.js": "/common-steam-games/static/js/main.ce3c79a5.chunk.js",
     "main.js.map": "/common-steam-games/static/js/main.ce3c79a5.chunk.js.map",
     "runtime-main.js": "/common-steam-games/static/js/runtime-main.b6b63db6.js",
@@ -8,7 +8,7 @@
     "static/js/2.4f1f4ccf.chunk.js": "/common-steam-games/static/js/2.4f1f4ccf.chunk.js",
     "static/js/2.4f1f4ccf.chunk.js.map": "/common-steam-games/static/js/2.4f1f4ccf.chunk.js.map",
     "index.html": "/common-steam-games/index.html",
-    "static/css/main.c75223cc.chunk.css.map": "/common-steam-games/static/css/main.c75223cc.chunk.css.map",
+    "static/css/main.350ba500.chunk.css.map": "/common-steam-games/static/css/main.350ba500.chunk.css.map",
     "static/js/2.4f1f4ccf.chunk.js.LICENSE.txt": "/common-steam-games/static/js/2.4f1f4ccf.chunk.js.LICENSE.txt",
     "static/media/index.css": "/common-steam-games/static/media/SpaceGrotesk-Light.4f28aa81.otf",
     "static/media/app.css": "/common-steam-games/static/media/layered-waves.a61f3d89.svg"
@@ -16,7 +16,7 @@
   "entrypoints": [
     "static/js/runtime-main.b6b63db6.js",
     "static/js/2.4f1f4ccf.chunk.js",
-    "static/css/main.c75223cc.chunk.css",
+    "static/css/main.350ba500.chunk.css",
     "static/js/main.ce3c79a5.chunk.js"
   ]
 }
