@@ -7,18 +7,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#282c34" />
   <meta name="description"
-    content="Common Steam Games allows you and your friends to find games you own on Steam and vote on what to play. Find old classics or games you did not know all of you had in common. " />
+    content="Common Steam Games is a web application that enables groups of users to discover common games regarding their steam accounts and vote on games to find common preferences." />
   <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
   <title>Common Steam Games</title>
-  <script>
-    (function () {
-      const redirect = sessionStorage.getItem("redirectHash");
-      sessionStorage.removeItem("redirectHash");
-      if (redirect && redirect != location.href) {
-        history.replaceState(null, null, redirect);
-      }
-    })();
-  </script>
 </head>
 
 <body>
