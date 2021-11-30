@@ -1,18 +1,33 @@
-.user-header, .group-header {
+.user-header {
 	display: flex;
-	align-items: center;
+	align-items: flex-start;
 	background-color: var(--main-color-3);
 	border-radius: 5px;
-}
-
-.user-header {
 	padding: 7px 7px;
-	align-items: flex-start;
 }
 
 .user-header.has-subheader {
 	border-radius: 5px 5px 0 0;
 	padding-bottom: 4px;
+}
+
+.user-header img {
+	border-radius: 5px;
+	margin-right: 7px;
+}
+
+.user-header .user-details {
+	height: 100%;
+}
+
+.user-header .user-details h2 {
+	width: 100%;
+	margin: 0;
+}
+
+.user-header .user-details div {
+	width: 100%;
+	font-size: smaller;
 }
 
 .sub-header {

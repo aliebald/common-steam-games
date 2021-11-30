@@ -1,19 +1,9 @@
 .group-header {
-	padding: 10px 10px;
-}
-
-.user-header img {
+	display: flex;
+	align-items: center;
+	background-color: var(--main-color-3);
 	border-radius: 5px;
-	margin-right: 7px;
-}
-
-.user-header .user-details {
-	height: 100%;
-}
-
-.user-header .user-details h2 {
-	width: 100%;
-	margin: 0;
+	padding: 10px 10px;
 }
 
 .group-header .group-details h2 {
@@ -22,7 +12,7 @@
 	margin-top: -2px;
 }
 
-.user-header .user-details div, .group-header .group-details div {
+.group-header .group-details div {
 	width: 100%;
 	font-size: smaller;
 }
