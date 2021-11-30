@@ -43,13 +43,13 @@ type Game = {
   appid: number;
   name: string;
   img_icon_url: string;
-  img_logo_url: string;
-  has_community_visible_stats?: boolean;
+  // img_logo_url: string;
+  // has_community_visible_stats?: boolean;
   playtime_2weeks?: number;
   playtime_forever: number;
-  playtime_windows_forever?: number;
-  playtime_mac_forever?: number;
-  playtime_linux_forever?: number;
+  // playtime_windows_forever?: number;
+  // playtime_mac_forever?: number;
+  // playtime_linux_forever?: number;
   isCustom?: boolean
 }
 

@@ -16,7 +16,6 @@ export default function CustomGameInput(props: {
     appid: 0,
     name: "",
     img_icon_url: "",
-    img_logo_url: "",
     playtime_forever: 0,
     isCustom: true
   });

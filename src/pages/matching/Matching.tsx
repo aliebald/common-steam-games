@@ -398,15 +398,13 @@ function calculatePreferences(users: User[], commonAppIds: number[]): MatchedGam
           matchedGame.weight += weight / users.length;
           matchedGame.playtime_forever += game.playtime_forever / users.length;
           if (matchedGame.owners) {
-            matchedGame.owners.push(user)
+            matchedGame.owners.push(user);
           }
         } else {
           matchedGame = {
             appid: game.appid,
             name: game.name,
             img_icon_url: game.img_icon_url,
-            img_logo_url: game.img_logo_url,
-            has_community_visible_stats: game.has_community_visible_stats ?? undefined,
             playtime_2weeks: game.playtime_2weeks ? (game.playtime_2weeks / users.length) : undefined,
             playtime_forever: game.playtime_forever / users.length,
             isCustom: game.isCustom,
