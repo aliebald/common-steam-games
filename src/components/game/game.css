@@ -5,7 +5,10 @@
 	padding: 4px 3px;
 }
 
-.game .img-link, .game .game-info, .game .match-info, .game .dnd-icon {
+.game .img-link,
+.game .game-info,
+.game .match-info,
+.game .dnd-icon {
 	background-color: var(--main-color-0);
 	padding: 7px 0;
 }
@@ -15,6 +18,10 @@
 	align-items: center;
 	border-radius: 5px 0 0 5px;
 	padding-left: 8px;
+}
+
+.game .img-link.no-select {
+	user-select: none;
 }
 
 .game .game-info {
@@ -41,6 +48,11 @@
 	background: var(--main-color-3);
 	width: 30px;
 	height: 30px;
+}
+
+.game .no-icon.custom {
+	background-color: #4158D0;
+	background-image: linear-gradient(43deg, #4158D0 0%, #C850C0 46%, #FFCC70 100%);
 }
 
 .game .no-icon span {

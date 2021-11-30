@@ -1,0 +1,42 @@
+.custom-game-input {
+	background-color: var(--main-color-1);
+	border-radius: 5px;
+	width: var(--content-width);
+	padding: .75rem;
+}
+
+.custom-game-input input {
+	margin: 0.3rem 0 0.85rem 0;
+}
+
+.custom-game-input .game {
+	padding-left: 0;
+	padding-right: 0;
+}
+
+.custom-game-input>form>.title {
+	margin: .3rem 0;
+}
+
+.custom-game-input .preview {
+	margin: 0 0 .3rem 0;
+}
+
+.custom-game-input .description {
+	margin: .5rem 0 .75rem 0;
+}
+
+.custom-game-input .buttons {
+	display: flex;
+	justify-content: flex-end;
+	margin-top: .5rem;
+}
+
+.custom-game-input .buttons :first-child {
+	margin-right: .3rem;
+}
+
+.custom-game-input input,
+.custom-game-input label {
+	width: 100%;
+}

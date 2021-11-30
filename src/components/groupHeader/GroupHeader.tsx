@@ -1,10 +1,12 @@
 import React from "react"
+import AddButton from "../addButton/AddButton"
 import "./groupHeader.css"
 
 export default function GroupHeader(props: {
   title: string,
   gamesCount: number,
   commonGames: boolean,
+  addCustomGame: () => void,
   className?: string
 }) {
   return (
@@ -13,6 +15,7 @@ export default function GroupHeader(props: {
         <h2>{props.title}</h2>
         <div>{props.gamesCount}&nbsp;{props.commonGames ? "Common Games" : "Games"}</div>
       </div>
+      <AddButton onClick={props.addCustomGame} title="Add Custom Games" />
     </div>
   )
 }

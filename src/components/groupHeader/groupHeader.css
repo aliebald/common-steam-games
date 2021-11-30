@@ -1,5 +1,6 @@
 .group-header {
 	display: flex;
+	justify-content: space-between;
 	align-items: center;
 	background-color: var(--main-color-3);
 	border-radius: 5px;

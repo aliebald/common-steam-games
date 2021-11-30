@@ -22,7 +22,7 @@ export default function SearchBar(props: {
       <input type="text"
         onChange={handleChange}
         placeholder={props.placeholder}
-        title={props.title}
+        title={props.title ?? "button"}
       />
       <button type="reset">&times;</button>
     </form>

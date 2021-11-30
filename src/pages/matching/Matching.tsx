@@ -14,6 +14,7 @@ import Settings from "../../components/settings/Settings";
 import Container from "../../components/container/Container";
 import Confirmation from "../../components/confirmation/Confirmation";
 import Modal from "../../components/modal/Modal";
+import CustomGameInput from "../../components/customGameInput/CustomGameInput";
 import "./matching.css"
 
 function initiateSocket(steamId: string, sessionId?: string) {
@@ -43,6 +44,7 @@ function Matching(props: {
   const [socket, setSocket] = useState<Socket | undefined>(undefined);
   const [showFriendslist, setShowFriendslist] = useState<boolean>(false);
   const [showLeaveModal, setShowLeaveModal] = useState<boolean>(false);
+  const [showCustomGameInput, setShowCustomGameInput] = useState<boolean>(false);
   const [settings, setSettings] = useState<Settings>({ onlyCommonGames: true });
   const [commonAppIds, setCommonAppIds] = useState<number[]>([]);
   const [gameSearch, setGameSearch] = useState("");
@@ -99,6 +101,29 @@ function Matching(props: {
       setUsers(newUsers);
     }
 
+    const handleAddCustomGame = (msg: any) => {
+      console.log("Received AddCustomGame:", msg);
+      // Add custom game to own games
+      const newSelf = { ...self };
+      if (newSelf.preferences) {
+        newSelf.preferences.unshift(msg as Game);
+      } else {
+        newSelf.preferences = [msg as Game];
+      }
+      setSelf(newSelf);
+
+      // Add custom game to peers games
+      const newUsers = [...users];
+      for (const user of newUsers) {
+        if (user.preferences) {
+          user.preferences.unshift(msg as Game);
+        } else {
+          user.preferences = [msg as Game];
+        }
+      }
+      setUsers(newUsers);
+    }
+
     const handleUserDisconnect = (msg: any) => {
       console.log("Received handleUserDisconnect:", msg, "users:", users);
       const newUsers = users.filter(user => user.steamId !== msg as string);
@@ -142,6 +167,7 @@ function Matching(props: {
       socket.removeAllListeners("error");
       socket.removeAllListeners("session");
       socket.removeAllListeners("userJoined");
+      socket.removeAllListeners("addCustomGame");
       socket.removeAllListeners("userDisconnect");
       socket.removeAllListeners("updateSettings");
       socket.removeAllListeners("updatePreferences");
@@ -149,11 +175,12 @@ function Matching(props: {
       socket.on("error", handleError);
       socket.on("session", handleSession);
       socket.on("userJoined", handleUserJoined);
+      socket.on("addCustomGame", handleAddCustomGame);
       socket.on("userDisconnect", handleUserDisconnect);
       socket.on("updateSettings", handleUpdateSettings);
       socket.on("updatePreferences", handleUpdatePreferences);
     }
-  }, [self.steamId, users, socket, props, history]);
+  }, [self, users, socket, props, history]);
 
   useEffect(() => {
     const socket = initiateSocket(props.steamId, props.sessionId);
@@ -221,16 +248,25 @@ function Matching(props: {
     // select the correct sort function dependant on the sortBy argument
     let sortFunc: (a: Game, b: Game) => number;
     if (sortBy === "total") {
-      sortFunc = (a: Game, b: Game) => b.playtime_forever - a.playtime_forever
+      sortFunc = (a: Game, b: Game) => {
+        if (a.isCustom === b.isCustom) {
+          return b.playtime_forever - a.playtime_forever
+        }
+        return a.isCustom ? -1 : 1;
+      };
     } else {
       sortFunc = (a: Game, b: Game) => {
-        const aPlaytime = a.playtime_2weeks ?? 0;
-        const bPlaytime = b.playtime_2weeks ?? 0;
-        if (aPlaytime === bPlaytime) {
-          // Fallback if playtime in the last two weeks is equal
-          return b.playtime_forever - a.playtime_forever;
+        if (a.isCustom === b.isCustom) {
+          const aPlaytime = a.playtime_2weeks ?? 0;
+          const bPlaytime = b.playtime_2weeks ?? 0;
+          if (aPlaytime === bPlaytime) {
+            // Fallback if playtime in the last two weeks is equal
+            return b.playtime_forever - a.playtime_forever;
+          }
+          return bPlaytime - aPlaytime;
+        } else {
+          return a.isCustom ? -1 : 1;
         }
-        return bPlaytime - aPlaytime;
       }
     }
     // Sort preferences using sortFunc
@@ -239,6 +275,13 @@ function Matching(props: {
       newSelf.preferences = newSelf.preferences.sort(sortFunc);
       setSelf(newSelf);
       setPreferencesChanged(true);
+    }
+  }
+
+  const addCustomGame = (game: Game) => {
+    if (socket) {
+      console.log("Adding Custom Game", game);
+      socket.emit("addCustomGame", game);
     }
   }
 
@@ -257,6 +300,12 @@ function Matching(props: {
           steamId={self.steamId}
         />
       </Modal>
+      <CustomGameInput
+        visible={showCustomGameInput}
+        close={() => setShowCustomGameInput(false)}
+        addGame={addCustomGame}
+        addError={props.addError}
+      />
       <Confirmation
         visible={showLeaveModal}
         onAbort={() => setShowLeaveModal(false)}
@@ -295,7 +344,13 @@ function Matching(props: {
           games={matchedGames}
           onlyCommonGames={settings.onlyCommonGames}
           commonAppIds={commonAppIds}
-          header={<GroupHeader title="Group Preferences" gamesCount={matchedGames.length} commonGames={settings.onlyCommonGames} />}
+          header={
+            <GroupHeader
+              title="Group Preferences"
+              gamesCount={matchedGames.length}
+              commonGames={settings.onlyCommonGames}
+              addCustomGame={() => setShowCustomGameInput(true)}
+            />}
         />
         <div className="peers">
           <Invite sessionId={sessionId}
@@ -354,6 +409,7 @@ function calculatePreferences(users: User[], commonAppIds: number[]): MatchedGam
             has_community_visible_stats: game.has_community_visible_stats ?? undefined,
             playtime_2weeks: game.playtime_2weeks ? (game.playtime_2weeks / users.length) : undefined,
             playtime_forever: game.playtime_forever / users.length,
+            isCustom: game.isCustom,
             weight: weight / users.length,
             owners: [user]
           };

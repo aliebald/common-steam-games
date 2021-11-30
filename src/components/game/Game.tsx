@@ -10,17 +10,19 @@ export default function Game(props: {
   isDnD?: boolean,
   DnDHighlight?: boolean // Increases brightness of dnd icon for a few seconds after first render
 }) {
-  const playtime = Math.round(((props.game.playtime_forever / 60) + Number.EPSILON) * 100) / 100
-  const playtime2weeks = props.game.playtime_2weeks ? Math.round(((props.game.playtime_2weeks / 60) + Number.EPSILON) * 100) / 100 : 0
-  const isMatchedGame = "weight" in (props.game as MatchedGame)
+  const playtime = Math.round(((props.game.playtime_forever / 60) + Number.EPSILON) * 100) / 100;
+  const playtime2weeks = props.game.playtime_2weeks ? Math.round(((props.game.playtime_2weeks / 60) + Number.EPSILON) * 100) / 100 : 0;
+  const isMatchedGame = "weight" in (props.game as MatchedGame);
+  const isCustom = props.game.isCustom ?? false;
 
   let playtimeText: string;
-  let weightPercentage = "";
-  if (isMatchedGame) {
-    weightPercentage = convertWeightToPercentage((props.game as MatchedGame).weight);
+  let weightPercentage = isMatchedGame ? convertWeightToPercentage((props.game as MatchedGame).weight) : "";
+  if (isCustom) {
+    playtimeText = "Custom Game";
+  } else if (isMatchedGame) {
     playtimeText = `Average Playtime: ${playtime}h`;
   } else {
-    playtimeText = playtime2weeks > 0 ? `Playtime: ${playtime}h / ${playtime2weeks}h` : `Playtime: ${playtime}h`
+    playtimeText = playtime2weeks > 0 ? `Playtime: ${playtime}h / ${playtime2weeks}h` : `Playtime: ${playtime}h`;
   }
 
   let icon: JSX.Element;
@@ -34,24 +36,30 @@ export default function Game(props: {
       loading="lazy"
     />
   } else {
-    icon = <div className="no-icon"><span>?</span></div>
+    const char = props.game.name.length > 0 ? props.game.name.charAt(0) : "?";
+    icon = <div className={`no-icon${isCustom ? " custom" : ""}`}><span>{char}</span></div>;
   }
 
   const optionalAProps = props.isDnD ? { tabIndex: -1 } : {};
+  const storePageLink = getStorePage(props.game.appid);
 
   return (
     <div className="game">
-      <a
-        className="img-link"
-        href={getStorePage(props.game.appid)}
-        title={`${props.game.name} steam page`}
-        target="_blank"
-        rel="noopener noreferrer"
-        style={hasImage ? {} : { textDecoration: "none" }}
-        {...optionalAProps}
-      >
-        {icon}
-      </a>
+      {!isCustom && storePageLink ? (
+        <a
+          className="img-link"
+          href={storePageLink}
+          title={`${props.game.name} steam page`}
+          target="_blank"
+          rel="noopener noreferrer"
+          style={hasImage ? {} : { textDecoration: "none" }}
+          {...optionalAProps}
+        >
+          {icon}
+        </a>
+      ) : (
+        <div className="img-link no-select">{icon}</div>
+      )}
       <div className={isMatchedGame || props.isDnD ? "game-info no-br" : "game-info"}>
         <div className="title">{props.game.name}</div>
         <div className="playtime">{playtimeText}</div>

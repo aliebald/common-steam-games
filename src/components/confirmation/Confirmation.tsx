@@ -29,7 +29,7 @@ export default function Confirmation(props: {
   /* confirm if enter is pressed */
   useEffect(() => {
     const listener = (event: any) => {
-      if (event.code === "Enter" || event.code === "NumpadEnter") {
+      if (props.visible && (event.code === "Enter" || event.code === "NumpadEnter")) {
         event.preventDefault();
         props.onConfirm();
       }
