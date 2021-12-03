@@ -50,7 +50,7 @@ export default function Settings(props: {
         />
       </div>
       <div className="settings-section">
-        <label className="settings-label">Who can add custom games:</label>
+        <label className="settings-label">Who can add custom games: *</label>
         <ButtonGroup
           name="CGOptions"
           options={["Everyone", "Only Host"]}
@@ -60,7 +60,7 @@ export default function Settings(props: {
         />
       </div>
       <div className="settings-section">
-        <label className="settings-label">Default game sort for new users:</label>
+        <label className="settings-label">Default game sort for new users: *</label>
         <ButtonGroup
           name="CGOptions"
           options={["Total Playtime", "Playtime Last 2 Weeks"]}
@@ -69,6 +69,9 @@ export default function Settings(props: {
           disabled={!props.isHost}
         />
       </div>
+      <p className="settings-hint">
+        Settings marked with * can only be edited by the session host.
+      </p>
     </div>
   )
 }

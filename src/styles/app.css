@@ -86,7 +86,7 @@
   box-sizing: border-box;
   padding: 0 5px 2px 5px;
   border: 1px solid var(--main-color-2);
-  background-color: var(--main-color-3);
+  background-color: var(--main-color-2);
   color: var(--main-text-color);
   font-size: var(--font-size-x-small);
   border-radius: 0.25rem 0 0 0.25rem;

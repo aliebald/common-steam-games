@@ -16,6 +16,7 @@ import Confirmation from "../../components/confirmation/Confirmation";
 import Modal from "../../components/modal/Modal";
 import CustomGameInput from "../../components/customGameInput/CustomGameInput";
 import Button from "../../components/button/Button";
+import AddButton from "../../components/addButton/AddButton";
 import "./matching.css"
 
 function initiateSocket(steamId: string, settings: Settings, sessionId?: string) {
@@ -54,7 +55,7 @@ function Matching(props: {
   const [gameSearch, setGameSearch] = useState("");
 
   const history = useHistory();
-  const showFullName = useMediaQuery({ query: '(min-width: 530px)' });
+  const showFullName = useMediaQuery({ query: '(min-width: 370px)' });
 
   /** updates settings (state) and sends updateSettings event to backend */
   const updateSettings = (settings: Settings) => {
@@ -307,7 +308,10 @@ function Matching(props: {
       </Modal>
       <Modal visible={showSettingsModal} setVisible={setShowSettingsModal}>
         <Container className="settings-modal">
-          <h2>Settings</h2>
+          <div className="settings-header">
+            <h2>Settings</h2>
+            <AddButton onClick={() => setShowSettingsModal(false)} className="close-btn" />
+          </div>
           <Settings settings={props.settings} setSettings={updateSettings} isHost={initiatorId === self.steamId} />
         </Container>
       </Modal>
@@ -329,7 +333,7 @@ function Matching(props: {
           {showFullName ? "Common Steam Games" : "C.S.G."}
         </h1>
         <Button onClick={() => setShowSettingsModal(true)} className="show-settings-btn">
-          Show&nbsp;Settings
+          Settings
         </Button>
       </header>
       <Container

@@ -19,7 +19,7 @@
 	margin-bottom: 0 !important;
 }
 
-.peers>div:last-child,
+.peers>div:last-child:not(.invite-box),
 .peers .collapsed:last-of-type {
 	border-radius: 0 0 5px 5px;
 }
@@ -36,4 +36,26 @@
 
 .show-settings-btn {
 	margin-right: .5rem;
+}
+
+/* ==============
+ Settings Header
+================= */
+
+.settings-header {
+	display: flex;
+	justify-content: space-between;
+}
+
+.settings-header .close-btn {
+	border-color: var(--main-color-2);
+	transform: rotate(45deg)
+}
+
+.settings-header .close-btn>div {
+	background-color: var(--main-color-2);
+}
+
+.settings-header .close-btn:hover {
+	background-color: inherit;
 }

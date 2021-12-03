@@ -31,9 +31,9 @@
 }
 
 .btn.danger {
-	background-color: rgb(190, 25, 25);
+	background-color: var(--color-red);
 }
 
 .btn.confirm {
-	background-color: rgb(25, 140, 25);
+	background-color: var(--color-green);
 }
