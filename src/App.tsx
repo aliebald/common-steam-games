@@ -19,6 +19,11 @@ export default function App(this: any) {
   const [steamId, setSteamId] = useState<string | undefined>(getSteamId());
   const [joinSessionId, setJoinSessionId] = useState<string | undefined>(getSessionId());
   const [errors, setErrors] = useState<ErrorType[]>([]);
+  const [settings, setSettings] = useState<Settings>({
+    onlyCommonGames: false,
+    allCanAddCustomGames: true,
+    defaultSort: "total"
+  })
 
   const addError = (error: ErrorType) => {
     setErrors(errors.concat(error));
@@ -40,22 +45,38 @@ export default function App(this: any) {
     setJoinSessionId(sessionId);
   }
 
-  const matching = steamId ? <Matching steamId={steamId} sessionId={joinSessionId} addError={addError} /> : <Redirect to="/" />
-
   return (
     <>
       <ErrorList errors={errors} setErrors={setErrors} />
       <Router>{/*basename={packageJSON.subUrl}*/}
         <Switch>
           <Route path="/matching" exact>
-            {matching}
+            {!steamId ? (
+              <Redirect to="/" />
+            ) : (
+              <Matching
+                steamId={steamId}
+                sessionId={joinSessionId}
+                addError={addError}
+                settings={settings}
+                setSettings={setSettings}
+              />
+            )}
           </Route>
           <Route path="/join" exact>
-            {canAutoJoin() ? <Redirect to="/matching" push /> :
-              <JoinSession onSubmit={joinSession} sessionId={joinSessionId} steamId={steamId} />}
+            {canAutoJoin() ? (
+              <Redirect to="/matching" push />
+            ) : (
+              <JoinSession onSubmit={joinSession} sessionId={joinSessionId} steamId={steamId} />
+            )}
           </Route>
           <Route path="/create" exact>
-            <CreateSession onSubmit={createNewSession} steamId={steamId} />
+            <CreateSession
+              onSubmit={createNewSession}
+              steamId={steamId}
+              settings={settings}
+              setSettings={setSettings}
+            />
           </Route>
           <Route path="/about">
             <About />

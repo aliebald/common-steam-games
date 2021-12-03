@@ -27,6 +27,16 @@
   border-bottom-right-radius: 0;
 }
 
+.no-br-left {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.no-br-right {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
 .t-center {
   text-align: center;
 }
@@ -57,7 +67,7 @@
 
 .create-session .input-margin,
 .join-session .input-margin {
-  margin: .3rem 0 .85rem 0;
+  margin: .3rem 0 .75rem 0;
 }
 
 .create-session .steamId-input input,

@@ -48,7 +48,7 @@ export default function Confirmation(props: {
           <Button onClick={abort}>
             {props.abortText ? props.abortText : "Abort"}
           </Button>
-          <Button onClick={confirm} danger>
+          <Button onClick={confirm} appearance="danger">
             {props.confirmText ? props.confirmText : "Confirm"}
           </Button>
         </div>

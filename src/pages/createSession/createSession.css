@@ -1,0 +1,11 @@
+/* 
+Since most css for this component is also used by the
+JoinSession Page, most css is in styles/app.css
+ */
+.create-session-settings {
+	padding-bottom: .75rem;
+}
+
+.create-session-settings .settings-section:first-child {
+	padding-top: 0;
+}

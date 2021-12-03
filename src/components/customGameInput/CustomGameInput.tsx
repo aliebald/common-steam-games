@@ -81,7 +81,7 @@ export default function CustomGameInput(props: {
         <h3 className="preview">Preview</h3>
         <Game game={game} />
         <div className="buttons">
-          <Button danger onClick={props.close}>
+          <Button appearance="danger" onClick={props.close}>
             Abort
           </Button>
           <Button onClick={confirm}>

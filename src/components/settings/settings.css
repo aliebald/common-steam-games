@@ -1,15 +1,8 @@
-.settings {
-	background-color: var(--main-color-0);
-	border-radius: 5px;
-	padding: 7px 10px;
-	margin: .5rem;
+.settings-label {
+	display: block;
+	padding-bottom: 3px;
 }
 
-.settings label {
-	display: flex;
-	align-items: center;
-}
-
-.settings .padding-switch {
-	padding-left: 4px;
+.settings-section {
+	padding: .25rem 0;
 }

@@ -2,6 +2,8 @@
 
 type Settings = {
   onlyCommonGames: boolean;
+  allCanAddCustomGames: boolean;
+  defaultSort: "total" | "last2Weeks"
 }
 
 type User = {

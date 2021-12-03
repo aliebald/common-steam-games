@@ -1,10 +1,14 @@
-import React, { useState } from 'react'
-import { Link, useHistory } from 'react-router-dom';
-import AboutTeaser from '../../components/aboutTeaser/AboutTeaser';
-import Container from '../../components/container/Container';
+import React, { useState } from "react"
+import { Link, useHistory } from "react-router-dom"
+import AboutTeaser from "../../components/aboutTeaser/AboutTeaser"
+import Container from "../../components/container/Container"
+import Settings from "../../components/settings/Settings"
+import "./createSession.css"
 
 export default function CreateSession(props: {
   steamId?: string,
+  settings: Settings,
+  setSettings: (settings: Settings) => void,
   onSubmit: (steamId: string) => void,
 }) {
   const [steamId, setSteamId] = useState<string>(props.steamId ?? "");
@@ -39,6 +43,12 @@ export default function CreateSession(props: {
             required
           />
         </div>
+        <Settings
+          isHost
+          settings={props.settings}
+          setSettings={props.setSettings}
+          className="create-session-settings"
+        />
         <input type="submit" value="Create New Session" className="btn" />
       </form>
       <p className="t-center">

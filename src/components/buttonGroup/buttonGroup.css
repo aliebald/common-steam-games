@@ -1,0 +1,14 @@
+.btn-group {
+	display: flex;
+	flex-direction: row;
+	align-items: stretch;
+}
+
+.btn-group .btn-group-btn {
+	flex: 1;
+}
+
+.btn-group .btn-group-btn:active {
+	/* Overrides / disables scale in Button */
+	transform: scale(1);
+}

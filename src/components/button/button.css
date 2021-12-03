@@ -6,12 +6,24 @@
 	border: 1px solid transparent;
 	padding: .375rem .75rem;
 	height: 35px;
-	transition: background-color .2s, transform .1s;
+	transition: background-color .2s, filter .2s, transform .1s;
 }
 
-.btn:hover {
+.btn:not(:disabled):hover {
 	cursor: pointer;
+}
+
+.btn:not(:disabled):not(.danger):not(.confirm):hover {
 	background-color: #56595e;
+}
+
+.btn.danger:not(:disabled):hover,
+.btn.confirm:not(:disabled):hover {
+	filter: brightness(1.1);
+}
+
+.btn:disabled {
+	filter: saturate(.7) brightness(.8);
 }
 
 .btn:active {
@@ -20,4 +32,8 @@
 
 .btn.danger {
 	background-color: rgb(190, 25, 25);
+}
+
+.btn.confirm {
+	background-color: rgb(25, 140, 25);
 }

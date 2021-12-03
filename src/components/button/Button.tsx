@@ -4,18 +4,19 @@ import "./button.css"
 export default function Button(props: {
   className?: string,
   onClick?: React.MouseEventHandler<HTMLButtonElement>,
-  danger?: boolean,
+  appearance?: "danger" | "confirm",
   title?: string,
   type?: "button" | "submit" | "reset",
-  children?: JSX.Element | string
+  children?: JSX.Element | string,
+  disabled?: boolean
 }) {
-  const danger = props.danger ? " danger" : ""
   return (
     <button
-      className={`btn${danger} ${props.className ?? ""}`}
+      className={`btn ${props.appearance ?? ""} ${props.className ?? ""}`}
       onClick={props.onClick}
       title={props.title}
       type={props.type}
+      disabled={props.disabled}
     >
       {props.children ?? ""}
     </button>

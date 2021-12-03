@@ -95,7 +95,7 @@ export default function FriendsList(props: {
     <div className="friends">
       <div className="friendslist-header">
         <SearchBar className="friend-search" onChange={handleSearch} placeholder="Search Friends" />
-        <Button onClick={props.closeFriendsList} danger>&nbsp;Close&nbsp;Friends&nbsp;</Button>
+        <Button onClick={props.closeFriendsList} appearance="danger">&nbsp;Close&nbsp;Friends&nbsp;</Button>
       </div>
       <div className="list" ref={listRef}>
         {friends.length === 0 ? <Loading center /> : list}

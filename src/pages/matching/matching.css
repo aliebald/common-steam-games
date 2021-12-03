@@ -23,3 +23,17 @@
 .peers .collapsed:last-of-type {
 	border-radius: 0 0 5px 5px;
 }
+
+.settings-modal {
+	background-color: var(--main-color-1);
+	border-radius: 5px;
+	padding: .75rem;
+}
+
+.settings-modal h2 {
+	margin: 0 0 .75rem 0;
+}
+
+.show-settings-btn {
+	margin-right: .5rem;
+}

@@ -15,14 +15,15 @@ import Container from "../../components/container/Container";
 import Confirmation from "../../components/confirmation/Confirmation";
 import Modal from "../../components/modal/Modal";
 import CustomGameInput from "../../components/customGameInput/CustomGameInput";
+import Button from "../../components/button/Button";
 import "./matching.css"
 
-function initiateSocket(steamId: string, sessionId?: string) {
+function initiateSocket(steamId: string, settings: Settings, sessionId?: string) {
   let query;
   if (sessionId) {
     query = { steamId: steamId, sessionId: sessionId };
   } else {
-    query = { steamId: steamId };
+    query = { steamId: steamId, settings: JSON.stringify(settings) };
   }
   const url = process.env.NODE_ENV === "production" ? "https://common-steam-games.herokuapp.com/" : "http://localhost:3030";
   return io(url, {
@@ -34,10 +35,13 @@ function initiateSocket(steamId: string, sessionId?: string) {
 function Matching(props: {
   steamId: string,
   sessionId?: string,
+  settings: Settings,
+  setSettings: (settings: Settings) => void,
   addError: (error: ErrorType) => void
 }) {
   const [users, setUsers] = useState<User[]>([]);
   const [self, setSelf] = useState<User>({ steamId: props.steamId });
+  const [initiatorId, setInitiatorId] = useState<string>(props.sessionId ? "" : props.steamId);
   const [matchedGames, setMatchedGames] = useState<MatchedGame[]>([]);
   const [sessionId, setSessionId] = useState<string>("");
   const [preferencesChanged, setPreferencesChanged] = useState(false);
@@ -45,7 +49,7 @@ function Matching(props: {
   const [showFriendslist, setShowFriendslist] = useState<boolean>(false);
   const [showLeaveModal, setShowLeaveModal] = useState<boolean>(false);
   const [showCustomGameInput, setShowCustomGameInput] = useState<boolean>(false);
-  const [settings, setSettings] = useState<Settings>({ onlyCommonGames: true });
+  const [showSettingsModal, setShowSettingsModal] = useState<boolean>(false);
   const [commonAppIds, setCommonAppIds] = useState<number[]>([]);
   const [gameSearch, setGameSearch] = useState("");
 
@@ -58,7 +62,7 @@ function Matching(props: {
       console.log("Sending settings");
       socket.emit("updateSettings", settings);
     }
-    setSettings(settings);
+    props.setSettings(settings);
   }
 
   useEffect(() => {
@@ -89,8 +93,9 @@ function Matching(props: {
       setSessionId(session.sessionId);
       setSelf(newSelf);
       setUsers(newUsers);
+      setInitiatorId(session.initiatorId);
       if (session.settings) {
-        setSettings(session.settings);
+        props.setSettings(session.settings);
       }
     }
 
@@ -132,7 +137,7 @@ function Matching(props: {
 
     const handleUpdateSettings = (msg: any) => {
       console.log("Received settings:", msg);
-      setSettings(msg as Settings);
+      props.setSettings(msg as Settings);
     }
 
     const handleUpdatePreferences = (msg: any) => {
@@ -183,7 +188,7 @@ function Matching(props: {
   }, [self, users, socket, props, history]);
 
   useEffect(() => {
-    const socket = initiateSocket(props.steamId, props.sessionId);
+    const socket = initiateSocket(props.steamId, props.settings, props.sessionId);
     setSocket(socket);
 
     socket.io.on("reconnect_failed", () => {
@@ -207,9 +212,9 @@ function Matching(props: {
   // Update group preferences
   useEffect(() => {
     console.log("calculatePreferences");
-    const appIds = settings.onlyCommonGames ? commonAppIds : [];
+    const appIds = props.settings.onlyCommonGames ? commonAppIds : [];
     setMatchedGames(calculatePreferences(users.concat(self), appIds));
-  }, [users, self, settings.onlyCommonGames, commonAppIds]);
+  }, [users, self, props.settings.onlyCommonGames, commonAppIds]);
 
   // Send preferences to backend when changed
   useEffect(() => {
@@ -250,7 +255,7 @@ function Matching(props: {
     if (sortBy === "total") {
       sortFunc = (a: Game, b: Game) => {
         if (a.isCustom === b.isCustom) {
-          return b.playtime_forever - a.playtime_forever
+          return b.playtime_forever - a.playtime_forever;
         }
         return a.isCustom ? -1 : 1;
       };
@@ -300,6 +305,12 @@ function Matching(props: {
           steamId={self.steamId}
         />
       </Modal>
+      <Modal visible={showSettingsModal} setVisible={setShowSettingsModal}>
+        <Container className="settings-modal">
+          <h2>Settings</h2>
+          <Settings settings={props.settings} setSettings={updateSettings} isHost={initiatorId === self.steamId} />
+        </Container>
+      </Modal>
       <CustomGameInput
         visible={showCustomGameInput}
         close={() => setShowCustomGameInput(false)}
@@ -317,7 +328,9 @@ function Matching(props: {
         <h1 className="title" onClick={() => setShowLeaveModal(true)}>
           {showFullName ? "Common Steam Games" : "C.S.G."}
         </h1>
-        <Settings settings={settings} setSettings={updateSettings} />
+        <Button onClick={() => setShowSettingsModal(true)} className="show-settings-btn">
+          Show&nbsp;Settings
+        </Button>
       </header>
       <Container
         titles={["Your Preferences", "Group Preferences", "Peers Preferences"]}
@@ -325,7 +338,7 @@ function Matching(props: {
       >
         <GamesList
           games={self.preferences ?? []}
-          onlyCommonGames={settings.onlyCommonGames}
+          onlyCommonGames={props.settings.onlyCommonGames}
           commonAppIds={commonAppIds}
           onDragEnd={onDragEnd}
           droppableId={`${self.personaname}'s Preferences`}
@@ -342,14 +355,15 @@ function Matching(props: {
         />
         <GamesList
           games={matchedGames}
-          onlyCommonGames={settings.onlyCommonGames}
+          onlyCommonGames={props.settings.onlyCommonGames}
           commonAppIds={commonAppIds}
           header={
             <GroupHeader
               title="Group Preferences"
               gamesCount={matchedGames.length}
-              commonGames={settings.onlyCommonGames}
+              commonGames={props.settings.onlyCommonGames}
               addCustomGame={() => setShowCustomGameInput(true)}
+              canAddCustomGames={initiatorId === self.steamId || props.settings.allCanAddCustomGames}
             />}
         />
         <div className="peers">
@@ -365,7 +379,7 @@ function Matching(props: {
             >
               <GamesList
                 games={user.preferences ?? []}
-                onlyCommonGames={settings.onlyCommonGames}
+                onlyCommonGames={props.settings.onlyCommonGames}
                 commonAppIds={commonAppIds}
                 key={index}
                 className="no-br-top"

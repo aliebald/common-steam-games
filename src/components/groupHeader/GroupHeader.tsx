@@ -7,6 +7,7 @@ export default function GroupHeader(props: {
   gamesCount: number,
   commonGames: boolean,
   addCustomGame: () => void,
+  canAddCustomGames: boolean,
   className?: string
 }) {
   return (
@@ -15,7 +16,11 @@ export default function GroupHeader(props: {
         <h2>{props.title}</h2>
         <div>{props.gamesCount}&nbsp;{props.commonGames ? "Common Games" : "Games"}</div>
       </div>
-      <AddButton onClick={props.addCustomGame} title="Add Custom Games" />
+      {props.canAddCustomGames ? (
+        <AddButton onClick={props.addCustomGame} title="Add Custom Games" />
+      ) : (
+        <></>
+      )}
     </div>
   )
 }
