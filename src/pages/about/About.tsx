@@ -49,6 +49,7 @@ export default function About() {
         <li>Preference matching</li>
         <li>Games search &amp; drag n drop</li>
         <li>Steam games &amp; friendslist integration</li>
+        <li>Custom games for your favorite common, non-steam games</li>
         <li><em>...</em></li>
       </ul>
       <h2>Contact</h2>

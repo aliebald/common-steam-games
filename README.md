@@ -18,6 +18,7 @@ If any of the above settings are not correct, you will receive an error. You can
 - Preference matching
 - Games search & drag n drop
 - Steam games & friendslist integration
+- Custom games for your favorite common, non-steam games
 - ...
 
 ## Contact
