@@ -66,7 +66,7 @@ export default function JoinSession(props: {
           </div>
         </div>
       </form>
-      <p className="t-center">
+      <p className="link-create">
         Or <Link to="/create">create new session</Link>
       </p>
       <AboutTeaser />

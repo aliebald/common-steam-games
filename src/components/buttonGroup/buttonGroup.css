@@ -6,6 +6,7 @@
 
 .btn-group .btn-group-btn {
 	flex: 1;
+	white-space: nowrap;
 }
 
 .btn-group .btn-group-btn:active {

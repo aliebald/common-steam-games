@@ -78,12 +78,12 @@ a {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #888;
+  background: var(--main-color-3);
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #58595e;
+  background: var(--main-color-2);
 }
 
 /* ======

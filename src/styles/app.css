@@ -115,6 +115,16 @@
 .create-session form,
 .join-session form {
   padding: 0 .3rem;
+  background-color: var(--main-color-1);
+}
+
+.create-session .link-join,
+.join-session .link-create {
+  text-align: center;
+  background-color: var(--main-color-1);
+  border-radius: 0 0 5px 5px;
+  padding: 1rem .3rem .5rem .3rem;
+  margin: 0 0 .5rem 0;
 }
 
 .join-session input, .join-session label,

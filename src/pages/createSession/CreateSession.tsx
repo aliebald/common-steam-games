@@ -51,7 +51,7 @@ export default function CreateSession(props: {
         />
         <input type="submit" value="Create New Session" className="btn" />
       </form>
-      <p className="t-center">
+      <p className="link-join">
         Or <Link to="/join">join existing session</Link>
       </p>
       <AboutTeaser />
