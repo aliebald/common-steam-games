@@ -1,7 +1,8 @@
-import React from 'react'
-import Tooltip from '../tooltip/Tooltip'
-import UserCard from '../userCard/UserCard'
-import './game.css'
+import React from "react"
+import Tooltip from "../tooltip/Tooltip"
+import UserCard from "../userCard/UserCard"
+import packageJSON from "../../../package.json"
+import "./game.css"
 
 
 export default function Game(props: {
@@ -70,9 +71,11 @@ export default function Game(props: {
           <div className="weight">Match:&nbsp;{weightPercentage}</div>
         </div>
         : <></>}
-      {props.isDnD ? <div className="dnd-icon">
-        <img src="dnd_icon.svg" alt="" width="17" height="32" className={props.DnDHighlight ? "highlight" : ""} />
-      </div> : <></>}
+      {props.isDnD ? (
+        <div className="dnd-icon">
+          <img src={`${packageJSON.subUrl}/dnd_icon.svg`} alt="dnd" width="17" height="32" className={props.DnDHighlight ? "highlight" : ""} />
+        </div>
+      ) : <></>}
     </div>
   )
 }
