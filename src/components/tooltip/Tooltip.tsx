@@ -1,10 +1,10 @@
-import React, { useState } from "react"
-import "./tooltip.css"
+import React, { useState } from "react";
+import "./tooltip.css";
 
 export default function Tooltip(props: {
-  children: JSX.Element,
-  tooltip: JSX.Element,
-  position: "bottom" | "right" | "left" | "bottom-left"
+  children: JSX.Element;
+  tooltip: JSX.Element;
+  position: "bottom" | "right" | "left" | "bottom-left";
 }) {
   const [show, setShow] = useState(false);
 
@@ -13,15 +13,13 @@ export default function Tooltip(props: {
       <div onMouseEnter={() => setShow(true)} onMouseLeave={() => setShow(false)}>
         {props.children}
       </div>
-    )
+    );
   }
 
   return (
     <div className="tooltip-wrapper" onMouseEnter={() => setShow(true)} onMouseLeave={() => setShow(false)}>
-      <div className={`tooltip-popup ${props.position}`}>
-        {props.tooltip}
-      </div>
+      <div className={`tooltip-popup ${props.position}`}>{props.tooltip}</div>
       {props.children}
     </div>
-  )
+  );
 }

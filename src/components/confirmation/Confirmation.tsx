@@ -1,30 +1,30 @@
-import React, { useEffect } from "react"
-import Button from "../button/Button"
-import Modal from "../modal/Modal"
-import "./confirmation.css"
+import React, { useEffect } from "react";
+import Button from "../button/Button";
+import Modal from "../modal/Modal";
+import "./confirmation.css";
 
 export default function Confirmation(props: {
-  text: string,
-  abortText?: string,
-  confirmText?: string,
-  visible?: boolean,
-  onAbort: () => void,
-  onConfirm: () => void
+  text: string;
+  abortText?: string;
+  confirmText?: string;
+  visible?: boolean;
+  onAbort: () => void;
+  onConfirm: () => void;
 }) {
   const handleModal = (visible: boolean) => {
     if (!visible) {
       props.onAbort();
     }
-  }
+  };
 
   const confirm = (event: any) => {
     event.preventDefault();
     props.onConfirm();
-  }
+  };
   const abort = (event: any) => {
     event.preventDefault();
     props.onAbort();
-  }
+  };
 
   /* confirm if enter is pressed */
   useEffect(() => {
@@ -45,14 +45,12 @@ export default function Confirmation(props: {
       <div className="confirmation">
         <p className="text">{props.text}</p>
         <div className="confirmation-footer">
-          <Button onClick={abort}>
-            {props.abortText ? props.abortText : "Abort"}
-          </Button>
+          <Button onClick={abort}>{props.abortText ? props.abortText : "Abort"}</Button>
           <Button onClick={confirm} appearance="danger">
             {props.confirmText ? props.confirmText : "Confirm"}
           </Button>
         </div>
       </div>
     </Modal>
-  )
+  );
 }

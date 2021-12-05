@@ -1,16 +1,15 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useState } from "react";
 import Button from "../button/Button";
 import Container from "../container/Container";
 import Game from "../game/Game";
-import Modal from "../modal/Modal"
-import "./customGameInput.css"
-
+import Modal from "../modal/Modal";
+import "./customGameInput.css";
 
 export default function CustomGameInput(props: {
-  visible: boolean,
-  close: () => void,
-  addGame: (game: Game) => void,
-  addError: (error: ErrorType) => void
+  visible: boolean;
+  close: () => void;
+  addGame: (game: Game) => void;
+  addError: (error: ErrorType) => void;
 }) {
   const [game, setGame] = useState<Game>({
     appid: 0,
@@ -39,7 +38,7 @@ export default function CustomGameInput(props: {
     if (!visible) {
       props.close();
     }
-  }
+  };
 
   const confirm = () => {
     if (game.name.length === 0) {
@@ -47,31 +46,31 @@ export default function CustomGameInput(props: {
         status: 400,
         msg: "Please enter a name for the custom game.",
         timeout: 3000
-      })
+      });
       return;
     }
     props.addGame(game);
     props.close();
-  }
+  };
 
   const handleNameChange = (event: any) => {
     event.preventDefault();
     const newGame = { ...game };
     newGame.name = event.target.value.trim();
     setGame(newGame);
-  }
+  };
 
   return (
     <Modal visible={props.visible} setVisible={handleModal}>
       <Container className="custom-game-input">
         <h3 className="title">Add Custom Game</h3>
         <p className="description">
-          Custom games are added to all users in this session.
-          This can be used to add non-Steam games, e.g. games from different platforms,
-          browser games, or other activities.
+          Custom games are added to all users in this session. This can be used to add non-Steam games, e.g. games from
+          different platforms, browser games, or other activities.
         </p>
         <label htmlFor="customGameName">Name: &nbsp; </label>
-        <input type="text"
+        <input
+          type="text"
           id="customGameName"
           onChange={handleNameChange}
           defaultValue={game.name}
@@ -84,12 +83,9 @@ export default function CustomGameInput(props: {
           <Button appearance="danger" onClick={props.close}>
             Abort
           </Button>
-          <Button onClick={confirm}>
-            Add&nbsp; Game
-          </Button>
+          <Button onClick={confirm}>Add&nbsp; Game</Button>
         </div>
       </Container>
-
     </Modal>
-  )
+  );
 }

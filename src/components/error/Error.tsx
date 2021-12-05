@@ -1,10 +1,7 @@
-import React, { useEffect } from 'react'
-import "./error.css"
+import React, { useEffect } from "react";
+import "./error.css";
 
-export default function Error(props: {
-  error: ErrorType
-  removeError: () => void
-}) {
+export default function Error(props: { error: ErrorType; removeError: () => void }) {
   useEffect(() => {
     const timeout = props.error.timeout;
     let timer: NodeJS.Timeout | undefined;
@@ -23,5 +20,5 @@ export default function Error(props: {
       {props.error.msg}
       <div className="error-close" onClick={props.removeError}></div>
     </div>
-  )
+  );
 }

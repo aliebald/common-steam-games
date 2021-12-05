@@ -1,17 +1,15 @@
-import React from "react"
-import { Link } from "react-router-dom"
-import packageJSON from "../../../package.json"
-import toMail from "../../security/mail"
-import "./footer.css"
+import React from "react";
+import { Link } from "react-router-dom";
+import packageJSON from "../../../package.json";
+import toMail from "../../security/mail";
+import "./footer.css";
 
 export default function Footer() {
   return (
     <div className="footer">
-      <div className="f-left">
-        This project is not affiliated with Valve or Steam
-      </div>
+      <div className="f-left">This project is not affiliated with Valve or Steam</div>
       <div className="f-right">
-        <Link to="about" className="footer-link" >
+        <Link to="about" className="footer-link">
           About
         </Link>
         <a
@@ -36,5 +34,5 @@ export default function Footer() {
         </a>
       </div>
     </div>
-  )
+  );
 }

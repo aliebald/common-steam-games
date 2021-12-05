@@ -1,14 +1,11 @@
-import React from "react"
-import Button from "../button/Button"
-import "./userCard.css"
+import React from "react";
+import Button from "../button/Button";
+import "./userCard.css";
 
-export default function UserCard(props: {
-  user: User,
-  className?: string
-}) {
+export default function UserCard(props: { user: User; className?: string }) {
   const openSteamChat = () => {
     window.open(`steam://friends/message/${props.user.steamId}`);
-  }
+  };
 
   return (
     <div className={`user-card ${props.className ?? ""}`}>
@@ -20,9 +17,7 @@ export default function UserCard(props: {
         <span className="realname">{props.user.realname}</span>
         <br />
       </div>
-      <Button onClick={openSteamChat}>
-        Chat
-      </Button>
+      <Button onClick={openSteamChat}>Chat</Button>
     </div>
-  )
+  );
 }

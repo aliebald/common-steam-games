@@ -1,10 +1,10 @@
-import React, { useEffect } from "react"
-import "./modal.css"
+import React, { useEffect } from "react";
+import "./modal.css";
 
 export default function Modal(props: {
-  children: JSX.Element,
-  visible: boolean,
-  setVisible: (visible: boolean) => void
+  children: JSX.Element;
+  visible: boolean;
+  setVisible: (visible: boolean) => void;
 }) {
   /* close if esc is pressed */
   useEffect(() => {
@@ -26,12 +26,12 @@ export default function Modal(props: {
 
   const close = () => {
     props.setVisible(false);
-  }
+  };
 
   return (
     <div className="modal">
       <div className="blur-bg" onClick={close}></div>
       {props.children}
     </div>
-  )
+  );
 }

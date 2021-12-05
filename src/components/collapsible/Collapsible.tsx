@@ -1,11 +1,11 @@
-import React, { useState } from "react"
-import "./collapsible.css"
+import React, { useState } from "react";
+import "./collapsible.css";
 
 export default function Collapsible(props: {
-  header?: string | JSX.Element,
-  title?: string,
-  btnClassName?: string,
-  children: JSX.Element
+  header?: string | JSX.Element;
+  title?: string;
+  btnClassName?: string;
+  children: JSX.Element;
 }) {
   const [collapsed, setCollapsed] = useState(true);
   const [hideContent, setHideContent] = useState(true);
@@ -17,7 +17,7 @@ export default function Collapsible(props: {
    */
   const toggle = () => {
     // Abort last timeout to avoid setting hideContent true,
-    // if the content was collapsed and opened again immediately 
+    // if the content was collapsed and opened again immediately
     if (lastTimeout) {
       clearTimeout(lastTimeout);
       setLastTimeout(undefined);
@@ -31,11 +31,12 @@ export default function Collapsible(props: {
       setLastTimeout(timeout);
     }
     setCollapsed(!collapsed);
-  }
+  };
 
   return (
     <>
-      <button type="button"
+      <button
+        type="button"
         className={`collapsible${hideContent ? " collapsed" : ""} ${props.btnClassName}`}
         onClick={toggle}
         title={props.title}
@@ -46,9 +47,7 @@ export default function Collapsible(props: {
           <div className="arrow-r"></div>
         </div>
       </button>
-      <div className={`content ${collapsed ? "content-collapsed" : ""}`}>
-        {hideContent ? <></> : props.children}
-      </div>
+      <div className={`content ${collapsed ? "content-collapsed" : ""}`}>{hideContent ? <></> : props.children}</div>
     </>
-  )
+  );
 }

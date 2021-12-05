@@ -12,14 +12,11 @@ export default function toMail(encrypted) {
   let decrypted = "";
   for (let i = 0; i < encrypted.length; i++) {
     if (encrypted.charCodeAt(i) > 122) {
-      decrypted += String.fromCharCode(
-        encrypted.charCodeAt(i + 1) - 56561
-      );
-
+      decrypted += String.fromCharCode(encrypted.charCodeAt(i + 1) - 56561);
       i++;
     } else {
       decrypted += encrypted.charAt(i);
     }
   }
   window.open("mailto:" + decrypted, "_self");
-};
+}

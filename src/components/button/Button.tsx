@@ -1,14 +1,14 @@
-import React from "react"
-import "./button.css"
+import React from "react";
+import "./button.css";
 
 export default function Button(props: {
-  className?: string,
-  onClick?: React.MouseEventHandler<HTMLButtonElement>,
-  appearance?: "danger" | "confirm",
-  title?: string,
-  type?: "button" | "submit" | "reset",
-  children?: JSX.Element | string,
-  disabled?: boolean
+  className?: string;
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
+  appearance?: "danger" | "confirm";
+  title?: string;
+  type?: "button" | "submit" | "reset";
+  children?: JSX.Element | string;
+  disabled?: boolean;
 }) {
   return (
     <button
@@ -20,5 +20,5 @@ export default function Button(props: {
     >
       {props.children ?? ""}
     </button>
-  )
+  );
 }

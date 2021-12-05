@@ -1,30 +1,30 @@
-import React, { useState } from 'react'
-import { Link, useHistory } from 'react-router-dom';
-import AboutTeaser from '../../components/aboutTeaser/AboutTeaser';
-import Container from '../../components/container/Container';
+import React, { useState } from "react";
+import { Link, useHistory } from "react-router-dom";
+import AboutTeaser from "../../components/aboutTeaser/AboutTeaser";
+import Container from "../../components/container/Container";
 
 export default function JoinSession(props: {
-  sessionId?: string,
-  steamId?: string,
-  onSubmit: (steamId: string, sessionId: string) => void,
-  id?: string
+  sessionId?: string;
+  steamId?: string;
+  onSubmit: (steamId: string, sessionId: string) => void;
+  id?: string;
 }) {
   const [steamId, setSteamId] = useState<string>(props.steamId ?? "");
   const [sessionId, setSessionId] = useState<string>(props.sessionId ?? "");
   const history = useHistory();
   const handleSteamIdChange = (event: any) => {
     setSteamId(event.target.value);
-  }
+  };
 
   const handleSessionIdChange = (event: any) => {
     setSessionId(event.target.value);
-  }
+  };
 
   const handleSubmit = async (event: any) => {
     event.preventDefault();
     props.onSubmit(steamId, sessionId);
     history.push("/matching");
-  }
+  };
 
   return (
     <Container className="join-session">
@@ -32,7 +32,9 @@ export default function JoinSession(props: {
       <h2 className="subtitle">Join Session</h2>
       <form className="d-table" onSubmit={handleSubmit}>
         <div className="d-table-row">
-          <label htmlFor="joinSessionSteamId" className="d-table-cell">Steam ID or Profile URL:</label>
+          <label htmlFor="joinSessionSteamId" className="d-table-cell">
+            Steam ID or Profile URL:
+          </label>
           <div className="steamId-input input-margin">
             <span className="profile-url">https://steamcommunity.com/id/</span>
             <input
@@ -48,8 +50,11 @@ export default function JoinSession(props: {
           </div>
         </div>
         <div className="d-table-row">
-          <label htmlFor="sessionId" className="d-table-cell">Session ID:&nbsp;</label>
-          <input type="text"
+          <label htmlFor="sessionId" className="d-table-cell">
+            Session ID:&nbsp;
+          </label>
+          <input
+            type="text"
             name="sessionId"
             id="sessionId"
             onChange={handleSessionIdChange}
@@ -71,5 +76,5 @@ export default function JoinSession(props: {
       </p>
       <AboutTeaser />
     </Container>
-  )
+  );
 }

@@ -1,16 +1,11 @@
-import { useState } from "react";
-import {
-  HashRouter as Router,
-  Switch,
-  Route,
-  Redirect
-} from "react-router-dom";
+import React, { useState } from "react";
+import { HashRouter as Router, Switch, Route, Redirect } from "react-router-dom";
 import CreateSession from "./pages/createSession/CreateSession";
 import Footer from "./components/footer/Footer";
 import JoinSession from "./pages/joinSession/JoinSession";
 import UnknownPage from "./pages/unknownPage/UnknownPage";
 import Matching from "./pages/matching/Matching";
-import ErrorList from "./components/errorList/ErrorList"
+import ErrorList from "./components/errorList/ErrorList";
 import About from "./pages/about/About";
 // import packageJSON from "../package.json"
 import "./styles/app.css";
@@ -23,11 +18,11 @@ export default function App(this: any) {
     onlyCommonGames: false,
     allCanAddCustomGames: true,
     defaultSort: "total"
-  })
+  });
 
   const addError = (error: ErrorType) => {
     setErrors(errors.concat(error));
-  }
+  };
 
   const createNewSession = (steamId: string) => {
     sessionStorage.setItem("steamId", steamId);
@@ -35,7 +30,7 @@ export default function App(this: any) {
 
     setSteamId(steamId);
     setJoinSessionId(undefined);
-  }
+  };
 
   const joinSession = (steamId: string, sessionId: string) => {
     sessionStorage.setItem("steamId", steamId);
@@ -43,12 +38,13 @@ export default function App(this: any) {
 
     setSteamId(steamId);
     setJoinSessionId(sessionId);
-  }
+  };
 
   return (
     <>
       <ErrorList errors={errors} setErrors={setErrors} />
-      <Router>{/*basename={packageJSON.subUrl}*/}
+      <Router>
+        {/*basename={packageJSON.subUrl}*/}
         <Switch>
           <Route path="/matching" exact>
             {!steamId ? (
@@ -92,7 +88,7 @@ export default function App(this: any) {
       </Router>
       <div className="background" />
     </>
-  )
+  );
 }
 
 /**
@@ -103,7 +99,7 @@ function getSessionId(): string | undefined {
   const urlParams = new URLSearchParams(window.location.search);
   const encodedSessionId = urlParams.get("sessionId");
   if (encodedSessionId) {
-    const sessionId = decodeURIComponent(encodedSessionId)
+    const sessionId = decodeURIComponent(encodedSessionId);
     sessionStorage.setItem("sessionId", sessionId);
     return sessionId;
   }
@@ -136,4 +132,4 @@ function getSteamId(): string | undefined {
 const canAutoJoin = () => {
   const urlParams = new URLSearchParams(window.location.search);
   return urlParams.has("steamId") && urlParams.has("sessionId");
-}
+};

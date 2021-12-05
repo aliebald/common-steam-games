@@ -3,8 +3,8 @@
 type Settings = {
   onlyCommonGames: boolean;
   allCanAddCustomGames: boolean;
-  defaultSort: "total" | "last2Weeks"
-}
+  defaultSort: "total" | "last2Weeks";
+};
 
 type User = {
   steamId: string;
@@ -25,7 +25,7 @@ type User = {
   personastateflags?: number;
   loccountrycode?: string;
   preferences?: Game[];
-}
+};
 
 type Friend = {
   steamId: string;
@@ -34,12 +34,12 @@ type Friend = {
   realname?: string;
   profileurl: string;
   filterSimilarity?: number;
-}
+};
 
 type OwnedGamesResponse = {
   game_count: number;
   games: Game[];
-}
+};
 
 type Game = {
   appid: number;
@@ -52,13 +52,13 @@ type Game = {
   // playtime_windows_forever?: number;
   // playtime_mac_forever?: number;
   // playtime_linux_forever?: number;
-  isCustom?: boolean
-}
+  isCustom?: boolean;
+};
 
 type MatchedGame = Game & {
   weight: number;
   owners: User[];
-}
+};
 
 type Session = {
   sessionId: string;
@@ -68,15 +68,15 @@ type Session = {
   games?: Game[];
   settings?: Settings;
   you?: string;
-}
+};
 
 type PreferencesUpdate = {
   steamId: string;
   preferences: Game[];
-}
+};
 
 type ErrorType = {
   status: number;
   msg: string;
   timeout?: number;
-}
+};

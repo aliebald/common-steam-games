@@ -1,13 +1,13 @@
-import React from "react"
-import Button from "../button/Button"
-import "./buttonGroup.css"
+import React from "react";
+import Button from "../button/Button";
+import "./buttonGroup.css";
 
 export default function ButtonGroup(props: {
-  name: string,
-  options: string[],
-  activeIndex: number,
-  setActive: (index: number) => void,
-  disabled?: boolean
+  name: string;
+  options: string[];
+  activeIndex: number;
+  setActive: (index: number) => void;
+  disabled?: boolean;
 }) {
   const getClass = (index: number) => {
     if (props.options.length === 1) {
@@ -19,8 +19,8 @@ export default function ButtonGroup(props: {
     if (index === 0) {
       return "btn-group-btn no-br-right";
     }
-    return "btn-group-btn no-br"
-  }
+    return "btn-group-btn no-br";
+  };
 
   return (
     <div className="btn-group">
@@ -37,5 +37,5 @@ export default function ButtonGroup(props: {
         </Button>
       ))}
     </div>
-  )
+  );
 }

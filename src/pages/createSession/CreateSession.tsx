@@ -1,28 +1,28 @@
-import React, { useState } from "react"
-import { Link, useHistory } from "react-router-dom"
-import AboutTeaser from "../../components/aboutTeaser/AboutTeaser"
-import Container from "../../components/container/Container"
-import Settings from "../../components/settings/Settings"
-import "./createSession.css"
+import React, { useState } from "react";
+import { Link, useHistory } from "react-router-dom";
+import AboutTeaser from "../../components/aboutTeaser/AboutTeaser";
+import Container from "../../components/container/Container";
+import Settings from "../../components/settings/Settings";
+import "./createSession.css";
 
 export default function CreateSession(props: {
-  steamId?: string,
-  settings: Settings,
-  setSettings: (settings: Settings) => void,
-  onSubmit: (steamId: string) => void,
+  steamId?: string;
+  settings: Settings;
+  setSettings: (settings: Settings) => void;
+  onSubmit: (steamId: string) => void;
 }) {
   const [steamId, setSteamId] = useState<string>(props.steamId ?? "");
   const history = useHistory();
 
   const handleSteamIdChange = (event: any) => {
     setSteamId(event.target.value);
-  }
+  };
 
   const handleSubmit = async (event: any) => {
     event.preventDefault();
     props.onSubmit(steamId);
     history.push("/matching");
-  }
+  };
 
   return (
     <Container className="create-session">
@@ -56,5 +56,5 @@ export default function CreateSession(props: {
       </p>
       <AboutTeaser />
     </Container>
-  )
+  );
 }

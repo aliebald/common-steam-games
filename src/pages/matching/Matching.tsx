@@ -1,3 +1,4 @@
+import React from "react";
 import { useEffect, useState } from "react";
 import { DropResult } from "react-beautiful-dnd";
 import { Socket } from "socket.io-client";
@@ -20,13 +21,12 @@ import AddButton from "../../components/addButton/AddButton";
 import { calculatePreferences, getCommonAppIds, initiateSocket, reorderGames } from "./util";
 import "./matching.css";
 
-
 function Matching(props: {
-  steamId: string,
-  sessionId?: string,
-  settings: Settings,
-  setSettings: (settings: Settings) => void,
-  addError: (error: ErrorType) => void
+  steamId: string;
+  sessionId?: string;
+  settings: Settings;
+  setSettings: (settings: Settings) => void;
+  addError: (error: ErrorType) => void;
 }) {
   const [users, setUsers] = useState<User[]>([]);
   const [self, setSelf] = useState<User>({ steamId: props.steamId });
@@ -43,7 +43,7 @@ function Matching(props: {
   const [gameSearch, setGameSearch] = useState("");
 
   const history = useHistory();
-  const showFullName = useMediaQuery({ query: '(min-width: 370px)' });
+  const showFullName = useMediaQuery({ query: "(min-width: 370px)" });
 
   /** updates settings (state) and sends updateSettings event to backend */
   const updateSettings = (settings: Settings) => {
@@ -52,11 +52,11 @@ function Matching(props: {
       socket.emit("updateSettings", settings);
     }
     props.setSettings(settings);
-  }
+  };
 
   useEffect(() => {
     setCommonAppIds(getCommonAppIds(users.concat(self)));
-  }, [users, self])
+  }, [users, self]);
 
   useEffect(() => {
     const handleSession = (msg: any) => {
@@ -69,8 +69,8 @@ function Matching(props: {
 
       const session = msg as Session;
       const ownSteamId = session.you ?? self.steamId;
-      const newUsers = session.users.filter(user => user.steamId !== ownSteamId);
-      const newSelf = session.users.find(user => user.steamId === ownSteamId);
+      const newUsers = session.users.filter((user) => user.steamId !== ownSteamId);
+      const newSelf = session.users.find((user) => user.steamId === ownSteamId);
       if (!newSelf) {
         props.addError({ status: 400, msg: "Failed to connect to session. Did not find self." });
         if (socket) socket.disconnect();
@@ -86,14 +86,14 @@ function Matching(props: {
       if (session.settings) {
         props.setSettings(session.settings);
       }
-    }
+    };
 
     const handleUserJoined = (msg: any) => {
       console.log("Received handleUserJoined:", msg, "users:", users);
       const newUsers = [...users];
       newUsers.push(msg as User);
       setUsers(newUsers);
-    }
+    };
 
     const handleAddCustomGame = (msg: any) => {
       console.log("Received AddCustomGame:", msg);
@@ -116,18 +116,18 @@ function Matching(props: {
         }
       }
       setUsers(newUsers);
-    }
+    };
 
     const handleUserDisconnect = (msg: any) => {
       console.log("Received handleUserDisconnect:", msg, "users:", users);
-      const newUsers = users.filter(user => user.steamId !== msg as string);
+      const newUsers = users.filter((user) => user.steamId !== (msg as string));
       setUsers(newUsers);
-    }
+    };
 
     const handleUpdateSettings = (msg: any) => {
       console.log("Received settings:", msg);
       props.setSettings(msg as Settings);
-    }
+    };
 
     const handleUpdatePreferences = (msg: any) => {
       console.log("Received updatePreferences:", msg);
@@ -135,15 +135,18 @@ function Matching(props: {
       // TODO check data
 
       const newUsers = [...users];
-      const changedUserIndex = newUsers.findIndex(user => user.steamId === data.steamId);
+      const changedUserIndex = newUsers.findIndex((user) => user.steamId === data.steamId);
       if (changedUserIndex !== -1) {
-        console.log(`Updating preferences for ${newUsers[changedUserIndex].personaname} (${data.steamId})`, changedUserIndex);
+        console.log(
+          `Updating preferences for ${newUsers[changedUserIndex].personaname} (${data.steamId})`,
+          changedUserIndex
+        );
         newUsers[changedUserIndex].preferences = data.preferences;
         setUsers(newUsers);
       } else {
         console.log(`Tried to update preferences for ${data.steamId} but did not find user`);
       }
-    }
+    };
 
     const handleError = (error: any) => {
       const err = error as ErrorType;
@@ -155,7 +158,7 @@ function Matching(props: {
       }
       if (socket) socket.disconnect();
       history.replace("/create");
-    }
+    };
 
     if (socket) {
       socket.removeAllListeners("error");
@@ -186,7 +189,7 @@ function Matching(props: {
       history.push("/create");
     });
     socket.io.on("reconnect_attempt", (attempt) => {
-      const msg = `Lost connection to server, attempting to reconnect. Attempt (${attempt}/${socket.io.reconnectionAttempts()})`
+      const msg = `Lost connection to server, attempting to reconnect. Attempt (${attempt}/${socket.io.reconnectionAttempts()})`;
       console.log(msg);
       props.addError({ status: 500, msg: msg, timeout: 6000 });
     });
@@ -194,7 +197,7 @@ function Matching(props: {
     return () => {
       console.log("#### disconnecting ###");
       if (socket) socket.disconnect();
-    }
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.sessionId, props.steamId]);
 
@@ -216,7 +219,7 @@ function Matching(props: {
     socket.emit("updatePreferences", self.preferences);
     setPreferencesChanged(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [self.preferences, preferencesChanged])
+  }, [self.preferences, preferencesChanged]);
 
   const onDragEnd = (result: DropResult): void => {
     // dropped outside the list
@@ -224,11 +227,7 @@ function Matching(props: {
       return;
     }
     const newSelf: User = { ...self } as User;
-    newSelf.preferences = reorderGames(
-      (self as User).preferences ?? [],
-      result.source.index,
-      result.destination.index
-    );
+    newSelf.preferences = reorderGames((self as User).preferences ?? [], result.source.index, result.destination.index);
     if (gameSearch.length > 0) {
       // Reset game search to avoid unwanted scrolling after changing preferences.
       // Does not update value in UserHeader so the user can build upon the old search query.
@@ -236,7 +235,7 @@ function Matching(props: {
     }
     setSelf(newSelf);
     setPreferencesChanged(true);
-  }
+  };
 
   const sortPreferences = (sortBy: "total" | "recent") => {
     // select the correct sort function dependant on the sortBy argument
@@ -261,7 +260,7 @@ function Matching(props: {
         } else {
           return a.isCustom ? -1 : 1;
         }
-      }
+      };
     }
     // Sort preferences using sortFunc
     const newSelf: User = { ...self };
@@ -270,25 +269,25 @@ function Matching(props: {
       setSelf(newSelf);
       setPreferencesChanged(true);
     }
-  }
+  };
 
   const addCustomGame = (game: Game) => {
     if (socket) {
       console.log("Adding Custom Game", game);
       socket.emit("addCustomGame", game);
     }
-  }
+  };
 
-  // loading 
+  // loading
   if (!self.preferences) {
-    return <Loading className="v-centered" center />
+    return <Loading className="v-centered" center />;
   }
 
   return (
     <>
       <Modal visible={showFriendslist && typeof socket !== "undefined"} setVisible={setShowFriendslist}>
         <FriendsList
-          socket={socket!}
+          socket={socket!} // eslint-disable-line @typescript-eslint/no-non-null-assertion
           sessionId={sessionId}
           closeFriendsList={() => setShowFriendslist(false)}
           steamId={self.steamId}
@@ -356,14 +355,16 @@ function Matching(props: {
               commonGames={props.settings.onlyCommonGames}
               addCustomGame={() => setShowCustomGameInput(true)}
               canAddCustomGames={initiatorId === self.steamId || props.settings.allCanAddCustomGames}
-            />}
+            />
+          }
         />
         <div className="peers">
-          <Invite sessionId={sessionId}
+          <Invite
+            sessionId={sessionId}
             className={users.length > 0 ? "no-br-bottom" : ""}
             openFriendsList={() => setShowFriendslist(true)}
           />
-          {users.map((user, index) =>
+          {users.map((user, index) => (
             <Collapsible
               header={<UserHeader title={`${user.personaname}'s preferences`} user={user} className="no-br no-bg" />}
               key={`${index}-${user.steamId}`}
@@ -377,7 +378,7 @@ function Matching(props: {
                 className="no-br-top"
               />
             </Collapsible>
-          )}
+          ))}
         </div>
       </Container>
     </>

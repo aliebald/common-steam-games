@@ -1,11 +1,11 @@
 import { io } from "socket.io-client";
 
 /**
- * Initiates a Socket IO socket. 
- * 
- * @param steamId 
- * @param settings 
- * @param sessionId 
+ * Initiates a Socket IO socket.
+ *
+ * @param steamId
+ * @param settings
+ * @param sessionId
  */
 export function initiateSocket(steamId: string, settings: Settings, sessionId?: string) {
   let query;
@@ -14,7 +14,8 @@ export function initiateSocket(steamId: string, settings: Settings, sessionId?: 
   } else {
     query = { steamId: steamId, settings: JSON.stringify(settings) };
   }
-  const url = process.env.NODE_ENV === "production" ? "https://common-steam-games.herokuapp.com/" : "http://localhost:3030";
+  const url =
+    process.env.NODE_ENV === "production" ? "https://common-steam-games.herokuapp.com/" : "http://localhost:3030";
   return io(url, {
     query: query,
     reconnectionAttempts: 4
@@ -22,30 +23,32 @@ export function initiateSocket(steamId: string, settings: Settings, sessionId?: 
 }
 
 /**
- * Preference matching function. 
+ * Preference matching function.
  * Takes users with preferences and returns ordered matches with a corresponding weight between 0 and 1.
- * 
+ *
  * @param users all users, including self.
  * @param commonAppIds If empty, all games will be matched. Otherwise list of common appIds, only common games will be matched
  * @returns Array with matched games
  */
 export function calculatePreferences(users: User[], commonAppIds: number[]): MatchedGame[] {
   const matchedGames: Map<number, MatchedGame> = new Map();
-  const maxGames = commonAppIds.length > 0 ? commonAppIds.length : (
-    Math.max(...users.map(user => user.preferences ? user.preferences.length : 0)));
+  const maxGames =
+    commonAppIds.length > 0
+      ? commonAppIds.length
+      : Math.max(...users.map((user) => (user.preferences ? user.preferences.length : 0)));
 
-  users.forEach(user => {
+  users.forEach((user) => {
     if (user.preferences) {
-      const preferences = commonAppIds.length > 0 ? (
-        user.preferences.filter(pref => commonAppIds.includes(pref.appid))
-      ) : user.preferences;
+      const preferences =
+        commonAppIds.length > 0
+          ? user.preferences.filter((pref) => commonAppIds.includes(pref.appid))
+          : user.preferences;
 
       preferences.forEach((game, index) => {
         const weight = getWeight(index, maxGames - 1);
-        let matchedGame: MatchedGame;
+        let matchedGame = matchedGames.get(game.appid);
         // Check if the game already exists. Otherwise add it to matchedGames.
-        if (matchedGames.has(game.appid)) {
-          matchedGame = matchedGames.get(game.appid)!;
+        if (matchedGame) {
           matchedGame.weight += weight / users.length;
           matchedGame.playtime_forever += game.playtime_forever / users.length;
           if (matchedGame.owners) {
@@ -56,7 +59,7 @@ export function calculatePreferences(users: User[], commonAppIds: number[]): Mat
             appid: game.appid,
             name: game.name,
             img_icon_url: game.img_icon_url,
-            playtime_2weeks: game.playtime_2weeks ? (game.playtime_2weeks / users.length) : undefined,
+            playtime_2weeks: game.playtime_2weeks ? game.playtime_2weeks / users.length : undefined,
             playtime_forever: game.playtime_forever / users.length,
             isCustom: game.isCustom,
             weight: weight / users.length,
@@ -70,13 +73,13 @@ export function calculatePreferences(users: User[], commonAppIds: number[]): Mat
   const result = Array.from(matchedGames.values());
   result.sort((a, b) => b.weight - a.weight);
 
-  return result
+  return result;
 }
 
 /** Weight function for calculatePreferences */
 function getWeight(index: number, maxGames: number): number {
   const weight = (maxGames - index) / maxGames;
-  return (!isNaN(weight) && weight >= 0) ? weight * weight : 0;
+  return !isNaN(weight) && weight >= 0 ? weight * weight : 0;
 }
 
 export function reorderGames(games: Game[], startIndex: number, endIndex: number) {
@@ -88,7 +91,7 @@ export function reorderGames(games: Game[], startIndex: number, endIndex: number
 
 /** Gets a list with appids for games owned by all users (incl. self) */
 export function getCommonAppIds(users: User[]) {
-  const appOwners: { appid: number; owners: number; }[] = [];
+  const appOwners: { appid: number; owners: number }[] = [];
   let maxOwners = users.length;
   for (const user of users) {
     if (!user.preferences) {
@@ -96,7 +99,7 @@ export function getCommonAppIds(users: User[]) {
       continue;
     }
     for (const game of user.preferences) {
-      const index = appOwners.findIndex(elem => elem.appid === game.appid);
+      const index = appOwners.findIndex((elem) => elem.appid === game.appid);
       if (index >= 0) {
         appOwners[index].owners++;
       } else {
@@ -104,6 +107,6 @@ export function getCommonAppIds(users: User[]) {
       }
     }
   }
-  const ids = appOwners.filter(elem => elem.owners >= maxOwners).map(elem => elem.appid);
+  const ids = appOwners.filter((elem) => elem.owners >= maxOwners).map((elem) => elem.appid);
   return ids;
 }

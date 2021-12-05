@@ -1,12 +1,12 @@
-import React from "react"
+import React from "react";
 import ButtonGroup from "../buttonGroup/ButtonGroup";
-import "./settings.css"
+import "./settings.css";
 
 export default function Settings(props: {
-  className?: string,
-  isHost: boolean,
-  settings: Settings,
-  setSettings: (settings: Settings) => void
+  className?: string;
+  isHost: boolean;
+  settings: Settings;
+  setSettings: (settings: Settings) => void;
 }) {
   function handleOnlyCommonGamesInput(index: number) {
     const newValue = index === 1;
@@ -69,9 +69,7 @@ export default function Settings(props: {
           disabled={!props.isHost}
         />
       </div>
-      <p className="settings-hint">
-        Settings marked with * can only be edited by the session host.
-      </p>
+      <p className="settings-hint">Settings marked with * can only be edited by the session host.</p>
     </div>
-  )
+  );
 }

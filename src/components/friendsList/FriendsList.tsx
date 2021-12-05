@@ -1,16 +1,16 @@
-import React, { RefObject, useEffect, useState } from "react"
+import React, { RefObject, useEffect, useState } from "react";
 import { compareTwoStrings } from "string-similarity";
 import { Socket } from "socket.io-client";
 import SearchBar from "../searchBar/SearchBar";
 import Loading from "../loading/Loading";
 import Friend from "../friend/Friend";
 import Button from "../button/Button";
-import "./friendslist.css"
+import "./friendslist.css";
 
 export default function FriendsList(props: {
-  socket: Socket,
-  sessionId: string,
-  steamId: string,
+  socket: Socket;
+  sessionId: string;
+  steamId: string;
   closeFriendsList: () => void;
 }) {
   const [friends, setFriends] = useState<Friend[]>([]);
@@ -20,11 +20,14 @@ export default function FriendsList(props: {
 
   useEffect(() => {
     const cacheFriendsList = (friends: Friend[]) => {
-      sessionStorage.setItem("friends", JSON.stringify({
-        friends: friends,
-        steamId: props.steamId
-      }));
-    }
+      sessionStorage.setItem(
+        "friends",
+        JSON.stringify({
+          friends: friends,
+          steamId: props.steamId
+        })
+      );
+    };
 
     const loadFriendsList = () => {
       const cached = sessionStorage.getItem("friends");
@@ -37,7 +40,7 @@ export default function FriendsList(props: {
       }
       // request from server if not cached
       props.socket.emit("getFriendsList");
-    }
+    };
 
     // set listener and request data
     props.socket.on("friendsList", (msg: any) => {
@@ -50,8 +53,8 @@ export default function FriendsList(props: {
 
     return () => {
       props.socket.removeAllListeners("friendsList");
-    }
-  }, [props.socket, props.steamId])
+    };
+  }, [props.socket, props.steamId]);
 
   // Updates Friendslist when friends are loaded or the search is used
   useEffect(() => {
@@ -62,7 +65,7 @@ export default function FriendsList(props: {
         similarity /= 2;
       }
       return { ...friend, filterSimilarity: similarity };
-    }
+    };
 
     const sortBySimilarity = (a: Friend, b: Friend) => {
       if (a.filterSimilarity === undefined || b.filterSimilarity === undefined) {
@@ -70,7 +73,7 @@ export default function FriendsList(props: {
         return 0;
       }
       return b.filterSimilarity - a.filterSimilarity;
-    }
+    };
 
     const mapToJSXElement = (friend: Friend) => (
       <Friend friend={friend} key={friend.steamId} sessionId={props.sessionId} />
@@ -82,24 +85,26 @@ export default function FriendsList(props: {
       // Apply filter
       setList(friends.map(addSimilarity).sort(sortBySimilarity).map(mapToJSXElement));
     }
-  }, [filter, friends, props.sessionId])
+  }, [filter, friends, props.sessionId]);
 
   const handleSearch = (query: string) => {
     setFilter(query);
     if (listRef.current) {
-      listRef.current.scrollTo({ top: 0, behavior: 'smooth' });
+      listRef.current.scrollTo({ top: 0, behavior: "smooth" });
     }
-  }
+  };
 
   return (
     <div className="friends">
       <div className="friendslist-header">
         <SearchBar className="friend-search" onChange={handleSearch} placeholder="Search Friends" />
-        <Button onClick={props.closeFriendsList} appearance="danger">&nbsp;Close&nbsp;Friends&nbsp;</Button>
+        <Button onClick={props.closeFriendsList} appearance="danger">
+          &nbsp;Close&nbsp;Friends&nbsp;
+        </Button>
       </div>
       <div className="list" ref={listRef}>
         {friends.length === 0 ? <Loading center /> : list}
       </div>
     </div>
-  )
+  );
 }
