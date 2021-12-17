@@ -1,6 +1,8 @@
 {
   "name": "common-steam-games",
-  "version": "0.1.0",
+  "version": "1.0.0",
+  "license": "GPL-3.0-only",
+  "author": "Alexander Liebald",
   "private": true,
   "homepage": "http://aliebald.github.io/common-steam-games",
   "subUrl": "/common-steam-games",

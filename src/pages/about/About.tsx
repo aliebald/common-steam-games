@@ -15,7 +15,7 @@ export default function About() {
       <h2>What Is Common Steam Games?</h2>
       <p>
         Common Steam Games is a web application that enables groups of users to discover common games regarding their
-        steam accounts and vote on games to find common preferences.
+        steam accounts and vote on games to find common preferences. It is build using Typescript, React, and Socket.IO.
       </p>
       <h2>Use Case</h2>
       <p>
@@ -51,7 +51,7 @@ export default function About() {
       <h2>Contact</h2>
       <p>
         For suggestions, bug reports or other project related topics, feel free to create an issue on{" "}
-        <a href="https://github.com/aliebald/common-steam-games">GitHub</a>.
+        <a href="https://github.com/aliebald/common-steam-games/issues">GitHub</a>.
         <br />
         Otherwise, for general feedback or other inquiries, please contact me via mail: contact.liebald (at) gmail.com.
       </p>

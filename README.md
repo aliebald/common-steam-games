@@ -1,8 +1,6 @@
-# About
+# Common Steam Games
 
-## What Is Common Steam Games?
-
-Common Steam Games is a web application that enables groups of users to discover common games regarding their steam accounts and vote on games to find common preferences.
+Common Steam Games is a web application that enables groups of users to discover common games regarding their steam accounts and vote on games to find common preferences. It is build using Typescript, React, and Socket.IO.
 
 ## Use Case
 
@@ -26,7 +24,30 @@ If any of the above settings are not correct, you will receive an error. You can
 - Custom games for your favorite common, non-steam games
 - ...
 
-## Contact
+# Contact
 
-For suggestions, bug reports or other project related topics, feel free to create an issue on [GitHub](https://github.com/aliebald/common-steam-games).
-Otherwise, for general feedback or other inquiries, please contact me via mail: contact.liebald (at) gmail.com.
+For feedback, suggestions, bug reports or other project related topics, feel free to create an issue on [GitHub](https://github.com/aliebald/common-steam-games/issues).
+
+For other inquiries, please contact me via mail: `contact.liebald (at) gmail.com`.
+
+# License
+
+Licensed under [GNU General Public License v3.0](./license).
+
+    Common Steam Games is a web application that enables groups of users
+    to discover common games regarding their steam accounts and vote on
+    games to find common preferences
+    Copyright (C) 2021 Alexander Liebald
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <https://www.gnu.org/licenses/>.

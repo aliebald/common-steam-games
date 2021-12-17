@@ -8,7 +8,7 @@
 }
 
 .about>h2 {
-	margin: 1.75rem 0 .5rem 0;
+	margin: 1.25rem 0 .25rem 0;
 }
 
 .about>p {
@@ -19,6 +19,10 @@
 	color: var(--main-text-color);
 	text-decoration: none;
 	text-align: center;
+}
+
+.about .title h1 {
+	margin-bottom: .4em;
 }
 
 .about-nav {
