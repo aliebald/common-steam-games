@@ -1,8 +1,9 @@
 import { DragDropContext, Droppable, DropResult, ResponderProvided } from "react-beautiful-dnd";
-import React, { createRef, RefObject, useEffect, useState } from "react";
+import React, { createRef, RefObject, useContext, useEffect, useState } from "react";
 import { compareTwoStrings } from "string-similarity";
 import DraggableGame from "../draggableGame/DraggableGame";
 import Game from "../game/Game";
+import LoggerContext from "../../Logger";
 import "./gamesList.css";
 
 export default function GamesList(props: {
@@ -18,6 +19,7 @@ export default function GamesList(props: {
   const header = props.header ?? "";
   const dndListRef: RefObject<HTMLDivElement> = createRef();
   const onlyCommonGames = props.onlyCommonGames ?? false;
+  const logger = useContext(LoggerContext);
 
   useEffect(() => {
     /** Finds the index of the game in games with the highest similarity with a search query */
@@ -39,7 +41,7 @@ export default function GamesList(props: {
           }
         }
       });
-      console.log(`Best match for game search ("${search}"): ${match.name}. Similarity: ${match.similarity}`);
+      logger.log(`Best match for game search ("${search}"): ${match.name}. Similarity: ${match.similarity}`);
       return match.index;
     };
 
@@ -60,7 +62,7 @@ export default function GamesList(props: {
       const pos = getDepthForGame(index);
       dndListRef.current.scrollTo({ top: pos, behavior: "smooth" });
     }
-  }, [dndListRef, props.games, props.gameSearch, props.commonAppIds, props.onlyCommonGames]);
+  }, [dndListRef, props.games, props.gameSearch, props.commonAppIds, props.onlyCommonGames, logger]);
 
   // Return games as drag & drop list
   if (props.droppableId && props.onDragEnd) {

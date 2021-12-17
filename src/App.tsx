@@ -8,6 +8,7 @@ import Matching from "./pages/matching/Matching";
 import ErrorList from "./components/errorList/ErrorList";
 import About from "./pages/about/About";
 // import packageJSON from "../package.json"
+import { Logger, LoggerProvider } from "./Logger";
 import "./styles/app.css";
 
 export default function App(this: any) {
@@ -19,6 +20,7 @@ export default function App(this: any) {
     allCanAddCustomGames: true,
     defaultSort: "total"
   });
+  const logger = new Logger();
 
   const addError = (error: ErrorType) => {
     setErrors(errors.concat(error));
@@ -41,7 +43,7 @@ export default function App(this: any) {
   };
 
   return (
-    <>
+    <LoggerProvider value={logger}>
       <ErrorList errors={errors} setErrors={setErrors} />
       <Router>
         {/*basename={packageJSON.subUrl}*/}
@@ -87,7 +89,7 @@ export default function App(this: any) {
         <Footer />
       </Router>
       <div className="background" />
-    </>
+    </LoggerProvider>
   );
 }
 

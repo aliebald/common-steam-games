@@ -1,10 +1,11 @@
-import React, { RefObject, useEffect, useState } from "react";
+import React, { RefObject, useContext, useEffect, useState } from "react";
 import { compareTwoStrings } from "string-similarity";
 import { Socket } from "socket.io-client";
 import SearchBar from "../searchBar/SearchBar";
 import Loading from "../loading/Loading";
 import Friend from "../friend/Friend";
 import Button from "../button/Button";
+import LoggerContext from "../../Logger";
 import "./friendslist.css";
 
 export default function FriendsList(props: {
@@ -17,6 +18,7 @@ export default function FriendsList(props: {
   const [filter, setFilter] = useState<string>("");
   const [list, setList] = useState<JSX.Element[]>([]);
   const listRef: RefObject<HTMLDivElement> = React.createRef();
+  const logger = useContext(LoggerContext);
 
   useEffect(() => {
     const cacheFriendsList = (friends: Friend[]) => {
@@ -34,17 +36,19 @@ export default function FriendsList(props: {
       if (typeof cached === "string") {
         const parsed = JSON.parse(cached);
         if (parsed.steamId === props.steamId) {
+          logger.log("Loaded cached friendsList");
           setFriends(parsed.friends as Friend[]);
           return;
         }
       }
       // request from server if not cached
+      logger.log("Requesting friendsList");
       props.socket.emit("getFriendsList");
     };
 
     // set listener and request data
     props.socket.on("friendsList", (msg: any) => {
-      console.log("friendsList", msg);
+      logger.log("Received friendsList:", msg);
       cacheFriendsList(msg as Friend[]);
       setFriends(msg as Friend[]);
     });
@@ -54,7 +58,7 @@ export default function FriendsList(props: {
     return () => {
       props.socket.removeAllListeners("friendsList");
     };
-  }, [props.socket, props.steamId]);
+  }, [props.socket, props.steamId, logger]);
 
   // Updates Friendslist when friends are loaded or the search is used
   useEffect(() => {
@@ -69,7 +73,7 @@ export default function FriendsList(props: {
 
     const sortBySimilarity = (a: Friend, b: Friend) => {
       if (a.filterSimilarity === undefined || b.filterSimilarity === undefined) {
-        console.warn("filterSimilarity is not defined");
+        logger.warn("filterSimilarity is not defined");
         return 0;
       }
       return b.filterSimilarity - a.filterSimilarity;
@@ -82,10 +86,9 @@ export default function FriendsList(props: {
     if (filter.length < 2) {
       setList(friends.map(mapToJSXElement));
     } else {
-      // Apply filter
       setList(friends.map(addSimilarity).sort(sortBySimilarity).map(mapToJSXElement));
     }
-  }, [filter, friends, props.sessionId]);
+  }, [filter, friends, props.sessionId, logger]);
 
   const handleSearch = (query: string) => {
     setFilter(query);

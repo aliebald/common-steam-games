@@ -1,5 +1,4 @@
-import React from "react";
-import { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { DropResult } from "react-beautiful-dnd";
 import { Socket } from "socket.io-client";
 import { useHistory } from "react-router";
@@ -19,6 +18,7 @@ import CustomGameInput from "../../components/customGameInput/CustomGameInput";
 import Button from "../../components/button/Button";
 import AddButton from "../../components/addButton/AddButton";
 import { calculatePreferences, getCommonAppIds, initiateSocket, reorderGames } from "./util";
+import LoggerContext from "../../Logger";
 import "./matching.css";
 
 function Matching(props: {
@@ -41,14 +41,14 @@ function Matching(props: {
   const [showSettingsModal, setShowSettingsModal] = useState<boolean>(false);
   const [commonAppIds, setCommonAppIds] = useState<number[]>([]);
   const [gameSearch, setGameSearch] = useState("");
-
+  const logger = useContext(LoggerContext);
   const history = useHistory();
   const showFullName = useMediaQuery({ query: "(min-width: 370px)" });
 
   /** updates settings (state) and sends updateSettings event to backend */
   const updateSettings = (settings: Settings) => {
     if (socket) {
-      console.log("Sending settings");
+      logger.log("Sending settings");
       socket.emit("updateSettings", settings);
     }
     props.setSettings(settings);
@@ -60,14 +60,25 @@ function Matching(props: {
 
   useEffect(() => {
     const handleSession = (msg: any) => {
-      console.log("Received session:", msg);
-      if (!msg) return;
-      if (users.length > 0) {
-        console.warn("Received session but already is part of a session");
+      if (!msg) {
+        logger.error("handleSession received undefined msg:", msg);
         return;
       }
 
+      if (users.length > 0) {
+        logger.warn("Received session but already is part of a session");
+        return;
+      }
+
+      // Logging
       const session = msg as Session;
+      logger.group("Received session");
+      for (const [key, value] of Object.entries(session)) {
+        logger.log(`${key}:`, value);
+      }
+      logger.groupEnd();
+
+      // Separate self and other users
       const ownSteamId = session.you ?? self.steamId;
       const newUsers = session.users.filter((user) => user.steamId !== ownSteamId);
       const newSelf = session.users.find((user) => user.steamId === ownSteamId);
@@ -89,14 +100,19 @@ function Matching(props: {
     };
 
     const handleUserJoined = (msg: any) => {
-      console.log("Received handleUserJoined:", msg, "users:", users);
       const newUsers = [...users];
       newUsers.push(msg as User);
+
+      logger.group("New user joined the session:");
+      logger.log("New user:", msg);
+      logger.log("All users:", newUsers);
+      logger.groupEnd();
+
       setUsers(newUsers);
     };
 
     const handleAddCustomGame = (msg: any) => {
-      console.log("Received AddCustomGame:", msg);
+      logger.log("Received customGame:", msg);
       // Add custom game to own games
       const newSelf = { ...self };
       if (newSelf.preferences) {
@@ -119,32 +135,37 @@ function Matching(props: {
     };
 
     const handleUserDisconnect = (msg: any) => {
-      console.log("Received handleUserDisconnect:", msg, "users:", users);
       const newUsers = users.filter((user) => user.steamId !== (msg as string));
+
+      logger.group("User disconnected:");
+      logger.log("User steamId:", msg);
+      logger.log("Remaining users:", newUsers);
+      logger.groupEnd();
+
       setUsers(newUsers);
     };
 
     const handleUpdateSettings = (msg: any) => {
-      console.log("Received settings:", msg);
+      logger.log("Received settings:", msg);
       props.setSettings(msg as Settings);
     };
 
     const handleUpdatePreferences = (msg: any) => {
-      console.log("Received updatePreferences:", msg);
-      const data = msg as PreferencesUpdate;
+      logger.group("Received updated preferences");
 
+      const data = msg as PreferencesUpdate;
       const newUsers = [...users];
       const changedUserIndex = newUsers.findIndex((user) => user.steamId === data.steamId);
       if (changedUserIndex !== -1) {
-        console.log(
-          `Updating preferences for ${newUsers[changedUserIndex].personaname} (${data.steamId})`,
-          changedUserIndex
-        );
+        logger.log(`Updating preferences for ${newUsers[changedUserIndex].personaname} (${data.steamId})`);
         newUsers[changedUserIndex].preferences = data.preferences;
         setUsers(newUsers);
       } else {
-        console.log(`Tried to update preferences for ${data.steamId} but did not find user`);
+        logger.log(`Tried to update preferences for ${data.steamId} but did not find user`);
+        logger.log("Original message:", msg);
       }
+
+      logger.groupEnd();
     };
 
     const handleError = (error: any) => {
@@ -176,25 +197,25 @@ function Matching(props: {
       socket.on("updateSettings", handleUpdateSettings);
       socket.on("updatePreferences", handleUpdatePreferences);
     }
-  }, [self, users, socket, props, history]);
+  }, [self, users, socket, props, history, logger]);
 
   useEffect(() => {
     const socket = initiateSocket(props.steamId, props.settings, props.sessionId);
     setSocket(socket);
 
     socket.io.on("reconnect_failed", () => {
-      console.log("Failed to reconnect");
+      logger.log("Failed to reconnect");
       props.addError({ status: 500, msg: "Lost connection to server", timeout: 15000 });
       history.push("/create");
     });
     socket.io.on("reconnect_attempt", (attempt) => {
       const msg = `Lost connection to server, attempting to reconnect. Attempt (${attempt}/${socket.io.reconnectionAttempts()})`;
-      console.log(msg);
+      logger.log(msg);
       props.addError({ status: 500, msg: msg, timeout: 6000 });
     });
 
     return () => {
-      console.log("#### disconnecting ###");
+      logger.log("#### disconnecting ###");
       if (socket) socket.disconnect();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -202,24 +223,26 @@ function Matching(props: {
 
   // Update group preferences
   useEffect(() => {
-    console.log("calculatePreferences");
+    logger.log("calculatePreferences");
     const appIds = props.settings.onlyCommonGames ? commonAppIds : [];
     setMatchedGames(calculatePreferences(users.concat(self), appIds));
-  }, [users, self, props.settings.onlyCommonGames, commonAppIds]);
+  }, [users, self, props.settings.onlyCommonGames, commonAppIds, logger]);
 
   // Send preferences to backend when changed
   useEffect(() => {
     if (!preferencesChanged || !self.preferences) return;
     if (!socket) {
-      console.error("Socket is not defined");
+      logger.error("Cant send preferences, Socket is not defined");
       return;
     }
-    console.log("Sending preferences");
+    logger.log("Sending preferences");
     socket.emit("updatePreferences", self.preferences);
     setPreferencesChanged(false);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [self.preferences, preferencesChanged]);
+  }, [self.preferences, preferencesChanged, logger, socket]);
 
+  /**
+   * Handles changes in the drag and drop games list
+   */
   const onDragEnd = (result: DropResult): void => {
     // dropped outside the list
     if (!result.destination) {
@@ -236,6 +259,9 @@ function Matching(props: {
     setPreferencesChanged(true);
   };
 
+  /**
+   * Reorders own games either by total playtime or recent (last two weeks) playtime.
+   */
   const sortPreferences = (sortBy: "total" | "recent") => {
     // select the correct sort function dependant on the sortBy argument
     let sortFunc: (a: Game, b: Game) => number;
@@ -272,7 +298,7 @@ function Matching(props: {
 
   const addCustomGame = (game: Game) => {
     if (socket) {
-      console.log("Adding Custom Game", game);
+      logger.log("Adding Custom Game", game);
       socket.emit("addCustomGame", game);
     }
   };
