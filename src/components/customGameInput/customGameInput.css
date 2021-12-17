@@ -14,10 +14,6 @@
 	padding-right: 0;
 }
 
-.custom-game-input>form>.title {
-	margin: .3rem 0;
-}
-
 .custom-game-input .preview {
 	margin: 0 0 .3rem 0;
 }
@@ -39,4 +35,32 @@
 .custom-game-input input,
 .custom-game-input label {
 	width: 100%;
+}
+
+/* ======
+  Header
+========= */
+
+.custom-game-input-header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding-bottom: .3rem;
+}
+
+.custom-game-input-header>.title {
+	margin: .3rem 0;
+}
+
+.custom-game-input-header .close-btn {
+	border-color: var(--main-color-2);
+	transform: rotate(45deg)
+}
+
+.custom-game-input-header .close-btn>div {
+	background-color: var(--main-color-2);
+}
+
+.custom-game-input-header .close-btn:hover {
+	background-color: inherit;
 }

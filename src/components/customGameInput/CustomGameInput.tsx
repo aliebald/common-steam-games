@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import AddButton from "../../components/addButton/AddButton";
 import Button from "../button/Button";
 import Container from "../container/Container";
 import Game from "../game/Game";
@@ -65,7 +66,10 @@ export default function CustomGameInput(props: {
   return (
     <Modal visible={props.visible} setVisible={handleModal}>
       <Container className="custom-game-input">
-        <h3 className="title">Add Custom Game</h3>
+        <div className="custom-game-input-header">
+          <h3 className="title">Add Custom Game</h3>
+          <AddButton onClick={props.close} className="close-btn" />
+        </div>
         <p className="description">
           Custom games are added to all users in this session. This can be used to add non-Steam games, e.g. games from
           different platforms, browser games, or other activities.
@@ -82,7 +86,7 @@ export default function CustomGameInput(props: {
         <h3 className="preview">Preview</h3>
         <Game game={game} />
         <div className="buttons">
-          <Button appearance="danger" onClick={props.close}>
+          <Button appearance="outline" onClick={props.close}>
             Abort
           </Button>
           <Button onClick={confirm}>Add&nbsp; Game</Button>

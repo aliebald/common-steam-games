@@ -4,7 +4,7 @@ import "./button.css";
 export default function Button(props: {
   className?: string;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
-  appearance?: "danger" | "confirm";
+  appearance?: "default" | "danger" | "confirm" | "outline";
   title?: string;
   type?: "button" | "submit" | "reset";
   children?: JSX.Element | string;
@@ -12,7 +12,7 @@ export default function Button(props: {
 }) {
   return (
     <button
-      className={`btn ${props.appearance ?? ""} ${props.className ?? ""}`}
+      className={`btn ${props.appearance ?? "default"} ${props.className ?? ""}`}
       onClick={props.onClick}
       title={props.title}
       type={props.type}

@@ -1,19 +1,18 @@
 .btn {
 	text-align: center;
-	background-color: var(--main-color-2);
 	border-radius: .25rem;
 	color: var(--main-text-color);
 	border: 1px solid transparent;
 	padding: .375rem .75rem;
 	height: 35px;
-	transition: background-color .2s, filter .2s, transform .1s;
+	transition: background-color .2s, filter .2s, transform .1s, border-color .2s, color .2s;
 }
 
 .btn:not(:disabled):hover {
 	cursor: pointer;
 }
 
-.btn:not(:disabled):not(.danger):not(.confirm):hover {
+.btn.default:not(:disabled):hover {
 	background-color: #56595e;
 }
 
@@ -30,10 +29,25 @@
 	transform: scale(0.95);
 }
 
+.btn.default {
+	background-color: var(--main-color-2);
+}
+
 .btn.danger {
 	background-color: var(--color-red);
 }
 
 .btn.confirm {
 	background-color: var(--color-green);
+}
+
+.btn.outline {
+	background-color: transparent;
+	border: 2px solid var(--main-color-2);
+	color: var(--text-color-gray);
+}
+
+.btn.outline:hover {
+	border: 2px solid var(--main-color-3);
+	color: var(--main-text-color);
 }

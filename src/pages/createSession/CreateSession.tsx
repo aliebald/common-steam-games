@@ -49,7 +49,7 @@ export default function CreateSession(props: {
           setSettings={props.setSettings}
           className="create-session-settings"
         />
-        <input type="submit" value="Create New Session" className="btn" />
+        <input type="submit" value="Create New Session" className="btn default" />
       </form>
       <p className="link-join">
         Or <Link to="/join">join existing session</Link>

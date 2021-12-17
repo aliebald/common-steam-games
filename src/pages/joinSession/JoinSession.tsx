@@ -67,7 +67,7 @@ export default function JoinSession(props: {
         <div className="d-table-row">
           <div className="d-table-cell"></div>
           <div className="d-table-cell">
-            <input type="submit" value="Join Session" className="btn" />
+            <input type="submit" value="Join Session" className="btn default" />
           </div>
         </div>
       </form>
