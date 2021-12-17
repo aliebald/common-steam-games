@@ -2,6 +2,7 @@ import React from "react";
 import Tooltip from "../tooltip/Tooltip";
 import UserCard from "../userCard/UserCard";
 import packageJSON from "../../../package.json";
+import { convertWeightToPercentage, getImage, getStorePage } from "./util";
 import "./game.css";
 
 export default function Game(props: {
@@ -105,19 +106,4 @@ function Owners(props: { owners: User[]; gameTitle: string }) {
       ))}
     </>
   );
-}
-
-function getImage(appid: number | string, hash: number | string): string {
-  return `https://media.steampowered.com/steamcommunity/public/images/apps/${appid}/${hash}.jpg`;
-}
-
-function getStorePage(appid: number | string): string {
-  return `https://store.steampowered.com/app/${appid}`;
-}
-
-function convertWeightToPercentage(weight: number): string {
-  // Get weight as rounded percentage with 2 trailing decimals
-  const num = (Math.round(weight * 10000) / 100).toFixed(2);
-  // remove trailing zeros using parseFloat
-  return `${parseFloat(num)}%`;
 }

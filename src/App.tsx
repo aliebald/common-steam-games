@@ -25,7 +25,7 @@ export default function App(this: any) {
   };
 
   const createNewSession = (steamId: string) => {
-    sessionStorage.setItem("steamId", steamId);
+    localStorage.setItem("steamId", steamId);
     sessionStorage.removeItem("sessionId");
 
     setSteamId(steamId);
@@ -33,7 +33,7 @@ export default function App(this: any) {
   };
 
   const joinSession = (steamId: string, sessionId: string) => {
-    sessionStorage.setItem("steamId", steamId);
+    localStorage.setItem("steamId", steamId);
     sessionStorage.setItem("sessionId", sessionId);
 
     setSteamId(steamId);
@@ -119,10 +119,10 @@ function getSteamId(): string | undefined {
   const encodedSteamId = urlParams.get("steamId");
   if (encodedSteamId) {
     const steamId = decodeURIComponent(encodedSteamId);
-    sessionStorage.setItem("steamId", steamId);
+    localStorage.setItem("steamId", steamId);
     return steamId;
   }
-  const cachedSteamId = sessionStorage.getItem("steamId");
+  const cachedSteamId = localStorage.getItem("steamId");
   if (cachedSteamId) {
     return cachedSteamId;
   }

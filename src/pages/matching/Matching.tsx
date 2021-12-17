@@ -132,7 +132,6 @@ function Matching(props: {
     const handleUpdatePreferences = (msg: any) => {
       console.log("Received updatePreferences:", msg);
       const data = msg as PreferencesUpdate;
-      // TODO check data
 
       const newUsers = [...users];
       const changedUserIndex = newUsers.findIndex((user) => user.steamId === data.steamId);
