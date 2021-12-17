@@ -32,6 +32,7 @@ function Matching(props: {
   const [self, setSelf] = useState<User>({ steamId: props.steamId });
   const [initiatorId, setInitiatorId] = useState<string>(props.sessionId ? "" : props.steamId);
   const [matchedGames, setMatchedGames] = useState<MatchedGame[]>([]);
+  const [customGames, setCustomGames] = useState<Game[]>([]);
   const [sessionId, setSessionId] = useState<string>("");
   const [preferencesChanged, setPreferencesChanged] = useState(false);
   const [socket, setSocket] = useState<Socket | undefined>(undefined);
@@ -94,6 +95,9 @@ function Matching(props: {
       setSelf(newSelf);
       setUsers(newUsers);
       setInitiatorId(session.initiatorId);
+      if (session.customGames && session.customGames.length > 0) {
+        setCustomGames(session.customGames);
+      }
       if (session.settings) {
         props.setSettings(session.settings);
       }
@@ -113,12 +117,16 @@ function Matching(props: {
 
     const handleAddCustomGame = (msg: any) => {
       logger.log("Received customGame:", msg);
+
+      const game = msg as Game;
+      setCustomGames([...customGames, game]);
+
       // Add custom game to own games
       const newSelf = { ...self };
       if (newSelf.preferences) {
-        newSelf.preferences.unshift(msg as Game);
+        newSelf.preferences.unshift(game);
       } else {
-        newSelf.preferences = [msg as Game];
+        newSelf.preferences = [game];
       }
       setSelf(newSelf);
 
@@ -126,9 +134,9 @@ function Matching(props: {
       const newUsers = [...users];
       for (const user of newUsers) {
         if (user.preferences) {
-          user.preferences.unshift(msg as Game);
+          user.preferences.unshift(game);
         } else {
-          user.preferences = [msg as Game];
+          user.preferences = [game];
         }
       }
       setUsers(newUsers);
@@ -197,7 +205,7 @@ function Matching(props: {
       socket.on("updateSettings", handleUpdateSettings);
       socket.on("updatePreferences", handleUpdatePreferences);
     }
-  }, [self, users, socket, props, history, logger]);
+  }, [self, users, socket, props, history, logger, customGames]);
 
   useEffect(() => {
     const socket = initiateSocket(props.steamId, props.settings, props.sessionId);
@@ -296,6 +304,25 @@ function Matching(props: {
     }
   };
 
+  /**
+   * Validates a custom game
+   * @returns empty string if custom game is valid, otherwise string with an error message
+   */
+  const validateCustomGame = (game: Game) => {
+    if (game.name.length === 0) {
+      return "Please enter a name for the custom game.";
+    }
+    const existingGameNames = customGames.map((existingGame) => existingGame.name);
+    if (existingGameNames.includes(game.name)) {
+      return "Custom game names must be unique.";
+    }
+    return "";
+  };
+
+  /**
+   * Sends a custom game to backend.
+   * The game will be added to the other games after being validated in the backend and receiving an unique id. 
+   */
   const addCustomGame = (game: Game) => {
     if (socket) {
       logger.log("Adding Custom Game", game);
@@ -331,6 +358,7 @@ function Matching(props: {
         visible={showCustomGameInput}
         close={() => setShowCustomGameInput(false)}
         addGame={addCustomGame}
+        validateGame={validateCustomGame}
         addError={props.addError}
       />
       <Confirmation

@@ -66,6 +66,7 @@ type Session = {
   timeout: number;
   users: User[];
   games?: Game[];
+  customGames?: Game[];
   settings?: Settings;
   you?: string;
 };

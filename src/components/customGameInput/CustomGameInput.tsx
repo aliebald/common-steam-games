@@ -9,6 +9,7 @@ export default function CustomGameInput(props: {
   visible: boolean;
   close: () => void;
   addGame: (game: Game) => void;
+  validateGame: (game: Game) => string;
   addError: (error: ErrorType) => void;
 }) {
   const [game, setGame] = useState<Game>({
@@ -41,10 +42,11 @@ export default function CustomGameInput(props: {
   };
 
   const confirm = () => {
-    if (game.name.length === 0) {
+    const errorMsg = props.validateGame(game);
+    if (errorMsg.length > 0) {
       props.addError({
         status: 400,
-        msg: "Please enter a name for the custom game.",
+        msg: errorMsg,
         timeout: 3000
       });
       return;
