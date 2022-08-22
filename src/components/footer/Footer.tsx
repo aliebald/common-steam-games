@@ -1,6 +1,5 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import packageJSON from "../../../package.json";
 import toMail from "../../security/mail";
 import "./footer.css";
 

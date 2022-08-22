@@ -1,7 +1,6 @@
 import React from "react";
 import Tooltip from "../tooltip/Tooltip";
 import UserCard from "../userCard/UserCard";
-import packageJSON from "../../../package.json";
 import { convertWeightToPercentage, getImage, getStorePage } from "./util";
 import "./game.css";
 
