@@ -6,9 +6,9 @@ import "./friend.css";
 export default function Friend(props: { friend: Friend; sessionId: string }) {
   const friend = props.friend;
   const personaname = friend.personaname ?? friend.realname ?? "";
-  const invite = `${window.location.origin}/join?sessionId=${encodeURIComponent(props.sessionId)}&steamId=${
+  const invite = `${window.location.origin}?sessionId=${encodeURIComponent(props.sessionId)}&steamId=${
     props.friend.steamId
-  }`;
+  }#join`;
   const copyInvite = () => {
     navigator.clipboard.writeText(invite);
   };
