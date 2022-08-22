@@ -4,8 +4,7 @@
   "license": "GPL-3.0-only",
   "author": "Alexander Liebald",
   "private": true,
-  "homepage": "http://aliebald.github.io/common-steam-games",
-  "subUrl": "/common-steam-games",
+  "homepage": "https://common-steam-games.liebald.dev/",
   "dependencies": {
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^11.2.7",

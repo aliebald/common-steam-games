@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { HashRouter as Router, Switch, Route, Redirect } from "react-router-dom";
+import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
 import CreateSession from "./pages/createSession/CreateSession";
 import Footer from "./components/footer/Footer";
 import JoinSession from "./pages/joinSession/JoinSession";
@@ -45,8 +45,7 @@ export default function App(this: any) {
   return (
     <LoggerProvider value={logger}>
       <ErrorList errors={errors} setErrors={setErrors} />
-      <Router>
-        {/*basename={packageJSON.subUrl}*/}
+      <BrowserRouter>
         <Switch>
           <Route path="/matching" exact>
             {!steamId ? (
@@ -87,7 +86,7 @@ export default function App(this: any) {
           </Route>
         </Switch>
         <Footer />
-      </Router>
+      </BrowserRouter>
       <div className="background" />
     </LoggerProvider>
   );

@@ -22,7 +22,7 @@ export default function Footer() {
           Impressum
         </a>
         <div title="Send me a mail" onClick={() => toMail("𝕔𝕠𝕟𝕥𝕒𝕔𝕥@𝕝𝕚𝕖𝕓𝕒𝕝𝕕.𝕕𝕖𝕧")}>
-          <img src={`${packageJSON.subUrl}/email.svg`} alt="contact" height="20px" width="20px" className="contact" />
+          <img src="/email.svg" alt="contact" height="20px" width="20px" className="contact" />
         </div>
         <a
           href="https://github.com/aliebald/common-steam-games"
@@ -30,7 +30,7 @@ export default function Footer() {
           rel="noopener noreferrer"
           title="GitHub Repository"
         >
-          <img src={`${packageJSON.subUrl}/github.svg`} alt="github" height="18px" width="18px" className="github" />
+          <img src="/github.svg" alt="github" height="18px" width="18px" className="github" />
         </a>
       </div>
     </div>

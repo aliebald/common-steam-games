@@ -81,13 +81,7 @@ export default function Game(props: {
       )}
       {props.isDnD ? (
         <div className="dnd-icon">
-          <img
-            src={`${packageJSON.subUrl}/dnd_icon.svg`}
-            alt="dnd"
-            width="17"
-            height="32"
-            className={props.DnDHighlight ? "highlight" : ""}
-          />
+          <img src="/dnd_icon.svg" alt="dnd" width="17" height="32" className={props.DnDHighlight ? "highlight" : ""} />
         </div>
       ) : (
         <></>
