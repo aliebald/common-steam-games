@@ -2,6 +2,7 @@ import React from "react";
 import { Link, useHistory } from "react-router-dom";
 import Button from "../../components/button/Button";
 import Container from "../../components/container/Container";
+import toMail from "../../security/mail";
 import "./about.css";
 
 export default function About() {
@@ -53,7 +54,8 @@ export default function About() {
         For suggestions, bug reports or other project related topics, feel free to create an issue on{" "}
         <a href="https://github.com/aliebald/common-steam-games/issues">GitHub</a>.
         <br />
-        Otherwise, for general feedback or other inquiries, please contact me via mail: contact.liebald (at) gmail.com.
+        Otherwise, for general feedback or other inquiries, please contact me via mail:{" "}
+        <a onClick={() => toMail("𝕔𝕠𝕟𝕥𝕒𝕔𝕥@𝕝𝕚𝕖𝕓𝕒𝕝𝕕.𝕕𝕖𝕧")}>contact (at) liebald (dot) dev</a>.
       </p>
       <div className="about-nav">
         <Button onClick={history.goBack}>Go&nbsp;Back</Button>

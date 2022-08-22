@@ -21,7 +21,7 @@ export default function Footer() {
         >
           Impressum
         </a>
-        <div title="Send me a mail" onClick={() => toMail("𝕔𝕠𝕟𝕥𝕒𝕔𝕥.𝕝𝕚𝕖𝕓𝕒𝕝𝕕@𝕘𝕞𝕒𝕚𝕝.𝕔𝕠𝕞")}>
+        <div title="Send me a mail" onClick={() => toMail("𝕔𝕠𝕟𝕥𝕒𝕔𝕥@𝕝𝕚𝕖𝕓𝕒𝕝𝕕.𝕕𝕖𝕧")}>
           <img src={`${packageJSON.subUrl}/email.svg`} alt="contact" height="20px" width="20px" className="contact" />
         </div>
         <a

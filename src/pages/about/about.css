@@ -36,6 +36,10 @@
 	margin: .25rem;
 }
 
+a {
+	cursor: pointer;
+}
+
 
 @media only screen and (max-width: 460px) {
 	.about {

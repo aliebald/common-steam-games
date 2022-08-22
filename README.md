@@ -28,7 +28,7 @@ If any of the above settings are not correct, you will receive an error. You can
 
 For feedback, suggestions, bug reports or other project related topics, feel free to create an issue on [GitHub](https://github.com/aliebald/common-steam-games/issues).
 
-For other inquiries, please contact me via mail: `contact.liebald (at) gmail.com`.
+For other inquiries, please contact me via mail: `contact (at) liebald (dot) dev`.
 
 # License
 
