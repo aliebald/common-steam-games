@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { DropResult } from "react-beautiful-dnd";
 import { Socket } from "socket.io-client";
-import { useHistory } from "react-router";
+import { useNavigate } from "react-router";
 import { useMediaQuery } from "react-responsive";
 import Collapsible from "../../components/collapsible/Collapsible";
 import GamesList from "../../components/gamesList/GamesList";
@@ -43,7 +43,7 @@ function Matching(props: {
   const [commonAppIds, setCommonAppIds] = useState<number[]>([]);
   const [gameSearch, setGameSearch] = useState("");
   const logger = useContext(LoggerContext);
-  const history = useHistory();
+  const navigate = useNavigate();
   const showFullName = useMediaQuery({ query: "(min-width: 370px)" });
 
   /** updates settings (state) and sends updateSettings event to backend */
@@ -86,7 +86,7 @@ function Matching(props: {
       if (!newSelf) {
         props.addError({ status: 400, msg: "Failed to connect to session. Did not find self." });
         if (socket) socket.disconnect();
-        history.replace("/create");
+        navigate("/create");
         return;
       }
 
@@ -185,7 +185,7 @@ function Matching(props: {
         return;
       }
       if (socket) socket.disconnect();
-      history.replace("/create");
+      navigate("/create");
     };
 
     if (socket) {
@@ -205,7 +205,7 @@ function Matching(props: {
       socket.on("updateSettings", handleUpdateSettings);
       socket.on("updatePreferences", handleUpdatePreferences);
     }
-  }, [self, users, socket, props, history, logger, customGames]);
+  }, [self, users, socket, props, navigate, logger, customGames]);
 
   useEffect(() => {
     const socket = initiateSocket(props.steamId, props.settings, props.sessionId);
@@ -214,7 +214,7 @@ function Matching(props: {
     socket.io.on("reconnect_failed", () => {
       logger.log("Failed to reconnect");
       props.addError({ status: 500, msg: "Lost connection to server", timeout: 15000 });
-      history.push("/create");
+      navigate("/create");
     });
     socket.io.on("reconnect_attempt", (attempt) => {
       const msg = `Lost connection to server, attempting to reconnect. Attempt (${attempt}/${socket.io.reconnectionAttempts()})`;
@@ -321,7 +321,7 @@ function Matching(props: {
 
   /**
    * Sends a custom game to backend.
-   * The game will be added to the other games after being validated in the backend and receiving an unique id. 
+   * The game will be added to the other games after being validated in the backend and receiving an unique id.
    */
   const addCustomGame = (game: Game) => {
     if (socket) {
@@ -364,7 +364,7 @@ function Matching(props: {
       <Confirmation
         visible={showLeaveModal}
         onAbort={() => setShowLeaveModal(false)}
-        onConfirm={() => history.push("/create")}
+        onConfirm={() => navigate("/create")}
         text="Do you really want to leave this session?"
         confirmText="Leave Session"
       />

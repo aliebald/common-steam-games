@@ -3,7 +3,7 @@ import Button from "../button/Button";
 import "./invite.css";
 
 export default function Invite(props: { sessionId: string; className?: string; openFriendsList: () => void }) {
-  const invite = `${window.location.origin}?sessionId=${encodeURIComponent(props.sessionId)}#join`;
+  const invite = `${window.location.origin}?sessionId=${encodeURIComponent(props.sessionId)}#/join`;
   const copyInvite = () => {
     navigator.clipboard.writeText(invite);
   };

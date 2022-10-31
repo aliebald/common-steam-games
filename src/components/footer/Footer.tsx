@@ -8,7 +8,7 @@ export default function Footer() {
     <div className="footer">
       <div className="f-left">This project is not affiliated with Valve or Steam</div>
       <div className="f-right">
-        <Link to="about" className="footer-link">
+        <Link to="/about" className="footer-link">
           About
         </Link>
         <a

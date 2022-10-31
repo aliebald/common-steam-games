@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import AboutTeaser from "../../components/aboutTeaser/AboutTeaser";
 import Container from "../../components/container/Container";
 
@@ -11,7 +11,7 @@ export default function JoinSession(props: {
 }) {
   const [steamId, setSteamId] = useState<string>(props.steamId ?? "");
   const [sessionId, setSessionId] = useState<string>(props.sessionId ?? "");
-  const history = useHistory();
+  const navigate = useNavigate();
   const handleSteamIdChange = (event: any) => {
     setSteamId(event.target.value);
   };
@@ -23,7 +23,7 @@ export default function JoinSession(props: {
   const handleSubmit = async (event: any) => {
     event.preventDefault();
     props.onSubmit(steamId, sessionId);
-    history.push("/matching");
+    navigate("/matching");
   };
 
   return (

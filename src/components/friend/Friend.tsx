@@ -8,7 +8,7 @@ export default function Friend(props: { friend: Friend; sessionId: string }) {
   const personaname = friend.personaname ?? friend.realname ?? "";
   const invite = `${window.location.origin}?sessionId=${encodeURIComponent(props.sessionId)}&steamId=${
     props.friend.steamId
-  }#join`;
+  }#/join`;
   const copyInvite = () => {
     navigator.clipboard.writeText(invite);
   };

@@ -1,12 +1,12 @@
 import React from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Button from "../../components/button/Button";
 import Container from "../../components/container/Container";
 import toMail from "../../security/mail";
 import "./about.css";
 
 export default function About() {
-  const history = useHistory();
+  const navigate = useNavigate();
 
   return (
     <Container className="about">
@@ -58,9 +58,9 @@ export default function About() {
         <a onClick={() => toMail("𝕔𝕠𝕟𝕥𝕒𝕔𝕥@𝕝𝕚𝕖𝕓𝕒𝕝𝕕.𝕕𝕖𝕧")}>contact (at) liebald (dot) dev</a>.
       </p>
       <div className="about-nav">
-        <Button onClick={history.goBack}>Go&nbsp;Back</Button>
-        <Button onClick={() => history.push("create")}>Create&nbsp;new&nbsp;Session</Button>
-        <Button onClick={() => history.push("join")}>Join&nbsp;Session</Button>
+        <Button onClick={()=>navigate(-1)}>Go&nbsp;Back</Button>
+        <Button onClick={() => navigate("/create")}>Create&nbsp;new&nbsp;Session</Button>
+        <Button onClick={() => navigate("/join")}>Join&nbsp;Session</Button>
       </div>
     </Container>
   );

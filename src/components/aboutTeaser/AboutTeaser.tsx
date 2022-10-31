@@ -14,7 +14,7 @@ export default function AboutTeaser() {
             their steam accounts and vote on games to find common preferences.
           </p>
           <p>
-            <Link to="about">Read more</Link>
+            <Link to="/about">Read more</Link>
           </p>
         </div>
       </Collapsible>
