@@ -1,16 +1,16 @@
 {
   "files": {
     "main.css": "/static/css/main.9b8b96cd.css",
-    "main.js": "/static/js/main.15c5aab7.js",
+    "main.js": "/static/js/main.d4ec4765.js",
     "static/media/SpaceGrotesk-Bold.otf": "/static/media/SpaceGrotesk-Bold.84491a7b22b78320f103.otf",
     "static/media/SpaceGrotesk-Light.otf": "/static/media/SpaceGrotesk-Light.4f28aa818ef836a4d0bf.otf",
     "static/media/layered-waves.svg": "/static/media/layered-waves.865a2c628e86c3ad833d.svg",
     "index.html": "/index.html",
     "main.9b8b96cd.css.map": "/static/css/main.9b8b96cd.css.map",
-    "main.15c5aab7.js.map": "/static/js/main.15c5aab7.js.map"
+    "main.d4ec4765.js.map": "/static/js/main.d4ec4765.js.map"
   },
   "entrypoints": [
     "static/css/main.9b8b96cd.css",
-    "static/js/main.15c5aab7.js"
+    "static/js/main.d4ec4765.js"
   ]
 }
