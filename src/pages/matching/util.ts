@@ -15,7 +15,9 @@ export function initiateSocket(steamId: string, settings: Settings, sessionId?: 
     query = { steamId: steamId, settings: JSON.stringify(settings) };
   }
   const url =
-    process.env.NODE_ENV === "production" ? "https://common-steam-games.up.railway.app/" : "http://localhost:3030";
+    process.env.NODE_ENV === "production"
+      ? "https://common-steam-games-backend.onrender.com/"
+      : "http://localhost:3030";
   return io(url, {
     query: query,
     reconnectionAttempts: 4
