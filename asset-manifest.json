@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/static/css/main.9b8b96cd.css",
-    "main.js": "/static/js/main.d4ec4765.js",
+    "main.css": "/static/css/main.c5359ede.css",
+    "main.js": "/static/js/main.d9eea0d0.js",
     "static/media/SpaceGrotesk-Bold.otf": "/static/media/SpaceGrotesk-Bold.84491a7b22b78320f103.otf",
     "static/media/SpaceGrotesk-Light.otf": "/static/media/SpaceGrotesk-Light.4f28aa818ef836a4d0bf.otf",
-    "static/media/layered-waves.svg": "/static/media/layered-waves.865a2c628e86c3ad833d.svg",
+    "static/media/layered-waves.svg": "/static/media/layered-waves.a61f3d8978d4dbe89cca.svg",
     "index.html": "/index.html",
-    "main.9b8b96cd.css.map": "/static/css/main.9b8b96cd.css.map",
-    "main.d4ec4765.js.map": "/static/js/main.d4ec4765.js.map"
+    "main.c5359ede.css.map": "/static/css/main.c5359ede.css.map",
+    "main.d9eea0d0.js.map": "/static/js/main.d9eea0d0.js.map"
   },
   "entrypoints": [
-    "static/css/main.9b8b96cd.css",
-    "static/js/main.d4ec4765.js"
+    "static/css/main.c5359ede.css",
+    "static/js/main.d9eea0d0.js"
   ]
 }
