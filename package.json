@@ -11,7 +11,7 @@
     "react-dom": "^17.0.2",
     "react-responsive": "^9.0.0",
     "react-router-dom": "^6.4.2",
-    "socket.io-client": "^4.5.3",
+    "socket.io-client": "^4.7.5",
     "string-similarity": "^4.0.4",
     "web-vitals": "^3.0.4"
   },
@@ -42,7 +42,6 @@
     ]
   },
   "devDependencies": {
-    "@types/node": "^18.11.8",
     "@types/react": "^18.0.24",
     "@types/react-beautiful-dnd": "^13.1.2",
     "@types/react-dom": "^18.0.8",
@@ -50,10 +49,10 @@
     "@types/string-similarity": "^4.0.0",
     "@typescript-eslint/eslint-plugin": "^5.5.0",
     "@typescript-eslint/parser": "^5.5.0",
-    "eslint": "^8.26.0",
-    "eslint-plugin-react": "^7.31.10",
-    "eslint-plugin-react-hooks": "^4.6.0",
-    "gh-pages": "^3.2.3",
+    "eslint": "^8.56.0",
+    "eslint-plugin-react": "^7.34.1",
+    "eslint-plugin-react-hooks": "^4.6.2",
+    "gh-pages": "^6.1.1",
     "react-scripts": "^5.0.1",
     "typescript": "^4.8.4"
   }
