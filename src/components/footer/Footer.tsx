@@ -13,7 +13,7 @@ export default function Footer() {
         </Link>
         <a
           className="footer-link"
-          href="https://aliebald.github.io/impressum/"
+          href="https://impressum.liebald.dev"
           target="_blank"
           rel="noopener noreferrer"
           title="Impressum gemäß § 5 TMG"
